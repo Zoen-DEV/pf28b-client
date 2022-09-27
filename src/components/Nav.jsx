@@ -46,9 +46,9 @@ const Nav = () => {
       <div>
         <button className="themeBtn" onClick={changeTheme} style={toggleStyle}>
           {toggleBtn ? (
-            <i class="bi bi-brightness-high"></i>
+            <i className="bi bi-brightness-high"></i>
           ) : (
-            <i class="bi bi-moon"></i>
+            <i className="bi bi-moon"></i>
           )}
         </button>
         <button className="profileBtn">

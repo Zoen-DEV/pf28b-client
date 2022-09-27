@@ -1,0 +1,12 @@
+footer{
+    @include flex(row, space-evenly, center);
+    background: linear-gradient(to top, $color-shadowblue, transparent);
+    padding: 20px;
+    img{
+        width: 150px;
+    }
+    .link{
+        text-decoration: none;
+        color: $color-orange;
+    }
+}

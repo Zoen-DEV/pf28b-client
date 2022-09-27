@@ -1,4 +1,4 @@
-@import "./variables.scss", "./components/nav.scss", "./components/home.scss";
+@import "./variables.scss", "./components/nav.scss", "./components/home.scss", './components/footer.scss';
 
 body {
   margin: 0;
@@ -6,6 +6,7 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: $color-cream;
 }
 
 code {

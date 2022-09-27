@@ -39,6 +39,11 @@
             box-shadow: 1px 1px 5px 0px $color-shadow;
             font-size: 1.3em;
             color: $color-cream2;
+            transition: all 3s;
+        }
+        .profileBtn:hover{
+            background: linear-gradient(to top left, $color-orange, $color-fuxia);
+            cursor: pointer;
         }
     }
 }
