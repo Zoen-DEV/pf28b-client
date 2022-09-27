@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Nav from "./components/Nav"
 
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route index element={<Home></Home>} />
       </Routes>
+      <Footer></Footer>
     </div>
   );
 }

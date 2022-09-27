@@ -1,0 +1,49 @@
+.navbar{
+    @include flex(row, space-between, center);
+    padding: 0 20px;
+    img{
+        width: 13vw
+    }
+    ul{
+        @include flex(row, space-between, center);
+        width: 25vw;
+        list-style: none;
+        .link{
+            text-decoration: none;
+            font-weight: 700;
+            color: $color-black2;
+            font-size: 1.2em;
+            transition: 0.3s;
+        }
+        .link:hover{
+            color: $color-orange;
+        }
+    }
+    div{
+        @include flex(row, space-between, center);
+        width: 5vw;
+        .themeBtn{
+            background: none;
+            outline: none;
+            border: none;
+            font-size: 1.5em;
+            transition: 0.3s;
+            text-shadow: 1px 1px 5px $color-shadow3;
+        }
+        .profileBtn{
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(to left, $color-orange, $color-fuxia);
+            border: none;
+            box-shadow: 1px 1px 5px 0px $color-shadow;
+            font-size: 1.3em;
+            color: $color-cream2;
+            transition: all 3s;
+        }
+        .profileBtn:hover{
+            background: linear-gradient(to top left, $color-orange, $color-fuxia);
+            cursor: pointer;
+        }
+    }
+}
