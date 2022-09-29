@@ -1,0 +1,101 @@
+.details_component {
+  min-height: 100vh;
+  padding: 100px 200px;
+  .details_container {
+    @include flex(row, space-evenly, flex-start);
+    gap: 100px;
+    background: linear-gradient(to right, $color-blue3, transparent);
+    border-radius: 5px 0 0 5px;
+    box-shadow: -15px 0 10px -10px $color-shadow2;
+    img {
+      height: 80vh;
+      border-radius: 5px 0 0 5px;
+    }
+    .detail_content {
+      @include flex(column, space-between, flex-start);
+      padding-top: 50px;
+      height: 70vh;
+      color: $color-black;
+      .title_container {
+        text-shadow: 1px 1px 2px $color-shadow2;
+        h1 {
+          @include flex(row, normal, center);
+          gap: 20px;
+          color: $color-orange;
+          font-size: 30px;
+          span {
+            color: $color-black2;
+            font-size: 22px;
+          }
+        }
+        p {
+          font-weight: 700;
+          font-size: 19px;
+          color: $color-orange2;
+          span {
+            color: $color-black2;
+            font-size: 22px;
+          }
+        }
+      }
+      .btns_container {
+        @include flex(row, center, center);
+        gap: 20px;
+        align-self: flex-end;
+        .fav {
+          background: none;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          text-align: justify;
+          font-size: 30px;
+          color: $color-orange;
+          text-shadow: 1px 1px 5px $color-shadow;
+          transition: 0.3s;
+        }
+        .fav:hover {
+          transform: scale(1.2);
+          text-shadow: 0 0 5px $color-shadow;
+        }
+        .fav:active {
+          position: relative;
+          top: 1.5px;
+        }
+        .add {
+          background: linear-gradient(45deg, $color-orange, $color-fuxia);
+          border: none;
+          padding: 10px;
+          color: $color-white;
+          border-radius: 5px;
+          font-size: 20px;
+          cursor: pointer;
+          transition: 0.5s;
+          box-shadow: 1px 1px 5px 2px $color-shadow3;
+        }
+        .add:hover {
+          transform: scale(1.02);
+          background: linear-gradient(90deg, $color-orange, $color-fuxia);
+        }
+      }
+    }
+  }
+  .chapters_container {
+    width: 70vw;
+    margin: 100px auto;
+    .chapters_titles {
+      border-left: 3px solid $color-orange;
+      padding-left: 10px;
+    }
+    ul {
+        @include flex(column, normal, center);
+        gap: 10px;
+        list-style: none;
+      li {
+        border-radius: 3px 0 0 3px;
+        width: 60vw;
+        height: 100px;
+        background: linear-gradient(to right, $color-cian3, transparent);
+      }
+    }
+  }
+}
