@@ -6,7 +6,6 @@ const Home = () => {
   const [slides, setSlides] = useState([1, 2, 3, 4]);
   const [glide, setGlide] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [slideIndex, setSlideIndex] = useState(0);
-  const glideRef = useRef();
 
   const changeSlide = (e) => {
     switch (e.target.name) {
@@ -30,7 +29,6 @@ const Home = () => {
       default:
         break;
     }
-    console.log(slideIndex)
   };
   return (
     <div className="home">
