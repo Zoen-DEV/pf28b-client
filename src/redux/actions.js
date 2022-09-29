@@ -1,7 +1,6 @@
 import axios from "axios";
+import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS } from './Constants/animes' 
 
-export const GET_DETAILS = "GET_DETAILS";
-export const DELETE_DETAILS = "DELETE_DETAILS";
 
 export const getDetails = (id) => async (dispatch) => {
   try {
@@ -19,3 +18,31 @@ export const deleteDetails = () => (dispatch) => {
     console.error(err);
   }
 };
+
+export function getAnimes(){
+    return async function (dispatch){
+        try{
+            let response = await axios.get('http://localhost:3000/animes')
+            dispatch({
+                type: GET_ANIMES,
+                payload: response.data
+            })
+        }catch(error){
+            console.log(error)
+        }
+    }
+}
+
+export function getMangas(){
+    return async function (dispatch){
+        try{
+            let response = await axios.get('http://localhost:3000/manga')
+            dispatch({
+                type: GET_MANGAS,
+                payload: response.data
+            })
+        }catch(error){
+            console.log(error)
+        }
+    }
+}
