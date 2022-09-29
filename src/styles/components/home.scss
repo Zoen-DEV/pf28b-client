@@ -1,3 +1,140 @@
-.home{
-    height: 100vh;
+.home {
+  @include flex(column, center, center);
+  min-height: 100vh;
+  .slides-container {
+    @include flex(row, space-between, center);
+    margin: 50px 0 100px 0;
+    width: 60vw;
+    height: 50vh;
+    background: linear-gradient(to bottom, $color-cian3, $color-cian);
+    border-radius: 5px;
+    .slide-content {
+      @include flex(column, space-between, center);
+      height: 100%;
+    }
+    .btn-left {
+      width: 25px;
+      height: 25px;
+      border: 3px solid #555;
+      background: #428bca;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      border: 2px solid $color-cream;
+      background: $color-blue3;
+      position: relative;
+      left: -12px;
+      cursor: pointer;
+      div {
+        position: relative;
+        width: 0;
+        height: 0;
+        border-left: 6px solid $color-cream;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        left: -5px;
+        top: 7px;
+        rotate: 135deg;
+      }
+    }
+    .btn-right {
+      width: 25px;
+      height: 25px;
+      background: #428bca;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      background: $color-blue3;
+      border: 2px solid $color-cream;
+      position: relative;
+      left: 12px;
+      cursor: pointer;
+      div {
+        position: relative;
+        width: 0;
+        height: 0;
+        border-left: 6px solid $color-cream;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        left: 9px;
+        top: -7.5px;
+        rotate: -45deg;
+      }
+    }
+    .btn-left:hover,
+    .btn-right:hover {
+      background: linear-gradient(to top, $color-orange, $color-fuxia);
+    }
+    ul {
+      @include flex(row, center, center);
+      list-style: none;
+      gap: 20px;
+      width: 0;
+      height: 0;
+      button {
+        border: none;
+        border-radius: 100%;
+        width: 12px;
+        height: 12px;
+        background: $color-blue3;
+        transition: 0.3s;
+        box-shadow: 1px 1px 3px 0px $color-shadow2;
+      }
+      button:hover {
+        cursor: pointer;
+        background: linear-gradient(to top, $color-orange, $color-fuxia);
+      }
+    }
+  }
+  .tops-container {
+    width: 70vw;
+    margin: 100px auto;
+    .tops-title {
+      border-left: 3px solid $color-orange;
+      padding-left: 10px;
+    }
+
+    .container {
+      max-width: 90%;
+      margin: 0 auto;
+      .slide {
+        background-color: palegreen;
+        color: darkgreen;
+        font-size: 3em;
+        font-weight: bold;
+      }
+    }
+  }
+  .glider-prev,
+  .glider-next {
+    top: 75px;
+  }
+
+  .glider-prev {
+    left: -30px;
+  }
+
+  .glider-next {
+    right: -30px;
+  }
+
+  .glider {
+    height: 200px;
+  }
+  .glider-contain {
+    margin-bottom: 25px;
+  }
+  .glider-track {
+    height: 100%;
+  }
+  .glider-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f5f5f5;
+  }
 }

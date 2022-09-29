@@ -1,4 +1,5 @@
-@import "./variables.scss", "./components/nav.scss", "./components/home.scss", './components/footer.scss';
+@import "./variables.scss", "./components/nav.scss", "./components/home.scss",
+  "./components/footer.scss";
 
 body {
   margin: 0;
@@ -12,4 +13,25 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #8f54a0 transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(to top, $color-orange, $color-fuxia);
+  border-radius: 10px;
 }

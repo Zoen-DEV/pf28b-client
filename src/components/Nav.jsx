@@ -23,34 +23,37 @@ const Nav = () => {
   };
   return (
     <nav className="navbar">
-      <Link to="/">
-        <img src={LOGOdemo} alt="animercce" />
-      </Link>
-      <ul>
-        <li>
-          <Link className="link" to="/">
-            HOME
-          </Link>
-        </li>
-        <li>
-          <Link className="link" to="/series">
-            SERIES
-          </Link>
-        </li>
-        <li>
-          <Link className="link" to="/movies">
-            MOVIES
-          </Link>
-        </li>
-      </ul>
-      <div>
-        <button className="themeBtn" onClick={changeTheme} style={toggleStyle}>
+      <div className="links-container">
+        <Link to="/">
+          <img src={LOGOdemo} alt="animercce" />
+        </Link>
+        <ul>
+          <li>
+            <Link className="link" to="/series">
+              ANIME
+            </Link>
+          </li>
+          <li>
+            <p className="link">/</p>
+          </li>
+          <li>
+            <Link className="link" to="/movies">
+              MANGA
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className="btns-container">
+        {/* <button className="themeBtn" onClick={changeTheme} style={toggleStyle}>
           {toggleBtn ? (
             <i className="bi bi-brightness-high"></i>
           ) : (
             <i className="bi bi-moon"></i>
           )}
-        </button>
+        </button> */}
+        {/* <Link className="link" to="cart">
+          <i className="bi bi-cart"></i>
+        </Link> */}
         <button className="profileBtn">
           <i className="bi bi-person-fill"></i>
         </button>

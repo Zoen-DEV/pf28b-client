@@ -1,49 +1,80 @@
-.navbar{
+.navbar {
+  @include flex(row, space-between, center);
+  padding: 0 20px;
+  //   width: 100vw;
+  margin: auto;
+  border-bottom: 2px solid $color-orange;
+  background: linear-gradient(to bottom, $color-shadowblue, transparent);
+  .links-container {
     @include flex(row, space-between, center);
-    padding: 0 20px;
-    img{
-        width: 13vw
+    gap: 5vw;
+    img {
+      width: 13vw;
+      filter: drop-shadow(1px 1px 1px $color-shadow);
+      transition: 0.4s;
+      height: 100px;
+      object-fit: cover;
     }
-    ul{
-        @include flex(row, space-between, center);
-        width: 25vw;
-        list-style: none;
-        .link{
-            text-decoration: none;
-            font-weight: 700;
-            color: $color-black2;
-            font-size: 1.2em;
-            transition: 0.3s;
-        }
-        .link:hover{
-            color: $color-orange;
-        }
+    img:hover {
+      filter: drop-shadow(1px 1px 3px $color-shadow);
     }
-    div{
-        @include flex(row, space-between, center);
-        width: 5vw;
-        .themeBtn{
-            background: none;
-            outline: none;
-            border: none;
-            font-size: 1.5em;
-            transition: 0.3s;
-            text-shadow: 1px 1px 5px $color-shadow3;
-        }
-        .profileBtn{
-            border-radius: 100%;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(to left, $color-orange, $color-fuxia);
-            border: none;
-            box-shadow: 1px 1px 5px 0px $color-shadow;
-            font-size: 1.3em;
-            color: $color-cream2;
-            transition: all 3s;
-        }
-        .profileBtn:hover{
-            background: linear-gradient(to top left, $color-orange, $color-fuxia);
-            cursor: pointer;
-        }
+    ul {
+      @include flex(row, space-between, center);
+      gap: 10px;
+      list-style: none;
+      .link {
+        text-decoration: none;
+        font-weight: 700;
+        color: $color-orange;
+        font-size: 1.2em;
+        text-shadow: 1px 1px 2px $color-shadow2;
+        letter-spacing: 1px;
+      }
+      .link:hover {
+        color: $color-orange2;
+        text-shadow: 1px 1px 2px $color-shadow;
+      }
+      .link:active {
+        position: relative;
+        top: 1px;
+      }
     }
+  }
+  .btns-container {
+    @include flex(row, space-between, center);
+    gap: 3vw;
+    .themeBtn {
+      background: none;
+      outline: none;
+      border: none;
+      font-size: 1.5em;
+      transition: 0.3s;
+      text-shadow: 1px 1px 5px $color-shadow3;
+    }
+    .profileBtn {
+      border-radius: 100%;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(to left, $color-orange, $color-fuxia);
+      border: none;
+      box-shadow: 1px 1px 5px 0px $color-shadow;
+      font-size: 1.3em;
+      color: $color-cream2;
+      transition: all 3s;
+    }
+    .profileBtn:hover {
+      background: linear-gradient(to top left, $color-orange, $color-fuxia);
+      cursor: pointer;
+    }
+    .link {
+      color: $color-orange;
+      font-size: 1.5em;
+      transition: 0.3s;
+      text-shadow: 1px 1px 5px $color-shadow3;
+    }
+    .link:hover {
+      // font-size: 1.6em;
+      transform: scale(1.1);
+    }
+  }
 }
