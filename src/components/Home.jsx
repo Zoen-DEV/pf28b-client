@@ -25,11 +25,12 @@ const Home = () => {
         }
         break;
       case "dot":
-        setSlideIndex(e.target.value);
+        setSlideIndex(Number(e.target.value));
         break;
       default:
         break;
     }
+    console.log(slideIndex)
   };
   return (
     <div className="home">
