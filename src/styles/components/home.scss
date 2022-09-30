@@ -15,19 +15,18 @@
     }
     .btn-left {
       animation: ease btnLeft 3s;
-      width: 25px;
-      height: 25px;
-      border: 3px solid #555;
-      background: #428bca;
+      border: none;
+      background: none;
       -webkit-transform: rotate(45deg);
       -moz-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       -o-transform: rotate(45deg);
       transform: rotate(45deg);
-      border: 2px solid $color-cream;
-      background: $color-blue3;
       position: relative;
-      left: -12px;
+      font-size: 25px;
+      left: -20px;
+      color: $color-blue3;
+      text-shadow: 0 0 6px $color-shadow;
       cursor: pointer;
       div {
         position: relative;
@@ -43,18 +42,18 @@
     }
     .btn-right {
       animation: ease btnRight 3s;
-      width: 25px;
-      height: 25px;
-      background: #428bca;
+      border: none;
+      background: none;
       -webkit-transform: rotate(45deg);
       -moz-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       -o-transform: rotate(45deg);
       transform: rotate(45deg);
-      background: $color-blue3;
-      border: 2px solid $color-cream;
       position: relative;
-      left: 12px;
+      font-size: 25px;
+      left: 20px;
+      color: $color-blue3;
+      text-shadow: 0 0 6px $color-shadow;
       cursor: pointer;
       div {
         position: relative;
@@ -70,7 +69,13 @@
     }
     .btn-left:hover,
     .btn-right:hover {
-      background: linear-gradient(to top, $color-orange, $color-fuxia);
+      color: $color-orange;
+    }
+    .btn-left:active{
+      left: -21px;
+    }
+    .btn-right:active{
+      left: 21px;
     }
     ul {
       @include flex(row, center, center);

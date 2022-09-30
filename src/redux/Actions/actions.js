@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS } from '../Constants/animes' 
+import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS, TOP_MANGAS } from '../Constants/animes' 
 
 
 export const getDetails = (id) => async (dispatch) => {
@@ -49,3 +49,13 @@ export function getMangas(){
         }
     }
 }
+
+export const topMangas = () => async (dispatch) => {
+  try {
+    let topMangas = await axios(`http://localhost:3000/manga/top`);
+    let fourMangas = topMangas.data.slice(0, 4)
+    return dispatch({ type: TOP_MANGAS, payload: fourMangas });
+  } catch (err) {
+    console.error(err);
+  }
+};
