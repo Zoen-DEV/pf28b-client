@@ -22,14 +22,17 @@
           z-index: 1;
           width: 40vw;
           height: 86vh;
+          border-radius: 5px;
         }
         .manga_info {
-            z-index: 5;
-            position: absolute;
-            background: linear-gradient(to bottom, $color-black2, transparent);
-            width: 40vw;
-            height: 60vh;
-            // letter-spacing: 0;
+          animation: ease slider 0.6s;
+          display: none;
+          z-index: 5;
+          position: absolute;
+          background: linear-gradient(to bottom, $color-black2, transparent);
+          width: 40vw;
+          height: 60vh;
+          // letter-spacing: 0;
           h1 {
             color: $color-orange;
             text-shadow: 1px 1px 2px $color-black;
@@ -40,6 +43,11 @@
             width: 80%;
             margin: auto;
           }
+        }
+      }
+      .link:hover {
+        .manga_info {
+          display: block;
         }
       }
       ul {
@@ -81,17 +89,6 @@
       cursor: pointer;
       z-index: 5;
       transition: 0.3s;
-      div {
-        position: relative;
-        width: 0;
-        height: 0;
-        border-left: 6px solid $color-cream;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        left: -5px;
-        top: 7px;
-        rotate: 135deg;
-      }
     }
     .btn-right {
       animation: ease btnRight 3s;
@@ -110,17 +107,6 @@
       cursor: pointer;
       z-index: 5;
       transition: 0.3s;
-      div {
-        position: relative;
-        width: 0;
-        height: 0;
-        border-left: 6px solid $color-cream;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        left: 9px;
-        top: -7.5px;
-        rotate: -45deg;
-      }
     }
     .btn-left:hover,
     .btn-right:hover {
@@ -141,79 +127,56 @@
       border-left: 3px solid $color-orange;
       padding-left: 10px;
     }
-
     .container {
-      max-width: 90%;
+      max-width: 100%;
       margin: 0 auto;
-      .slide {
-        background-color: palegreen;
-        color: darkgreen;
-        font-size: 3em;
-        font-weight: bold;
+      ul {
+        @include flex(row, center, center);
+      }
+      .ul_slide {
+        @include flex(row, center, center);
+        .link {
+          img {
+            width: 20vw;
+            height: 50vh;
+          }
+        }
       }
     }
   }
-  .glider-prev,
-  .glider-next {
-    top: 75px;
-  }
+}
 
-  .glider-prev {
-    left: -30px;
+@keyframes btnLeft {
+  0% {
+    opacity: 0;
+    left: -100px;
   }
-
-  .glider-next {
-    right: -30px;
+  40% {
+    opacity: 1;
   }
-
-  .glider {
-    height: 200px;
-  }
-  .glider-contain {
-    margin-bottom: 25px;
-  }
-  .glider-track {
-    height: 100%;
-  }
-  .glider-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #f5f5f5;
+  60% {
+    left: -20px;
   }
 }
 
-// @keyframes btnLeft {
-//   0% {
-//     opacity: 0;
-//     left: -100px;
-//   }
-//   40%{
-//     opacity: 1;
-//   }
-//   60% {
-//     left: -12px;
-//   }
-// }
+@keyframes btnRight {
+  0% {
+    opacity: 0;
+    left: 100px;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    left: 20px;
+  }
+}
 
-// @keyframes btnRight {
-//   0% {
-//     opacity: 0;
-//     left: 100px;
-//   }
-//   40%{
-//     opacity: 1;
-//   }
-//   60% {
-//     left: 12px;
-//   }
-// }
-
-// @keyframes slider {
-//   0%{
-//     opacity: 0;
-//   }
-//   100%{
-//     opacity: 1;
-//   }
-// }
+@keyframes slider {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

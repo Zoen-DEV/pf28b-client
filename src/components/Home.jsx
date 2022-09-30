@@ -6,10 +6,12 @@ import { topMangas } from "../redux/Actions/actions";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [glide, setGlide] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [slideIndex, setSlideIndex] = useState(0);
   const dispatch = useDispatch();
-  const fourMangas = useSelector((state) => state.topFourMangas);
+  const top25Mangas = useSelector((state) => state.topFourMangas);
+  const fourMangas = top25Mangas.slice(0, 4);
+  const tenMangas = top25Mangas.slice(5, 15);
+  const recomended = top25Mangas.slice(15, 25);
   useEffect(() => {
     dispatch(topMangas());
   }, [dispatch]);
@@ -39,13 +41,13 @@ const Home = () => {
   };
   return (
     <div className="home">
-      <div className="slides-container">
-        <button
-          className="bi bi-arrow-down-left-square-fill btn-left"
-          onClick={changeSlide}
-          name="left"
-        ></button>
-        {fourMangas.length > 0 ? (
+      {top25Mangas.length > 0 ? (
+        <div className="slides-container">
+          <button
+            className="bi bi-arrow-down-left-square-fill btn-left"
+            onClick={changeSlide}
+            name="left"
+          ></button>
           <div className="slide-content">
             <Link className="link" to={`/details/${fourMangas[slideIndex].id}`}>
               <img src={fourMangas[slideIndex].image} alt="" />
@@ -77,15 +79,15 @@ const Home = () => {
               })}
             </ul>
           </div>
-        ) : (
-          <p>loading</p>
-        )}
-        <button
-          className="bi bi-arrow-up-right-square-fill btn-right"
-          onClick={changeSlide}
-          name="right"
-        ></button>
-      </div>
+          <button
+            className="bi bi-arrow-up-right-square-fill btn-right"
+            onClick={changeSlide}
+            name="right"
+          ></button>
+        </div>
+      ) : (
+        <p>loading</p>
+      )}
       <div className="tops-container">
         <div className="tops-title">
           <h2>Tops animes</h2>
@@ -93,17 +95,18 @@ const Home = () => {
         <div className="container">
           <Glider
             hasArrows
-            slidesToShow={4}
-            slidesToScroll={2}
+            slidesToShow={3}
+            slidesToScroll={3}
             duration={2}
             draggable
             dragVelocity={1}
+            className="ul_slide"
           >
-            {glide?.map((item, index) => {
+            {tenMangas?.map((item, index) => {
               return (
-                <li key={index}>
-                  <div className="slide">{item}</div>
-                </li>
+                <Link className="link" to={`/details/${item.id}`} key={index}>
+                  <img src={item.image} alt="" />
+                </Link>
               );
             })}
           </Glider>
@@ -115,24 +118,24 @@ const Home = () => {
         </div>
         <div className="container">
           <Glider
-            hasArrows
             slidesToShow={3}
             slidesToScroll={3}
             duration={2}
             draggable
             dragVelocity={1}
+            className="ul_slide"
           >
-            {glide?.map((item, index) => {
+            {recomended?.map((item, index) => {
               return (
-                <li key={index}>
-                  <div className="slide">{item}</div>
-                </li>
+                <Link className="link" to={`/details/${item.id}`} key={index}>
+                  <img src={item.image} alt="" />
+                </Link>
               );
             })}
           </Glider>
         </div>
       </div>
-      <div className="tops-container">
+      {/* <div className="tops-container">
         <div className="tops-title">
           <h2>Favorites</h2>
         </div>
@@ -154,7 +157,7 @@ const Home = () => {
             })}
           </Glider>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

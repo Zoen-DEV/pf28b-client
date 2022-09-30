@@ -53,8 +53,7 @@ export function getMangas(){
 export const topMangas = () => async (dispatch) => {
   try {
     let topMangas = await axios(`http://localhost:3000/manga/top`);
-    let fourMangas = topMangas.data.slice(0, 4)
-    return dispatch({ type: TOP_MANGAS, payload: fourMangas });
+    return dispatch({ type: TOP_MANGAS, payload: topMangas.data });
   } catch (err) {
     console.error(err);
   }
