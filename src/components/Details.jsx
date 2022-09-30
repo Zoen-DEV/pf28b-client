@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { deleteDetails, getDetails } from "../redux/actions";
+import { deleteDetails, getDetails } from "../redux/Actions/actions";
 
 const Details = () => {
   const [isFav, setIsFav] = useState(false);

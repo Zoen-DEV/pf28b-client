@@ -3,7 +3,7 @@ import {
   GET_DETAILS,
   GET_ANIMES,
   GET_MANGAS,
-} from "./Constants/animes";
+} from "../Constants/animes";
 
 const initialState = {
   animes: [],
@@ -30,6 +30,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_MANGAS:
+      console.log('reducer GET_MANGAS')
       return {
         ...state,
         mangas: action.payload,
