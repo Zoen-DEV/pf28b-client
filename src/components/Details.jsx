@@ -64,11 +64,6 @@ const Details = () => {
         <div className="chapters_titles">
           <h2>Chapters</h2>
         </div>
-        <ul>
-          {allChapters?.map((item) => {
-            return <li>Chapter {item+1}</li>;
-          })}
-        </ul>
       </div>
     </article>
   );

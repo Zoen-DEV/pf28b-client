@@ -5,30 +5,82 @@
     @include flex(row, space-between, center);
     animation: ease slider 3s;
     margin: 50px 0 100px 0;
-    width: 60vw;
-    height: 50vh;
-    background: linear-gradient(to bottom, $color-cian3, $color-cian);
+    width: 40vw;
+    height: 90vh;
     border-radius: 5px;
     .slide-content {
       @include flex(column, space-between, center);
       height: 100%;
+      .link {
+        @include flex(column, space-between, center);
+        text-decoration: none;
+        color: $color-black2;
+        letter-spacing: 0.8px;
+        text-align: center;
+        img {
+          position: absolute;
+          z-index: 1;
+          width: 40vw;
+          height: 86vh;
+        }
+        .manga_info {
+            z-index: 5;
+            position: absolute;
+            background: linear-gradient(to bottom, $color-black2, transparent);
+            width: 40vw;
+            height: 60vh;
+            // letter-spacing: 0;
+          h1 {
+            color: $color-orange;
+            text-shadow: 1px 1px 2px $color-black;
+          }
+          p {
+            color: $color-white;
+            text-shadow: 1px 1px 2px $color-black;
+            width: 80%;
+            margin: auto;
+          }
+        }
+      }
+      ul {
+        @include flex(row, center, center);
+        list-style: none;
+        gap: 20px;
+        padding: 0;
+        position: relative;
+        top: 5px;
+        button {
+          border: none;
+          border-radius: 100%;
+          width: 12px;
+          height: 12px;
+          background: $color-blue3;
+          transition: 0.3s;
+          box-shadow: 1px 1px 3px 0px $color-shadow2;
+        }
+        button:hover {
+          cursor: pointer;
+          background: linear-gradient(to top, $color-orange, $color-fuxia);
+        }
+      }
     }
     .btn-left {
       animation: ease btnLeft 3s;
-      width: 25px;
-      height: 25px;
-      border: 3px solid #555;
-      background: #428bca;
+      border: none;
+      background: none;
       -webkit-transform: rotate(45deg);
       -moz-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       -o-transform: rotate(45deg);
       transform: rotate(45deg);
-      border: 2px solid $color-cream;
-      background: $color-blue3;
       position: relative;
-      left: -12px;
+      font-size: 25px;
+      left: -20px;
+      color: $color-orange;
+      text-shadow: 0 0 6px $color-shadow;
       cursor: pointer;
+      z-index: 5;
+      transition: 0.3s;
       div {
         position: relative;
         width: 0;
@@ -43,19 +95,21 @@
     }
     .btn-right {
       animation: ease btnRight 3s;
-      width: 25px;
-      height: 25px;
-      background: #428bca;
+      border: none;
+      background: none;
       -webkit-transform: rotate(45deg);
       -moz-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       -o-transform: rotate(45deg);
       transform: rotate(45deg);
-      background: $color-blue3;
-      border: 2px solid $color-cream;
       position: relative;
-      left: 12px;
+      font-size: 25px;
+      left: 20px;
+      color: $color-orange;
+      text-shadow: 0 0 6px $color-shadow;
       cursor: pointer;
+      z-index: 5;
+      transition: 0.3s;
       div {
         position: relative;
         width: 0;
@@ -70,27 +124,14 @@
     }
     .btn-left:hover,
     .btn-right:hover {
-      background: linear-gradient(to top, $color-orange, $color-fuxia);
+      color: $color-orange2;
+      transform: rotate(45deg) scale(1.2);
     }
-    ul {
-      @include flex(row, center, center);
-      list-style: none;
-      gap: 20px;
-      width: 0;
-      height: 0;
-      button {
-        border: none;
-        border-radius: 100%;
-        width: 12px;
-        height: 12px;
-        background: $color-blue3;
-        transition: 0.3s;
-        box-shadow: 1px 1px 3px 0px $color-shadow2;
-      }
-      button:hover {
-        cursor: pointer;
-        background: linear-gradient(to top, $color-orange, $color-fuxia);
-      }
+    .btn-left:active {
+      left: -21px;
+    }
+    .btn-right:active {
+      left: 21px;
     }
   }
   .tops-container {
@@ -142,37 +183,37 @@
   }
 }
 
-@keyframes btnLeft {
-  0% {
-    opacity: 0;
-    left: -100px;
-  }
-  40%{
-    opacity: 1;
-  }
-  60% {
-    left: -12px;
-  }
-}
+// @keyframes btnLeft {
+//   0% {
+//     opacity: 0;
+//     left: -100px;
+//   }
+//   40%{
+//     opacity: 1;
+//   }
+//   60% {
+//     left: -12px;
+//   }
+// }
 
-@keyframes btnRight {
-  0% {
-    opacity: 0;
-    left: 100px;
-  }
-  40%{
-    opacity: 1;
-  }
-  60% {
-    left: 12px;
-  }
-}
+// @keyframes btnRight {
+//   0% {
+//     opacity: 0;
+//     left: 100px;
+//   }
+//   40%{
+//     opacity: 1;
+//   }
+//   60% {
+//     left: 12px;
+//   }
+// }
 
-@keyframes slider {
-  0%{
-    opacity: 0;
-  }
-  100%{
-    opacity: 1;
-  }
-}
+// @keyframes slider {
+//   0%{
+//     opacity: 0;
+//   }
+//   100%{
+//     opacity: 1;
+//   }
+// }

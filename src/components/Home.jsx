@@ -1,17 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Glider from "react-glider";
 import "glider-js/glider.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import { topMangas } from "../redux/Actions/actions";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [slides, setSlides] = useState([1, 2, 3, 4]);
   const [glide, setGlide] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [slideIndex, setSlideIndex] = useState(0);
+  const dispatch = useDispatch();
+  const fourMangas = useSelector((state) => state.topFourMangas);
+  useEffect(() => {
+    dispatch(topMangas());
+  }, [dispatch]);
 
   const changeSlide = (e) => {
     switch (e.target.name) {
       case "left":
         if (slideIndex === 0) {
-          setSlideIndex(slides.length - 1);
+          setSlideIndex(fourMangas.length - 1);
         } else {
           setSlideIndex(slideIndex - 1);
         }
@@ -33,38 +40,51 @@ const Home = () => {
   return (
     <div className="home">
       <div className="slides-container">
-        <button className="btn-left" onClick={changeSlide} name="left">
-          <div></div>
-        </button>
-        <div className="slide-content">
-          <h1>aca va el title {slides[slideIndex]}</h1>
-          <p>mas info y de fondo algun banner</p>
-          <ul>
-            {slides?.map((item, index) => {
-              let color = {
-                background: "#7688E5",
-              };
-              if (slideIndex === index) {
-                color = {
-                  background: "#c83611",
+        <button
+          className="bi bi-arrow-down-left-square-fill btn-left"
+          onClick={changeSlide}
+          name="left"
+        ></button>
+        {fourMangas.length > 0 ? (
+          <div className="slide-content">
+            <Link className="link" to={`/details/${fourMangas[slideIndex].id}`}>
+              <img src={fourMangas[slideIndex].image} alt="" />
+              <div className="manga_info">
+                <h1>{fourMangas[slideIndex].title}</h1>
+                <p>{fourMangas[slideIndex].synopsis.substr(0, 300)}...</p>
+              </div>
+            </Link>
+            <ul>
+              {fourMangas?.map((item, index) => {
+                let color = {
+                  background: "#7688E5",
                 };
-              }
-              return (
-                <li key={index}>
-                  <button
-                    style={color}
-                    name="dot"
-                    value={index}
-                    onClick={changeSlide}
-                  ></button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <button className="btn-right" onClick={changeSlide} name="right">
-          <div></div>
-        </button>
+                if (slideIndex === index) {
+                  color = {
+                    background: "#c83611",
+                  };
+                }
+                return (
+                  <li key={index}>
+                    <button
+                      style={color}
+                      name="dot"
+                      value={index}
+                      onClick={changeSlide}
+                    ></button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          <p>loading</p>
+        )}
+        <button
+          className="bi bi-arrow-up-right-square-fill btn-right"
+          onClick={changeSlide}
+          name="right"
+        ></button>
       </div>
       <div className="tops-container">
         <div className="tops-title">
