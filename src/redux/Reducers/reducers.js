@@ -3,7 +3,7 @@ import {
   GET_DETAILS,
   GET_ANIMES,
   GET_MANGAS,
-} from "./Constants/animes";
+} from "../Constants/animes";
 
 const initialState = {
   animes: [],

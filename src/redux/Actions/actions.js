@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS } from './Constants/animes' 
+import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS } from '../Constants/animes' 
 
 
 export const getDetails = (id) => async (dispatch) => {
