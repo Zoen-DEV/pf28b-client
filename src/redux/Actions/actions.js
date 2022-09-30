@@ -4,7 +4,7 @@ import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS } from '../Constant
 
 export const getDetails = (id) => async (dispatch) => {
   try {
-    let productDetail = await axios(`http://localhost:3001/manga/${id}`);
+    let productDetail = await axios(`http://localhost:3000/manga/${id}`);
     return dispatch({ type: GET_DETAILS, payload: productDetail.data });
   } catch (err) {
     console.error(err);

@@ -16,13 +16,14 @@ const MangaList = () => {
       {mangas &&
         mangas.map((m) => (
           <MangaCard
-            key={Math.random()}
+            key={m.id}
             title={m.title}
             image={m.image}
             score={m.score}
             popularity={m.popularity}
             synopsis={m.synopsis}
             genres={m.genres}
+            id={m.id}
           />
         ))}
     </div>
