@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Details from "./components/Details";
+import Mangas from "./components/Mangas";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <Nav></Nav>
       <Routes>
         <Route index element={<Home></Home>} />
-        <Route path="/details/:id" element={<Details></Details>}/>
+        <Route path="/mangas" element={<Mangas></Mangas>} />
+        <Route path="/details/:id" element={<Details></Details>} />
       </Routes>
       <Footer></Footer>
     </div>
