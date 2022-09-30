@@ -3,6 +3,7 @@
   min-height: 100vh;
   .slides-container {
     @include flex(row, space-between, center);
+    animation: ease slider 3s;
     margin: 50px 0 100px 0;
     width: 60vw;
     height: 50vh;
@@ -13,6 +14,7 @@
       height: 100%;
     }
     .btn-left {
+      animation: ease btnLeft 3s;
       width: 25px;
       height: 25px;
       border: 3px solid #555;
@@ -40,6 +42,7 @@
       }
     }
     .btn-right {
+      animation: ease btnRight 3s;
       width: 25px;
       height: 25px;
       background: #428bca;
@@ -136,5 +139,40 @@
     justify-content: center;
     align-items: center;
     border: 1px solid #f5f5f5;
+  }
+}
+
+@keyframes btnLeft {
+  0% {
+    opacity: 0;
+    left: -100px;
+  }
+  40%{
+    opacity: 1;
+  }
+  60% {
+    left: -12px;
+  }
+}
+
+@keyframes btnRight {
+  0% {
+    opacity: 0;
+    left: 100px;
+  }
+  40%{
+    opacity: 1;
+  }
+  60% {
+    left: 12px;
+  }
+}
+
+@keyframes slider {
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
   }
 }
