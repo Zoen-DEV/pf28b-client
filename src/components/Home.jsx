@@ -3,6 +3,7 @@ import Glider from "react-glider";
 import "glider-js/glider.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { topMangas } from "../redux/Actions/actions";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [glide, setGlide] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -46,9 +47,13 @@ const Home = () => {
         ></button>
         {fourMangas.length > 0 ? (
           <div className="slide-content">
-            <h1>{fourMangas[slideIndex].title}</h1>
-            <p>{fourMangas[slideIndex].genres}</p>
-            <p>{fourMangas[slideIndex].synopsis.substr(0, 300)}</p>
+            <Link className="link" to={`/details/${fourMangas[slideIndex].id}`}>
+              <img src={fourMangas[slideIndex].image} alt="" />
+              <div className="manga_info">
+                <h1>{fourMangas[slideIndex].title}</h1>
+                <p>{fourMangas[slideIndex].synopsis.substr(0, 300)}...</p>
+              </div>
+            </Link>
             <ul>
               {fourMangas?.map((item, index) => {
                 let color = {
