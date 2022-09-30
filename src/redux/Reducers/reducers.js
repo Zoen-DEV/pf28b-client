@@ -30,6 +30,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_MANGAS:
+      console.log('reducer GET_MANGAS')
       return {
         ...state,
         mangas: action.payload,

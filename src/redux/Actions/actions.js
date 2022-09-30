@@ -20,6 +20,7 @@ export const deleteDetails = () => (dispatch) => {
 };
 
 export function getAnimes(){
+  console.log('dispara getAnimes');
     return async function (dispatch){
         try{
             let response = await axios.get('http://localhost:3000/animes')
@@ -34,9 +35,11 @@ export function getAnimes(){
 }
 
 export function getMangas(){
+  console.log('dispara getMangas');
     return async function (dispatch){
         try{
             let response = await axios.get('http://localhost:3000/manga')
+            console.log(response)
             dispatch({
                 type: GET_MANGAS,
                 payload: response.data
