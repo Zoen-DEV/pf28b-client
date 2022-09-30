@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAnimes } from "../redux/actions";
+import { getAnimes } from "../redux/Actions/actions";
 import AnimeCard from "./AnimeCard";
 
 const AnimeList = () => {

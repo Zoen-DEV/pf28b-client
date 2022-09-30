@@ -3,12 +3,14 @@ import {
   GET_DETAILS,
   GET_ANIMES,
   GET_MANGAS,
-} from "./Constants/animes";
+  TOP_MANGAS,
+} from "../Constants/animes";
 
 const initialState = {
   animes: [],
   details: {},
   mangas: [],
+  topFourMangas: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -34,7 +36,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         mangas: action.payload,
       };
-
+    case TOP_MANGAS:
+      return {
+        ...state,
+        topFourMangas: action.payload
+      }
     default:
       return state;
   }

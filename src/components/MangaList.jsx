@@ -1,32 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMangas } from "../redux/actions";
+import { getMangas } from "../redux/Actions/actions";
 import MangaCard from "./MangaCard";
 
-const AnimeList = () => {
+const MangaList = () => {
+  const dispatch = useDispatch();
+  const mangas = useSelector((state) => state.mangas);
 
-    const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getMangas());
+  }, [dispatch]);
 
-    useEffect( () => {
-        dispatch(getMangas())
-    }, [])
+  return (
+    <div>
+      {mangas &&
+        mangas.map((m) => (
+          <MangaCard
+            key={m.id}
+            title={m.title}
+            image={m.image}
+            score={m.score}
+            popularity={m.popularity}
+            synopsis={m.synopsis}
+            genres={m.genres}
+            id={m.id}
+          />
+        ))}
+    </div>
+  );
+};
 
-    const animes = useSelector((state) => state.rootReducer.animes)
-
-    return(
-        <div>
-            {animes && animes.map( a =>
-                    <MangaCard key={Math.random()}
-                        title={a.title}
-                        image={a.image}
-                        score={a.score}
-                        popularity={a.popularity}
-                        synopsis={a.synopsis}
-                        genres={a.genres} />
-                )
-            }
-        </div>
-    )
-}
-
-export default AnimeList;
+export default MangaList;

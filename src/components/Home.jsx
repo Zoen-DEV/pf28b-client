@@ -1,16 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Glider from "react-glider";
 import "glider-js/glider.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import { topMangas } from "../redux/Actions/actions";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [slides, setSlides] = useState([1, 2, 3, 4]);
-  const [glide, setGlide] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   const [slideIndex, setSlideIndex] = useState(0);
+  const dispatch = useDispatch();
+  const top25Mangas = useSelector((state) => state.topFourMangas);
+  const fourMangas = top25Mangas.slice(0, 4);
+  const tenMangas = top25Mangas.slice(5, 15);
+  const recomended = top25Mangas.slice(15, 25);
+  useEffect(() => {
+    dispatch(topMangas());
+  }, [dispatch]);
 
   const changeSlide = (e) => {
     switch (e.target.name) {
       case "left":
         if (slideIndex === 0) {
-          setSlideIndex(slides.length - 1);
+          setSlideIndex(fourMangas.length - 1);
         } else {
           setSlideIndex(slideIndex - 1);
         }
@@ -31,68 +41,73 @@ const Home = () => {
   };
   return (
     <div className="home">
-      <div className="slides-container">
-        <button className="btn-left" onClick={changeSlide} name="left">
-          <div></div>
-        </button>
-        <div className="slide-content">
-          <h1>aca va el title {slides[slideIndex]}</h1>
-          <p>mas info y de fondo algun banner</p>
-          <ul>
-            {slides?.map((item, index) => {
-              let color = {
-                background: "#7688E5",
-              };
-              if (slideIndex === index) {
-                color = {
-                  background: "#c83611",
+      {top25Mangas.length > 0 ? (
+        <div className="slides-container">
+          <button className="bi bi-arrow-down-left-square-fill btn-left" onClick={changeSlide} name="left"></button>
+          <div className="slide-content">
+            <Link className="link" to={`/details/${fourMangas[slideIndex].id}`}>
+              <img src={fourMangas[slideIndex].image} alt="" />
+              <div className="manga_info">
+                <h1>{fourMangas[slideIndex].title}</h1>
+                <p>{fourMangas[slideIndex].synopsis.substr(0, 300)}...</p>
+              </div>
+            </Link>
+            <ul>
+              {fourMangas?.map((item, index) => {
+                let color = {
+                  background: "#7688E5",
                 };
-              }
-              return (
-                <li key={index}>
-                  <button style={color} name="dot" value={index} onClick={changeSlide}></button>
-                </li>
-              );
-            })}
-          </ul>
+                if (slideIndex === index) {
+                  color = {
+                    background: "#c83611",
+                  };
+                }
+                return (
+                  <li key={index}>
+                    <button style={color} name="dot" value={index} onClick={changeSlide}></button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <button className="bi bi-arrow-up-right-square-fill btn-right" onClick={changeSlide} name="right"></button>
         </div>
-        <button className="btn-right" onClick={changeSlide} name="right">
-          <div></div>
-        </button>
-      </div>
+      ) : (
+        <p>loading</p>
+      )}
       <div className="tops-container">
         <div className="tops-title">
           <h2>Tops animes</h2>
         </div>
-        {/* <div className="container">
-          <Glider hasArrows slidesToShow={4} slidesToScroll={2} duration={2} draggable dragVelocity={1}>
-            {glide?.map((item, index) => {
+        <div className="container">
+          <Glider hasArrows slidesToShow={3} slidesToScroll={3} duration={2} draggable dragVelocity={1} className="ul_slide">
+            {tenMangas?.map((item, index) => {
               return (
-                <li key={index}>
-                  <div className="slide">{item}</div>
-                </li>
+                <Link className="link" to={`/details/${item.id}`} key={index}>
+                  <img src={item.image} alt="" />
+                </Link>
               );
             })}
           </Glider>
-        </div> */}
+        </div>
       </div>
       <div className="tops-container">
         <div className="tops-title">
           <h2>Recommended</h2>
         </div>
-        {/* <div className="container">
-          <Glider hasArrows slidesToShow={3} slidesToScroll={3} duration={2} draggable dragVelocity={1}>
-            {glide?.map((item, index) => {
+        <div className="container">
+          <Glider slidesToShow={3} slidesToScroll={3} duration={2} draggable dragVelocity={1} className="ul_slide">
+            {recomended?.map((item, index) => {
               return (
-                <li key={index}>
-                  <div className="slide">{item}</div>
-                </li>
+                <Link className="link" to={`/details/${item.id}`} key={index}>
+                  <img src={item.image} alt="" />
+                </Link>
               );
             })}
           </Glider>
-        </div> */}
+        </div>
       </div>
-      <div className="tops-container">
+      {/* <div className="tops-container">
         <div className="tops-title">
           <h2>Favorites</h2>
         </div>
@@ -106,8 +121,8 @@ const Home = () => {
               );
             })}
           </Glider>
-        </div> */}
-      </div>
+        </div>
+      </div> */}
     </div>
   );
 };

@@ -28,17 +28,17 @@ const Nav = () => {
           <img src={LOGOdemo} alt="animercce" />
         </Link>
         <ul>
-          <li>
-            <Link className="link" to="/series">
+          {/* <li>
+            <Link className="link" to="/animes">
               ANIME
             </Link>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <p className="link">/</p>
-          </li>
+          </li> */}
           <li>
-            <Link className="link" to="/movies">
-              MANGA
+            <Link className="link" to="/mangas">
+              MANGAS
             </Link>
           </li>
         </ul>
