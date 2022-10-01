@@ -1,9 +1,14 @@
 .sign-up-container {
-  background-color: khaki;
+  background-color: purple;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.37), rgba(0, 0, 0, 0.308)), url("../../assets/bg-signup.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   font-family: Calibri;
   box-sizing: border-box;
-  width: 80%;
-  margin-inline: auto;
+  box-shadow: -15px 0 10px -10px black;
+  border-radius: 20px;
+  width: 500px;
+  margin: 40px auto;
   padding: 30px;
 }
 
@@ -12,6 +17,7 @@
   margin: 0;
   margin-bottom: 20px;
   text-align: center;
+  text-shadow: 1px 1px 5px grey;
 }
 
 .sign-up {

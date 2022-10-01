@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/components/LogIn.scss";
+import "../styles/components/logIn.scss";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
 
@@ -21,6 +21,7 @@ function LogIn() {
 
   function onSubmit(e) {
     e.preventDefault();
+    setClickbtn("click");
     setTimeout(() => {
       const data = {
         email: input.email,
@@ -44,7 +45,7 @@ function LogIn() {
           email: "The account doesn't exist. Please try again.",
           password: " ",
         }));
-      else navigate("/home");
+      else navigate("/");
       setClickbtn("");
     }, 1500);
   }
@@ -87,7 +88,7 @@ function LogIn() {
           />
           {!error.password ? <div>&nbsp;</div> : <div className="validate">{error.password}</div>}
         </div>
-        <button type="submit" className={clickbtn} onClick={() => setClickbtn("click")}>
+        <button type="submit" className={clickbtn}>
           Log In
         </button>
       </form>

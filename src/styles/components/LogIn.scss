@@ -1,9 +1,12 @@
 .log-in-container {
-  background-color: khaki;
+  background-color: rgb(0, 255, 0);
+  background-image: linear-gradient(to right, rgba(200, 255, 0, 0.322), rgba(111, 0, 255, 0.596)),
+    linear-gradient(rgba(255, 251, 0, 0.829), rgba(0, 255, 255, 0.726));
   font-family: Calibri;
   box-sizing: border-box;
-  width: 80%;
-  margin-inline: auto;
+  box-shadow: 17px 17px 10px -10px black;
+  width: 450px;
+  margin: 40px auto 100px;
   padding: 30px;
 }
 
@@ -12,6 +15,8 @@
   margin: 0;
   margin-bottom: 20px;
   text-align: center;
+  color: rgb(36, 24, 6);
+  text-shadow: 1px 1px 10px gray;
 }
 
 .log-in {
