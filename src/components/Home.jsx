@@ -43,11 +43,7 @@ const Home = () => {
     <div className="home">
       {top25Mangas.length > 0 ? (
         <div className="slides-container">
-          <button
-            className="bi bi-arrow-down-left-square-fill btn-left"
-            onClick={changeSlide}
-            name="left"
-          ></button>
+          <button className="bi bi-arrow-down-left-square-fill btn-left" onClick={changeSlide} name="left"></button>
           <div className="slide-content">
             <Link className="link" to={`/details/${fourMangas[slideIndex].id}`}>
               <img src={fourMangas[slideIndex].image} alt="" />
@@ -68,22 +64,13 @@ const Home = () => {
                 }
                 return (
                   <li key={index}>
-                    <button
-                      style={color}
-                      name="dot"
-                      value={index}
-                      onClick={changeSlide}
-                    ></button>
+                    <button style={color} name="dot" value={index} onClick={changeSlide}></button>
                   </li>
                 );
               })}
             </ul>
           </div>
-          <button
-            className="bi bi-arrow-up-right-square-fill btn-right"
-            onClick={changeSlide}
-            name="right"
-          ></button>
+          <button className="bi bi-arrow-up-right-square-fill btn-right" onClick={changeSlide} name="right"></button>
         </div>
       ) : (
         <p>loading</p>
@@ -93,15 +80,7 @@ const Home = () => {
           <h2>Tops animes</h2>
         </div>
         <div className="container">
-          <Glider
-            hasArrows
-            slidesToShow={3}
-            slidesToScroll={3}
-            duration={2}
-            draggable
-            dragVelocity={1}
-            className="ul_slide"
-          >
+          <Glider hasArrows slidesToShow={3} slidesToScroll={3} duration={2} draggable dragVelocity={1} className="ul_slide">
             {tenMangas?.map((item, index) => {
               return (
                 <Link className="link" to={`/details/${item.id}`} key={index}>
@@ -117,14 +96,7 @@ const Home = () => {
           <h2>Recommended</h2>
         </div>
         <div className="container">
-          <Glider
-            slidesToShow={3}
-            slidesToScroll={3}
-            duration={2}
-            draggable
-            dragVelocity={1}
-            className="ul_slide"
-          >
+          <Glider slidesToShow={3} slidesToScroll={3} duration={2} draggable dragVelocity={1} className="ul_slide">
             {recomended?.map((item, index) => {
               return (
                 <Link className="link" to={`/details/${item.id}`} key={index}>
@@ -139,15 +111,8 @@ const Home = () => {
         <div className="tops-title">
           <h2>Favorites</h2>
         </div>
-        <div className="container">
-          <Glider
-            hasArrows
-            slidesToShow={3}
-            slidesToScroll={3}
-            duration={2}
-            draggable
-            dragVelocity={1}
-          >
+        {/* <div className="container">
+          <Glider hasArrows slidesToShow={3} slidesToScroll={3} duration={2} draggable dragVelocity={1}>
             {glide?.map((item, index) => {
               return (
                 <li key={index}>
