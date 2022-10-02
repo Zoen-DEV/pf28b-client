@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MangaList from "./MangaList";
+import { useDispatch, useSelector } from "react-redux";
+import { getMangas } from "../redux/Actions/actions";
 
 const Mangas = () => {
+  const dispatch = useDispatch();
+  const mangas = useSelector((state) => state.mangas);
+
+  useEffect(() => {
+    dispatch(getMangas());
+  }, [dispatch]);
+
   return (
-    <div>
-      <MangaList></MangaList>
-    </div>
+    <article>
+      {mangas.length > 0 ? (
+        <MangaList mangas={mangas}></MangaList>
+      ) : (
+        <p>loading</p>
+      )}
+    </article>
   );
 };
 

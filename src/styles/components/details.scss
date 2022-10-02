@@ -1,10 +1,16 @@
 .details_component {
   min-height: 100vh;
   padding: 100px 200px;
+  h1{
+    font-size: 40px;
+    color: $color-orange;
+    text-align: center
+  }
   .details_container {
     @include flex(row, space-evenly, flex-start);
     gap: 100px;
-    background: linear-gradient(to right, $color-blue3, transparent);
+    background: linear-gradient(to right, $color-black2, $color-shadow2);
+    padding-right: 60px;
     border-radius: 5px 0 0 5px;
     box-shadow: -15px 0 10px -10px $color-shadow2;
     img {
@@ -14,26 +20,25 @@
     .detail_content {
       @include flex(column, space-between, flex-start);
       padding-top: 50px;
-      height: 70vh;
-      color: $color-black;
+      height: 70%;
       .title_container {
-        text-shadow: 1px 1px 2px $color-shadow2;
+        text-shadow: 1px 1px 2px $color-shadow;
         h1 {
           @include flex(row, normal, center);
           gap: 20px;
-          color: $color-orange;
-          font-size: 30px;
+          color: $color-blue2;
+          letter-spacing: 2px;
+          font-size: 35px;
           span {
-            color: $color-black2;
+            color: $color-cream;
             font-size: 22px;
           }
         }
         p {
-          font-weight: 700;
           font-size: 19px;
-          color: $color-orange2;
+          color: $color-cream;
           span {
-            color: $color-black2;
+            color: $color-blue3;
             font-size: 22px;
           }
         }

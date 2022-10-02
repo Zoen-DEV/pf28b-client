@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS, TOP_MANGAS } from '../Constants/animes' 
+import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS, TOP_MANGAS, DELETE_TOP_MANGAS } from '../Constants/animes' 
 
 
 export const getDetails = (id) => async (dispatch) => {
@@ -35,11 +35,9 @@ export function getAnimes(){
 }
 
 export function getMangas(){
-  console.log('dispara getMangas');
     return async function (dispatch){
         try{
             let response = await axios.get('http://localhost:3000/manga')
-            console.log(response)
             dispatch({
                 type: GET_MANGAS,
                 payload: response.data
@@ -58,3 +56,11 @@ export const topMangas = () => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const deleteTopMangas = () => (dispatch) => {
+  try {
+    return dispatch({ type: DELETE_TOP_MANGAS})
+  } catch (err) {
+    console.error(err)
+  }
+}

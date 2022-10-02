@@ -4,6 +4,7 @@ import {
   GET_ANIMES,
   GET_MANGAS,
   TOP_MANGAS,
+  DELETE_TOP_MANGAS,
 } from "../Constants/animes";
 
 const initialState = {
@@ -40,6 +41,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         topFourMangas: action.payload
+      }
+    case DELETE_TOP_MANGAS:
+      return {
+        ...state,
+        topFourMangas: []
       }
     default:
       return state;
