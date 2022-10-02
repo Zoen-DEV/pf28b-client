@@ -1,6 +1,5 @@
 import axios from "axios";
-import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS, TOP_MANGAS, DELETE_TOP_MANGAS } from '../Constants/animes' 
-
+import { GET_ANIMES, GET_MANGAS, GET_DETAILS, DELETE_DETAILS, TOP_MANGAS, DELETE_TOP_MANGAS, GET_GENRES, FILTER_BY_GENRE, ORDER_BY_TITLE, ORDER_BY_CHAPTERS } from '../Constants/animes' 
 
 export const getDetails = (id) => async (dispatch) => {
   try {
@@ -62,5 +61,41 @@ export const deleteTopMangas = () => (dispatch) => {
     return dispatch({ type: DELETE_TOP_MANGAS})
   } catch (err) {
     console.error(err)
-  }
-}
+    
+// export function getGenres(){
+//   return async function (dispatch){
+//     try{
+//       console.log('action getGenres');
+//       let allGenres = await axios.get('http://localhost:3000/genres');
+//       console.log(allGenres);
+//       return dispatch({
+//         type: GET_GENRES,
+//         payload: allGenres.data.genresDB
+//       })
+//     }catch(error){
+//       console.log(error);
+//     }
+//   }
+// }
+
+// export function filterByGenre(payload){
+//   console.log(payload);
+//   return{
+//     type: FILTER_BY_GENRE,
+//     payload
+//   }
+// }
+
+// export function orderByTitle(payload){
+//   return{
+//     type: ORDER_BY_TITLE,
+//     payload
+//   }
+// }
+
+// export function orderByChapters(payload){
+//   return{
+//     type: ORDER_BY_CHAPTERS,
+//     payload
+//   }
+// }
