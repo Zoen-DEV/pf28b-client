@@ -50,7 +50,7 @@ function LogIn() {
           password: " ",
         }));
       else {
-        disptach(getUsers(user.email));
+        // disptach(getUsers(user.email));
         navigate("/");
       }
       setClickbtn("");
