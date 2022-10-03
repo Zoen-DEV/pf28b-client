@@ -6,6 +6,7 @@ import Details from "./components/Details";
 import Mangas from "./components/Mangas";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/details/:id" element={<Details></Details>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       <Footer></Footer>
     </div>

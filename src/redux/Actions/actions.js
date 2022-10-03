@@ -9,6 +9,7 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
+  GET_USER_BY_ID,
 } from "../Constants/animes";
 export const getDetails = (id) => async (dispatch) => {
   try {
@@ -98,5 +99,22 @@ export function orderByChapters(payload) {
   return {
     type: ORDER_BY_CHAPTERS,
     payload,
+  };
+}
+
+// var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
+export function getUsers(email) {
+  const url = `http://localhost:3000/users/${email}`;
+  return async function (dispatch) {
+    try {
+      const resp = await axios.get(url);
+      // console.log({ resp });
+      dispatch({
+        type: GET_USER_BY_ID,
+        payload: resp.data,
+      });
+    } catch (error) {
+      alert(error);
+    }
   };
 }

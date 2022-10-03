@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
+import { useDispatch } from "react-redux";
+import { getUsers } from "../redux/Actions/actions";
 
 function LogIn() {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ function LogIn() {
   const [error, setError] = useState({});
   const [password, setPassword] = useState("password");
   const [clickbtn, setClickbtn] = useState("");
+  const disptach = useDispatch();
 
   function onChange(e) {
     setInput((state) => ({
@@ -27,9 +30,14 @@ function LogIn() {
         email: input.email,
         password: input.password,
       };
-      const users = await axios.get("http://localhost:3001/users");
-      const user_email = users.find((u) => u.email === data.email && u.password !== data.password);
-      const user = users.find((u) => u.email === data.email && u.password === data.password);
+      const users = (await axios.get("http://localhost:3000/users")).data;
+      const user_email = users.find(
+        (u) => u.email === data.email && u.password !== data.password
+      );
+      const user = users.find(
+        (u) => u.email === data.email && u.password === data.password
+      );
+      console.log(user.email);
 
       if (user_email)
         setError((state) => ({
@@ -41,7 +49,10 @@ function LogIn() {
           email: "The account doesn't exist. Please try again.",
           password: " ",
         }));
-      else navigate("/");
+      else {
+        disptach(getUsers(user.email));
+        navigate("/");
+      }
       setClickbtn("");
     }, 1000);
   }
@@ -62,10 +73,17 @@ function LogIn() {
             onChange={onChange}
             className={error.email ? "input-error" : ""}
           />
-          {!error.email ? <div>&nbsp;</div> : <div className="validate">{error.email}</div>}
+          {!error.email ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.email}</div>
+          )}
         </div>
         <div style={{ position: "relative" }}>
-          <label htmlFor="password" className={error.password ? "label-error" : ""}>
+          <label
+            htmlFor="password"
+            className={error.password ? "label-error" : ""}
+          >
             Password:
           </label>
           <input
@@ -80,14 +98,20 @@ function LogIn() {
             src={password === "password" ? eyeOff : eyeOn}
             alt="on"
             height="25"
-            onClick={() => setPassword(password === "password" ? "text" : "password")}
+            onClick={() =>
+              setPassword(password === "password" ? "text" : "password")
+            }
           />
-          {!error.password ? <div>&nbsp;</div> : <div className="validate">{error.password}</div>}
+          {!error.password ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.password}</div>
+          )}
         </div>
         <button type="submit" className={clickbtn}>
           Log In
         </button>
-        <Link to='/signup'>don't have an account yet?</Link>
+        <Link to="/signup">don't have an account yet?</Link>
       </form>
     </div>
   );
