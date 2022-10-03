@@ -17,12 +17,10 @@ const MangaList = ({ mangas }) => {
     return filteredMangas.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, PageSize, filteredMangas]);
 
-  console.log(mangas)
 
   return (
     <div className="manga_list">
       {currentTableData?.map((m, index) => {
-        console.log(m.image)
         return(
           <MangaCard
           key={index}

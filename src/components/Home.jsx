@@ -79,7 +79,7 @@ const Home = () => {
             <ul>
               {fourMangas?.map((item, index) => {
                 let color = {
-                  background: "#7688E5",
+                  background: "#fdfdfd",
                 };
                 if (slideIndex === index) {
                   color = {
@@ -124,7 +124,7 @@ const Home = () => {
           </ul>
         </div>
         <button onClick={showMore} className="show" name="top">
-          {showMoreRec === 8 ? "Show more" : "Hide mangas"}
+          {showMoreTop === 8 ? "Show more" : "Hide mangas"}
         </button>
       </div>
       <div className="tops-container">

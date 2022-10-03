@@ -2,7 +2,8 @@
   "./components/footer.scss", "./components/details.scss",
   "./components/mangaCard.scss", "./components/pagination.scss",
   "./components/LogIn.scss", "./components/SignUp.scss",
-  "./components/filters.scss", "./components/mangas.scss";
+  "./components/filters.scss", "./components/mangas.scss",
+  "./components/searchBar.scss";
 
 body {
   margin: 0;
@@ -35,7 +36,7 @@ code {
 }
 
 *::-webkit-scrollbar-track {
-  background: transparent;
+  background: $color-blue3;
 }
 
 *::-webkit-scrollbar-thumb {

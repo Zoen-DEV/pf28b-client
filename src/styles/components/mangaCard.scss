@@ -20,11 +20,11 @@
       object-fit: cover;
     }
     .card_info {
-      @include flex(column, space-around, flex-start);
       align-self: flex-start;
       max-height: 50vh;
       padding-top: 10px;
       padding-right: 20px;
+      height: 100%;
       h3{
         color: $color-orange;
         font-size: 25px;
@@ -37,7 +37,6 @@
         }
       }
       .price {
-        align-self: flex-end;
         background: linear-gradient(45deg, $color-orange, $color-orange2);
         padding: 15px;
         border-radius: 100%;
@@ -48,6 +47,8 @@
         transform: rotate(-25deg);
         position: relative;
         top: -30px;
+        width: 100px;
+        left: 75%;
       }
     }
   }
