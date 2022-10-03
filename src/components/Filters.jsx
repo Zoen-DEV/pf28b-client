@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMangas, getGenres } from "../redux/Actions/actions";
 
 const Filters = ({ byTitle, byGenre, byChapters }) => {
   const dispatch = useDispatch();
+  const select1Ref = useRef();
+  const select2Ref = useRef();
+  const select3Ref = useRef();
   const allGenres = useSelector((state) => state.genres);
   const [filterOn, setFilterOn] = useState(false);
 
   function handleClick(e) {
     e.preventDefault();
     dispatch(getMangas());
-    setFilterOn(false)
+    select1Ref.current.value = 'alpha'
+    select2Ref.current.value = 'order'
+    select3Ref.current.value = 'All'
+    setFilterOn(false);
   }
 
   useEffect(() => {
@@ -36,6 +42,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
       <div className="cntselect">
         <select
           className="select"
+          ref={select1Ref}
           onChange={(e) => {
             byTitle(e);
             setFilterOn(true);
@@ -53,6 +60,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
         </select>
         <select
           className="select"
+          ref={select2Ref}
           onChange={(e) => {
             byChapters(e);
             setFilterOn(true);
@@ -70,6 +78,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
         </select>
         <select
           className="select"
+          ref={select3Ref}
           onChange={(e) => {
             byGenre(e);
             setFilterOn(true);
