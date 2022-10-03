@@ -9,7 +9,7 @@ const MangaCard = ({
   synopsis,
   genres,
   id,
-  price
+  price,
 }) => {
   return (
     <Link className="manga_card_container" to={`/details/${id}`}>
@@ -32,7 +32,7 @@ const MangaCard = ({
           <span>Genre: </span>
           {genres}
         </p>
-        <p className="price">${price}</p>
+        <p className="price">${price.toString().substr(0, 5)}</p>
       </div>
     </Link>
   );
