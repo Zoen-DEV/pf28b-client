@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 import "../styles/components/signUp.scss";
 import validate from "./validate";
 import eyeOn from "../assets/eyeOn.png";
@@ -46,9 +47,15 @@ function SignUp() {
 
   function onSubmit(e) {
     e.preventDefault();
-    setTimeout(() => {
+    setTimeout(async () => {
+      await axios.post("http://localhost:3001/users", {
+        username: input.username,
+        password: input.password,
+        email: input.email,
+        cellphone: "991728192",
+      });
       navigate("/");
-    }, 2000);
+    }, 1000);
   }
 
   return (
