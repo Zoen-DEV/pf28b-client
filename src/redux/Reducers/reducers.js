@@ -4,6 +4,7 @@ import {
   GET_ANIMES,
   GET_MANGAS,
   TOP_MANGAS,
+  GET_MANGA_NAME,
   GET_GENRES,
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
@@ -47,8 +48,21 @@ const rootReducer = (state = initialState, action) => {
     case TOP_MANGAS:
       return {
         ...state,
-        topFourMangas: action.payload,
-      };
+        topFourMangas: action.payload
+      }
+    case GET_MANGA_NAME:
+      console.log(action.payload)
+      const manga = [];
+        if(action.payload.length === 0){
+          return "This Manga doesn't exist"
+        } else {
+          manga.push(...action.payload)
+        }
+        console.log(manga)
+      return { 
+        ...state, 
+        mangas: manga
+      }
     case GET_GENRES:
       const allGenres = [];
       state.mangas.forEach((item) => {

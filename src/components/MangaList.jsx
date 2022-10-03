@@ -17,11 +17,15 @@ const MangaList = ({ mangas }) => {
     return filteredMangas.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, PageSize, filteredMangas]);
 
+  console.log(mangas)
+
   return (
     <div className="manga_list">
-      {currentTableData.map((m) => (
-        <MangaCard
-          key={m.id}
+      {currentTableData?.map((m, index) => {
+        console.log(m.image)
+        return(
+          <MangaCard
+          key={index}
           title={m.title}
           image={m.image}
           score={m.score}
@@ -31,7 +35,8 @@ const MangaList = ({ mangas }) => {
           id={m.id}
           price={m.price}
         />
-      ))}
+        )
+      })}
       <Pagination
         className="pagination-bar"
         currentPage={currentPage}

@@ -29,7 +29,7 @@ const Mangas = () => {
     dispatch(orderByTitle(e.target.value));
     setAllMangas(mangas);
   }
-  console.log(allMangas);
+  
   return (
     <article className="mangas_container">
       <Filters
