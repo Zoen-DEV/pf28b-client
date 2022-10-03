@@ -5,6 +5,7 @@ import {
   GET_DETAILS,
   DELETE_DETAILS,
   TOP_MANGAS,
+  GET_MANGA_NAME,
   GET_GENRES,
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
@@ -66,10 +67,24 @@ export const topMangas = () => async (dispatch) => {
   }
 };
 
-export function getGenres() {
-  return async function (dispatch) {
-    try {
-      let allGenres = await axios.get("http://localhost:3000/genres");
+export function getMangaByTitle(name){
+  return async function(dispatch){
+    try{
+      let manga = await axios.get(`http://localhost:3000/manga/searchmanga?name=${name}`)
+      dispatch({
+        type: GET_MANGA_NAME,
+        payload: manga.data
+      })
+    }catch(error){
+      console.log(error)
+    }
+  }
+}
+
+export function getGenres(){
+  return async function (dispatch){
+    try{
+      let allGenres = await axios.get('http://localhost:3000/genres');
       return dispatch({
         type: GET_GENRES,
         payload: allGenres.data.genresDB,

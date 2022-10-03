@@ -4,6 +4,7 @@ import {
   GET_ANIMES,
   GET_MANGAS,
   TOP_MANGAS,
+  GET_MANGA_NAME,
   GET_GENRES,
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
@@ -49,12 +50,32 @@ const rootReducer = (state = initialState, action) => {
     case TOP_MANGAS:
       return {
         ...state,
-        topFourMangas: action.payload,
-      };
+        topFourMangas: action.payload
+      }
+    case GET_MANGA_NAME:
+      const manga = [];
+        if(action.payload.length === 0){
+          return "This Manga doesn't exist"
+        } else {
+          manga.push(...action.payload)
+        }
+      return { 
+        ...state, 
+        mangas: manga
+      }
     case GET_GENRES:
+      const allGenres = [];
+      state.mangas.forEach((item) => {
+        let itemGenres = item.genres.split(",");
+        for (let i = 0; i < itemGenres.length; i++) {
+          allGenres.push(itemGenres[i].trim());
+        }
+      });
+      const dataArr = new Set(allGenres);
+      let genres = [...dataArr];
       return {
         ...state,
-        genres: action.payload,
+        genres: genres,
       };
     case FILTER_BY_GENRE:
       let allMangas = state.allMangas;
@@ -64,7 +85,7 @@ const rootReducer = (state = initialState, action) => {
           : allMangas.filter((m) => m.genres.includes(action.payload));
       return {
         ...state,
-        mangas: filteredStatus,
+        mangas: [...filteredStatus],
       };
     case ORDER_BY_TITLE:
       let mangasByTitle =
@@ -81,7 +102,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        mangas: mangasByTitle,
+        mangas: [...mangasByTitle],
       };
     case ORDER_BY_CHAPTERS:
       let mangasByChapters =
@@ -90,7 +111,7 @@ const rootReducer = (state = initialState, action) => {
           : state.mangas.sort((a, b) => b.chapters - a.chapters);
       return {
         ...state,
-        mangas: mangasByChapters,
+        mangas: [...mangasByChapters],
       };
     case GET_USER_BY_ID:
       return {
