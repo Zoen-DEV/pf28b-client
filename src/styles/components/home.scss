@@ -123,25 +123,29 @@
     }
   }
   .tops-container {
+    @include flex(column, center, center);
     width: 70vw;
     margin: 100px auto;
     .tops-title {
       border-left: 3px solid $color-orange;
       padding-left: 10px;
+      align-self: flex-start;
     }
     .container {
-      max-width: 100%;
       margin: 0 auto;
       .ul_slide {
         @include flex(row, center, center);
-        width: 80.7vw;
-        gap: 2px;
+        flex-wrap: wrap;
+        gap: 20px;
         .link {
           border: 1px solid $color-orange;
+          border-radius: 3px;
           height: 50vh;
           width: 20vw;
+          box-shadow: 1px 1px 5px 2px $color-shadow2;
           img {
             width: 20vw;
+            border-radius: 3px;
             height: 50vh;
             object-fit: cover;
           }
@@ -150,6 +154,16 @@
           filter: opacity(0.8);
         }
       }
+    }
+    .show{
+      border: none;
+      background: linear-gradient(45deg, $color-orange, $color-fuxia);
+      align-self: flex-end;
+      color: $color-white;
+      font-size: 19px;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
     }
   }
 }

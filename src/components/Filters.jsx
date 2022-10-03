@@ -17,7 +17,6 @@ const Filters = ({byTitle, byGenre, byChapters}) => {
       }, [dispatch])
 
       const allGenres = useSelector((state) => state.genres);
-      console.log(allGenres);
 
     return(
         <div className='cntnav'>

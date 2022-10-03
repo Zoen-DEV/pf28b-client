@@ -1,17 +1,17 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import MangaCard from "./MangaCard";
 import Pagination from "./Pagination";
 
 const MangaList = ({ mangas }) => {
   let PageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [filteredMangas, setFilteresMangas] = useState(mangas)
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return mangas.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
-
+    return filteredMangas.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, PageSize, filteredMangas]);
 
   return (
     <div className="manga_list">
