@@ -26,6 +26,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
 
   return (
     <div className="filters_container">
+        <h2>Filters</h2>
       {filterOn ? (
         <button
           className="btnreload"

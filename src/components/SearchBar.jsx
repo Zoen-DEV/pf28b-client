@@ -39,7 +39,7 @@ const SearchBar = () => {
             placeholder='Search...'
             onChange={(e)=>handleChange(e)}
         />
-            <button className='btnsearch' type='submit' onClick={(e) => handleSubmit(e)}>Search</button>
+            <button className='btnsearch' type='submit' onClick={(e) => handleSubmit(e)}><i className="bi bi-search"></i></button>
         </div>
     )
 }
