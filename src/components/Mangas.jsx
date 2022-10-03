@@ -28,20 +28,18 @@ const Mangas = () => {
   }
 
   return (
-    <div>
-      <div>
-        <Filters
-          byTitle={handleTitle}
-          byGenre={handleGenre}
-          byChapters={handleChapters}
-        />
-      </div>
+    <article className="mangas_container">
+      <Filters
+        byTitle={handleTitle}
+        byGenre={handleGenre}
+        byChapters={handleChapters}
+      />
       {mangas.length > 0 ? (
         <MangaList mangas={mangas}></MangaList>
       ) : (
         <p>loading</p>
       )}
-    </div>
+    </article>
   );
 };
 

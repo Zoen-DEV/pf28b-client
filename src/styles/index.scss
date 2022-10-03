@@ -1,7 +1,8 @@
 @import "./variables.scss", "./components/nav.scss", "./components/home.scss",
   "./components/footer.scss", "./components/details.scss",
   "./components/mangaCard.scss", "./components/pagination.scss",
-  "./components/LogIn.scss", "./components/SignUp.scss";
+  "./components/LogIn.scss", "./components/SignUp.scss",
+  "./components/filters.scss", "./components/mangas.scss";
 
 body {
   margin: 0;
@@ -11,6 +12,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: $color-cream;
   scroll-behavior: smooth;
+  background-image: url("../assets/bg_bggenerator_com.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 code {

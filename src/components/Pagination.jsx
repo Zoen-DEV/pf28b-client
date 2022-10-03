@@ -43,7 +43,7 @@ const Pagination = (props) => {
         })}
         onClick={onPrevious}
       >
-        <div className="arrow left" />
+        <div className="arrow left arrs" />
       </li>
       {paginationRange.map((pageNumber, index) => {
         // If the pageItem is a DOT, render the DOTS unicode character
@@ -75,7 +75,7 @@ const Pagination = (props) => {
         })}
         onClick={onNext}
       >
-        <div className="arrow right" />
+        <div className="arrow right arrs" />
       </li>
     </ul>
   );

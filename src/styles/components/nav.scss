@@ -4,7 +4,7 @@
   //   width: 100vw;
   margin: auto;
   border-bottom: 2px solid $color-orange;
-  background: linear-gradient(to bottom, $color-shadowblue, transparent);
+  background: linear-gradient(to bottom, $color-shadowblue,  $color-shadowblue2);
   .links-container {
     @include flex(row, space-between, center);
     gap: 5vw;
@@ -25,10 +25,11 @@
       .link {
         text-decoration: none;
         font-weight: 700;
-        color: $color-orange;
+        color: $color-white;
         font-size: 1.2em;
         text-shadow: 1px 1px 2px $color-shadow2;
         letter-spacing: 1px;
+        transition: 0.3s;
       }
       .link:hover {
         color: $color-orange2;
@@ -52,6 +53,7 @@
       text-shadow: 1px 1px 5px $color-shadow3;
     }
     .profileBtn {
+      @include flex(row, center, center);
       border-radius: 100%;
       width: 40px;
       height: 40px;
@@ -61,6 +63,7 @@
       font-size: 1.3em;
       color: $color-cream2;
       transition: all 3s;
+      text-align: center;
     }
     .profileBtn:hover {
       background: linear-gradient(to top left, $color-orange, $color-fuxia);

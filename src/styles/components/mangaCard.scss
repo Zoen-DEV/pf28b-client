@@ -17,6 +17,7 @@
     img {
       height: 50vh;
       border-radius: 5px 0 0 5px;
+      object-fit: cover;
     }
     .card_info {
       @include flex(column, space-around, flex-start);
@@ -49,5 +50,8 @@
         top: -30px;
       }
     }
+  }
+  .manga_card_container:hover{
+    filter: opacity(85%);
   }
 }

@@ -44,7 +44,7 @@ const Nav = () => {
         </ul>
       </div>
       <div className="btns-container">
-        <button className="themeBtn" onClick={changeTheme} style={toggleStyle}>
+        {/* <button className="themeBtn" onClick={changeTheme} style={toggleStyle}>
           {toggleBtn ? (
             <i className="bi bi-brightness-high"></i>
           ) : (
@@ -53,7 +53,7 @@ const Nav = () => {
         </button>
         <Link className="link" to="cart">
           <i className="bi bi-cart"></i>
-        </Link>
+        </Link> */}
         <Link to='/login' className="profileBtn">
           <i className="bi bi-person-fill"></i>
         </Link>
