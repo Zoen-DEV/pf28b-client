@@ -1,8 +1,7 @@
 .manga_list {
-  @include flex(column, space-between, center);
+  @include flex(column, space-between, flex-end);
   gap: 50px;
-  width: 70vw;
-//   background-color: lightblue;
+  width: 95vw;
   .manga_card_container {
     @include flex(row, center, center);
     background: linear-gradient(to right, $color-blue3, $color-shadow);
