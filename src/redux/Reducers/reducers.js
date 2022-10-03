@@ -9,6 +9,7 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
+  GET_USER_BY_ID,
 } from "../Constants/animes";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   allMangas: [],
   genres: [],
   topFourMangas: [],
+  user: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -110,6 +112,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         mangas: [...mangasByChapters],
+      };
+    case GET_USER_BY_ID:
+      return {
+        state,
+        user: action.payload,
       };
     default:
       return state;
