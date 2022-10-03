@@ -1,0 +1,4 @@
+.mangas_container{
+    @include flex(row, space-between, flex-start);
+    padding-top: 100px;
+}

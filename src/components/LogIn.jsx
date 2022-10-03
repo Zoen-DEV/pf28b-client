@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../styles/components/logIn.scss";
+import { Link, useNavigate } from "react-router-dom";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
 
@@ -91,6 +90,7 @@ function LogIn() {
         <button type="submit" className={clickbtn}>
           Log In
         </button>
+        <Link to='/signup'>don't have an account yet?</Link>
       </form>
     </div>
   );

@@ -50,13 +50,13 @@ const Nav = () => {
           ) : (
             <i className="bi bi-moon"></i>
           )}
-        </button> */}
-        {/* <Link className="link" to="cart">
+        </button>
+        <Link className="link" to="cart">
           <i className="bi bi-cart"></i>
         </Link> */}
-        <button className="profileBtn">
+        <Link to='/login' className="profileBtn">
           <i className="bi bi-person-fill"></i>
-        </button>
+        </Link>
       </div>
     </nav>
   );
