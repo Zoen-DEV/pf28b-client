@@ -79,6 +79,10 @@ export function getGenres() {
   };
 }
 
+
+
+
+
 export function filterByGenre(payload) {
   console.log(payload);
   return {

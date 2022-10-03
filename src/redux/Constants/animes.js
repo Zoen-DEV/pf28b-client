@@ -8,3 +8,4 @@ export const GET_GENRES = 'GET_GENRES';
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const ORDER_BY_TITLE = 'ORDER_BY_TITLE';
 export const ORDER_BY_CHAPTERS = 'ORDER_BY_CHAPTERS';
+export const POST_USER = "POST_USER";

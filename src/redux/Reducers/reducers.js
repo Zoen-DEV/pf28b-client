@@ -8,6 +8,7 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
+  POST_USER
 } from "../Constants/animes";
 
 const initialState = {
@@ -54,6 +55,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         genres: action.payload,
       };
+    
     case FILTER_BY_GENRE:
       let allMangas = state.allMangas;
       let filteredStatus =
