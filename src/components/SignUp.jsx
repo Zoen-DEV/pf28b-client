@@ -1,8 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import "../styles/components/signUp.scss";
 import validate from "./validate";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
@@ -134,6 +133,7 @@ function SignUp() {
           <label htmlFor="date">Date of birth:</label>
           <input type="date" id="date" name="date" value={input.date || ""} onChange={onChange} />
         </div>
+        <Link to='/login'>Do you already have an account?</Link>
         <button type="submit" disabled={submit} className={clickbtn} onClick={() => setClickbtn("click")}>
           Sign Up
         </button>
