@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LOGOdemo from "../assets/LOGOdemo.png";
+import SearchBar from "./SearchBar";
 
 const Nav = () => {
   const [toggleBtn, setToggleBtn] = useState(true);
@@ -50,8 +51,9 @@ const Nav = () => {
           ) : (
             <i className="bi bi-moon"></i>
           )}
-        </button>
-        <Link className="link" to="cart">
+        </button> */}
+        <SearchBar />
+        {/* <Link className="link" to="cart">
           <i className="bi bi-cart"></i>
         </Link> */}
         <Link to='/login' className="profileBtn">
