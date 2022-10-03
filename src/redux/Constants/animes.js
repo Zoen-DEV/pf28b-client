@@ -4,6 +4,7 @@ export const GET_DETAILS = "GET_DETAILS";
 export const DELETE_DETAILS = "DELETE_DETAILS";
 export const TOP_MANGAS = "TOP_MANGAS";
 export const DELETE_TOP_MANGAS = "DELETE_TOP_MANGAS"
+export const GET_MANGA_NAME = 'GET_MANGA_NAME';
 export const GET_GENRES = 'GET_GENRES';
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const ORDER_BY_TITLE = 'ORDER_BY_TITLE';

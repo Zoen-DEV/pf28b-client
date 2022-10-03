@@ -26,7 +26,7 @@ const MangaCard = ({
         </p>
         <p>
           <span>Synopsis: </span>
-          {synopsis.substr(0, 300)}
+          {!synopsis ? 'No synopsis available.' : synopsis.substr(0, 300)}
         </p>
         <p>
           <span>Genre: </span>
