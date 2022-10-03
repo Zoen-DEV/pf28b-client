@@ -17,10 +17,9 @@ const Filters = ({byTitle, byGenre, byChapters}) => {
       }, [dispatch])
 
       const allGenres = useSelector((state) => state.genres);
-      console.log(allGenres);
 
     return(
-        <div className='cntnav'>
+        <div className='filters_container'>
             <button className='btnreload' onClick={(e)=> {handleClick(e)}}>RELOAD MANGAS</button>
             <div className='cntselect'>
               <select className='select' onChange={(e) => byTitle(e)}>

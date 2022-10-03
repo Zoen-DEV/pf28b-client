@@ -1,11 +1,10 @@
 .sign-up-container {
-  background-color: purple;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.37), rgba(0, 0, 0, 0.308)), url("../../assets/bg-signup.jpg");
+  background-image: linear-gradient(to right, $color-blue3, $color-cian3);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   font-family: Calibri;
   box-sizing: border-box;
-  box-shadow: -15px 0 10px -10px black;
+  box-shadow: 3px 3px 5px 0px $color-shadow2;
   border-radius: 20px;
   width: 500px;
   margin: 40px auto;
@@ -17,7 +16,7 @@
   margin: 0;
   margin-bottom: 20px;
   text-align: center;
-  text-shadow: 1px 1px 5px grey;
+  text-shadow: 1px 1px 5px $color-shadow2;
 }
 
 .sign-up {
@@ -27,7 +26,7 @@
 }
 
 .sign-up label {
-  color: rgb(119, 118, 118);
+  color: $color-black2;
   transition: 0.1s ease-out;
 }
 
@@ -106,7 +105,7 @@
 }
 
 .sign-up .click {
-  background-color: rgb(255, 195, 82) !important;
+  background-color: rgb(255, 195, 82);
 }
 
 .sign-up .terms {

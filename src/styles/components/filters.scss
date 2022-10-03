@@ -1,0 +1,19 @@
+.filters_container {
+  @include flex(column, space-around, center);
+  background: linear-gradient(45deg, $color-blue3, $color-cian3);
+  width: 20vw;
+  height: 50vh;
+  box-shadow: 2px 2px 5px 0 $color-shadow2;
+  border-radius: 0 3px 3px 0;
+  .btnreload{
+    border: none;
+    background: linear-gradient(45deg, $color-orange, $color-fuxia);
+    color: $color-white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .cntselect {
+    @include flex(column, space-around, center);
+    height: 40vh;
+  }
+}

@@ -6,9 +6,8 @@ import { deleteDetails, getDetails } from "../redux/Actions/actions";
 const Details = () => {
   const [isFav, setIsFav] = useState(false);
   const dispatch = useDispatch();
-  const { title, score, image, chapters, synopsis, genres } = useSelector(
-    (state) => state.details
-  );
+  const { title, score, image, chapters, synopsis, genres, price } =
+    useSelector((state) => state.details);
   const id = useParams().id;
   const [allChapters, setAllChapters] = useState(
     Array.from(Array(chapters).keys())
@@ -23,6 +22,7 @@ const Details = () => {
 
   return (
     <article className="details_component">
+      <h1>MANGA DETAILS</h1>
       <div className="details_container">
         <img src={image} alt="" />
         <div className="detail_content">
@@ -44,8 +44,8 @@ const Details = () => {
               {chapters}
             </p>
             <p>
-              <span>Price: </span>${Math.floor(Math.random() * 20)}.
-              {Math.floor(Math.random() * 10)}0
+              <span>Price: </span>
+              ${price}
             </p>
           </div>
           <div className="btns_container">
@@ -60,11 +60,11 @@ const Details = () => {
           </div>
         </div>
       </div>
-      <div className="chapters_container">
+      {/* <div className="chapters_container">
         <div className="chapters_titles">
           <h2>Chapters</h2>
         </div>
-      </div>
+      </div> */}
     </article>
   );
 };
