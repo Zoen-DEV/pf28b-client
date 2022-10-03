@@ -71,7 +71,7 @@ const rootReducer = (state = initialState, action) => {
           : allMangas.filter((m) => m.genres.includes(action.payload));
       return {
         ...state,
-        mangas: filteredStatus,
+        mangas: [...filteredStatus],
       };
     case ORDER_BY_TITLE:
       let mangasByTitle =
@@ -88,7 +88,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        mangas: mangasByTitle,
+        mangas: [...mangasByTitle],
       };
     case ORDER_BY_CHAPTERS:
       let mangasByChapters =
@@ -97,7 +97,7 @@ const rootReducer = (state = initialState, action) => {
           : state.mangas.sort((a, b) => b.chapters - a.chapters);
       return {
         ...state,
-        mangas: mangasByChapters,
+        mangas: [...mangasByChapters],
       };
     default:
       return state;
