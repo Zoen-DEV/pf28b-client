@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
@@ -20,24 +21,16 @@ function LogIn() {
 
   function onSubmit(e) {
     e.preventDefault();
-    setClickbtn("click");
-    setTimeout(() => {
+    setTimeout(async () => {
+      setClickbtn("click");
       const data = {
         email: input.email,
         password: input.password,
       };
-      /* Mock up */
-      const users = [
-        { email: "casa@hotmail.com", password: "almacen21" },
-        { email: "piedra@gmail.com", password: "javascript0" },
-      ];
-      const user_email = users.find(
-        (u) => u.email === data.email && u.password !== data.password
-      );
-      const user = users.find(
-        (u) => u.email === data.email && u.password === data.password
-      );
-      /***********/
+      const users = await axios.get("http://localhost:3001/users");
+      const user_email = users.find((u) => u.email === data.email && u.password !== data.password);
+      const user = users.find((u) => u.email === data.email && u.password === data.password);
+
       if (user_email)
         setError((state) => ({
           email: "",
@@ -50,7 +43,7 @@ function LogIn() {
         }));
       else navigate("/");
       setClickbtn("");
-    }, 1500);
+    }, 1000);
   }
 
   return (
