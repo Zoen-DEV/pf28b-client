@@ -9,3 +9,4 @@ export const FILTER_BY_GENRE = "FILTER_BY_GENRE";
 export const ORDER_BY_TITLE = "ORDER_BY_TITLE";
 export const ORDER_BY_CHAPTERS = "ORDER_BY_CHAPTERS";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
+export const GET_MANGA_NAME = "GET_MANGA_NAME";

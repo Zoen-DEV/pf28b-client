@@ -32,6 +32,7 @@ const MangaList = ({ mangas }) => {
           genres={m.genres}
           id={m.id}
           price={m.price}
+          chapters={m.chapters}
         />
         )
       })}
