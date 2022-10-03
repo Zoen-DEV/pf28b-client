@@ -50,9 +50,18 @@ const rootReducer = (state = initialState, action) => {
         topFourMangas: action.payload,
       };
     case GET_GENRES:
+      const allGenres = [];
+      state.mangas.forEach((item) => {
+        let itemGenres = item.genres.split(",");
+        for (let i = 0; i < itemGenres.length; i++) {
+          allGenres.push(itemGenres[i].trim());
+        }
+      });
+      const dataArr = new Set(allGenres);
+      let genres = [...dataArr];
       return {
         ...state,
-        genres: action.payload,
+        genres: genres,
       };
     case FILTER_BY_GENRE:
       let allMangas = state.allMangas;
@@ -62,7 +71,7 @@ const rootReducer = (state = initialState, action) => {
           : allMangas.filter((m) => m.genres.includes(action.payload));
       return {
         ...state,
-        mangas: filteredStatus,
+        mangas: [...filteredStatus],
       };
     case ORDER_BY_TITLE:
       let mangasByTitle =
@@ -79,7 +88,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        mangas: mangasByTitle,
+        mangas: [...mangasByTitle],
       };
     case ORDER_BY_CHAPTERS:
       let mangasByChapters =
@@ -88,7 +97,7 @@ const rootReducer = (state = initialState, action) => {
           : state.mangas.sort((a, b) => b.chapters - a.chapters);
       return {
         ...state,
-        mangas: mangasByChapters,
+        mangas: [...mangasByChapters],
       };
     default:
       return state;
