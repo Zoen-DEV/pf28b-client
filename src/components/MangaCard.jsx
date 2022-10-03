@@ -26,13 +26,15 @@ const MangaCard = ({
         </p>
         <p>
           <span>Synopsis: </span>
-          {!synopsis ? 'No synopsis available.' : synopsis.substr(0, 300)}
+          {!synopsis ? "No synopsis available." : synopsis.substr(0, 300)}
         </p>
         <p>
           <span>Genre: </span>
           {genres}
         </p>
-        <p className="price">${price.toString().substr(0, 5)}</p>
+        <p className="price">
+          ${!price ? "59.99" : price.toString().substr(0, 5)}
+        </p>
       </div>
     </Link>
   );

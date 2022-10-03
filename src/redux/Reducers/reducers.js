@@ -51,14 +51,12 @@ const rootReducer = (state = initialState, action) => {
         topFourMangas: action.payload
       }
     case GET_MANGA_NAME:
-      console.log(action.payload)
       const manga = [];
         if(action.payload.length === 0){
           return "This Manga doesn't exist"
         } else {
           manga.push(...action.payload)
         }
-        console.log(manga)
       return { 
         ...state, 
         mangas: manga
