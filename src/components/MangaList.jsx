@@ -6,6 +6,10 @@ const MangaList = ({ mangas }) => {
   let PageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredMangas, setFilteresMangas] = useState(mangas)
+  
+  useEffect(() => {
+    setFilteresMangas(mangas);
+  }, [mangas]);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;

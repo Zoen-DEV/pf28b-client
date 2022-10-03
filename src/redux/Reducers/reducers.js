@@ -50,9 +50,18 @@ const rootReducer = (state = initialState, action) => {
         topFourMangas: action.payload,
       };
     case GET_GENRES:
+      const allGenres = [];
+      state.mangas.forEach((item) => {
+        let itemGenres = item.genres.split(",");
+        for (let i = 0; i < itemGenres.length; i++) {
+          allGenres.push(itemGenres[i].trim());
+        }
+      });
+      const dataArr = new Set(allGenres);
+      let genres = [...dataArr];
       return {
         ...state,
-        genres: action.payload,
+        genres: genres,
       };
     case FILTER_BY_GENRE:
       let allMangas = state.allMangas;
