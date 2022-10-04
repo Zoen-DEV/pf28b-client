@@ -9,15 +9,38 @@ const MangaCard = ({
   synopsis,
   genres,
   id,
+  price,
+  chapters
 }) => {
   return (
-    <Link to={`/details/${id}`}>
-      <h3>Title: {title}</h3>
+    <Link className="manga_card_container" to={`/details/${id}`}>
       <img src={image} alt="mangaPic" />
-      <h5>Score: {score}</h5>
-      <h5>Popularity: {popularity}</h5>
-      <h5>Synopsis: {synopsis}</h5>
-      <h5>Genre: {genres}</h5>
+      <div className="card_info">
+        <h3>{title}</h3>
+        <p>
+          <span>Score: </span>
+          {score}
+        </p>
+        <p>
+          <span>Popularity: </span>
+          {popularity}
+        </p>
+        <p>
+          <span>Synopsis: </span>
+          {!synopsis ? "No synopsis available." : synopsis.substr(0, 300)}
+        </p>
+        <p>
+          <span>Genre: </span>
+          {genres}
+        </p>
+        <p>
+          <span>Chapters: </span>
+          {chapters}
+        </p>
+        <p className="price">
+          ${!price ? "59.99" : price.toString().substr(0, 5)}
+        </p>
+      </div>
     </Link>
   );
 };

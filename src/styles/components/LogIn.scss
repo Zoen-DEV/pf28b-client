@@ -1,13 +1,15 @@
+.form_container{
+  min-height: 75vh;
+}
 .log-in-container {
-  background-color: rgb(0, 255, 0);
-  background-image: linear-gradient(to right, rgba(200, 255, 0, 0.322), rgba(111, 0, 255, 0.596)),
-    linear-gradient(rgba(255, 251, 0, 0.829), rgba(0, 255, 255, 0.726));
+  background-image: linear-gradient(to right, $color-blue3, $color-cian3);
   font-family: Calibri;
   box-sizing: border-box;
-  box-shadow: 17px 17px 10px -10px black;
+  box-shadow: 3px 3px 5px 0px $color-shadow;
   width: 450px;
   margin: 40px auto 100px;
   padding: 30px;
+  border-radius: 3px;
 }
 
 .log-in-container h1 {
@@ -15,8 +17,8 @@
   margin: 0;
   margin-bottom: 20px;
   text-align: center;
-  color: rgb(36, 24, 6);
-  text-shadow: 1px 1px 10px gray;
+  color: $color-black;
+  text-shadow: 1px 1px 5px $color-shadow2;
 }
 
 .log-in {
@@ -26,7 +28,7 @@
 }
 
 .log-in label {
-  color: rgb(119, 118, 118);
+  color: $color-black2;
   transition: 0.1s ease-out;
 }
 

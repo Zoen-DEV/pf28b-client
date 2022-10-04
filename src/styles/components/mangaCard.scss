@@ -1,0 +1,52 @@
+.manga_list {
+  @include flex(column, space-between, flex-end);
+  gap: 50px;
+  width: 95vw;
+  .manga_card_container {
+    @include flex(row, center, center);
+    background: linear-gradient(to right, $color-blue3, $color-shadow);
+    border: 1px solid $color-orange;
+    width: 60vw;
+    height: 60vh;
+    gap: 10px;
+    text-decoration: none;
+    color: $color-black2;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 2px $color-shadow2;
+    img {
+      height: 100%;
+      width: 30vw;
+      border-radius: 5px 0 0 5px;
+      object-fit: cover;
+    }
+    .card_info {
+      h3{
+        color: $color-orange;
+        font-size: 25px;
+        text-shadow: 1px 1px 2px $color-shadow2;
+      }
+      p{
+        span{
+            font-weight: 700;
+            font-size: 19px;
+        }
+      }
+      .price {
+        background: linear-gradient(45deg, $color-orange, $color-orange2);
+        padding: 15px;
+        border-radius: 100%;
+        font-size: 25px;
+        font-weight: 900;
+        color: $color-white;
+        letter-spacing: 1px;
+        transform: rotate(-25deg);
+        position: relative;
+        width: 100px;
+        left: 75%;
+      }
+    }
+  }
+  .manga_card_container:hover{
+    filter: opacity(85%);
+  }
+}
