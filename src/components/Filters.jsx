@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMangas, getGenres } from "../redux/Actions/actions";
+import { getMangas } from "../redux/Actions/actions";
 
 const Filters = ({ byTitle, byGenre, byChapters }) => {
   const dispatch = useDispatch();
@@ -18,11 +18,6 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
     select3Ref.current.value = "All";
     setFilterOn(false);
   }
-
-  useEffect(() => {
-    dispatch(getMangas());
-    dispatch(getGenres());
-  }, [dispatch]);
 
   return (
     <div className="filters_container">
@@ -60,7 +55,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
               Z to A
             </option>
           </select>
-          <div class="select_arrow"></div>
+          <div className="select_arrow"></div>
         </div>
         <div className="select">
           <select
@@ -81,7 +76,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
               chapters desc
             </option>
           </select>
-          <div class="select_arrow"></div>
+          <div className="select_arrow"></div>
         </div>
 
         <div className="select">
@@ -103,7 +98,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
                 );
               })}
           </select>
-          <div class="select_arrow"></div>
+          <div className="select_arrow"></div>
         </div>
       </div>
     </div>
