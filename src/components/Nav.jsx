@@ -1,46 +1,108 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import LOGOdemo from "../assets/LOGOdemo.png";
 import SearchBar from "./SearchBar";
+import { setCategory } from "../redux/Actions/actions";
+import {
+  getAnimes,
+  getAnimesGenres,
+  getTopAnimes,
+} from "../redux/Actions/actions";
+import { getMangas, getGenres, topMangas } from "../redux/Actions/actions";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
-  const [toggleBtn, setToggleBtn] = useState(true);
-  const [toggleStyle, setToggleStyle] = useState({
-    color: "#b82601",
-  });
+  const category = useSelector((state) => state.category);
+  const [animeClicked, setAnimeCLicked] = useState(true);
+  const [mangaClicked, setMangaCLicked] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const [toggleBtn, setToggleBtn] = useState(true);
+  // const [toggleStyle, setToggleStyle] = useState({
+  //   color: "#b82601",
+  // });
 
-  const changeTheme = (e) => {
-    if (toggleBtn) {
-      setToggleBtn(false);
-      setToggleStyle({
-        color: "#e7dfdd",
-      });
+  useEffect(() => {
+    if (category.id === 1) {
+      setAnimeCLicked(true);
+      setMangaCLicked(false);
     } else {
-      setToggleBtn(true);
-      setToggleStyle({
-        color: "#b82601",
-      });
+      setAnimeCLicked(false);
+      setMangaCLicked(true);
     }
+    dispatch(topMangas());
+    dispatch(getTopAnimes());
+    dispatch(getAnimes());
+    dispatch(getMangas());
+    dispatch(getGenres());
+    dispatch(getAnimesGenres());
+  }, [dispatch, category.id]);
+
+  const changeCategory = (e) => {
+    switch (e.target.name) {
+      case "anime":
+        dispatch(setCategory({ id: 1, type: e.target.name }));
+        break;
+      case "manga":
+        dispatch(setCategory({ id: 2, type: e.target.name }));
+        break;
+      default:
+        break;
+    }
+    navigate("/home");
   };
+
+  // const changeTheme = (e) => {
+  //   if (toggleBtn) {
+  //     setToggleBtn(false);
+  //     setToggleStyle({
+  //       color: "#e7dfdd",
+  //     });
+  //   } else {
+  //     setToggleBtn(true);
+  //     setToggleStyle({
+  //       color: "#b82601",
+  //     });
+  //   }
+  // };
   return (
     <nav className="navbar">
       <div className="links-container">
-        <Link to="/">
+        <Link to="/home">
           <img src={LOGOdemo} alt="animercce" />
         </Link>
         <ul>
-          {/* <li>
-            <Link className="link" to="/animes">
-              ANIME
-            </Link>
-          </li> */}
-          {/* <li>
-            <p className="link">/</p>
-          </li> */}
           <li>
-            <Link className="link" to="/mangas">
+            <button
+              onClick={changeCategory}
+              name="anime"
+              style={
+                animeClicked
+                  ? { color: "#7688E5", cursor: "default" }
+                  : { color: "#fdfdfd", cursor: "pointer" }
+              }
+              className="link"
+            >
+              ANIME
+            </button>
+          </li>
+          <li>
+            <p className="link">/</p>
+          </li>
+          <li>
+            <button
+              onClick={changeCategory}
+              name="manga"
+              style={
+                mangaClicked
+                  ? { color: "#7688E5", cursor: "default" }
+                  : { color: "#fdfdfd", cursor: "pointer" }
+              }
+              className="link"
+            >
               MANGAS
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
@@ -56,9 +118,9 @@ const Nav = () => {
         {/* <Link className="link" to="cart">
           <i className="bi bi-cart"></i>
         </Link> */}
-        <Link to="/login" className="profileBtn">
+        <button className="profileBtn">
           <i className="bi bi-person-fill"></i>
-        </Link>
+        </button>
       </div>
     </nav>
   );

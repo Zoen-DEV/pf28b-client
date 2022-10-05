@@ -5,6 +5,7 @@
   margin: auto;
   border-bottom: 2px solid $color-orange;
   background: linear-gradient(to bottom, $color-shadowblue,  $color-shadowblue2);
+  z-index: 0;
   .links-container {
     @include flex(row, space-between, center);
     gap: 5vw;
@@ -30,6 +31,8 @@
         text-shadow: 1px 1px 2px $color-shadow2;
         letter-spacing: 1px;
         transition: 0.3s;
+        background: none;
+        border: none;
       }
       .link:hover {
         color: $color-orange2;

@@ -11,7 +11,15 @@ import {
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
   GET_USER_BY_ID,
+  SET_CATEGORY,
+  GET_ANIME_DETAILS,
+  GET_TOP_ANIMES,
+  GET_ANIME_GENRES,
+  GET_ANIME_NAME
 } from "../Constants/animes";
+
+// MANGAS actions
+
 export const getDetails = (id) => async (dispatch) => {
   try {
     let productDetail = await axios(`http://localhost:3000/manga/${id}`);
@@ -28,21 +36,6 @@ export const deleteDetails = () => (dispatch) => {
     console.error(err);
   }
 };
-
-export function getAnimes() {
-  console.log("dispara getAnimes");
-  return async function (dispatch) {
-    try {
-      let response = await axios.get("http://localhost:3000/animes");
-      dispatch({
-        type: GET_ANIMES,
-        payload: response.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
 
 export function getMangas() {
   return async function (dispatch) {
@@ -67,33 +60,82 @@ export const topMangas = () => async (dispatch) => {
   }
 };
 
-export function getMangaByTitle(name){
-  return async function(dispatch){
-    try{
-      let manga = await axios.get(`http://localhost:3000/manga/searchmanga?name=${name}`)
+export function getMangaByTitle(name) {
+  return async function (dispatch) {
+    try {
+      let manga = await axios.get(
+        `http://localhost:3000/manga/searchmanga?name=${name}`
+      );
       dispatch({
         type: GET_MANGA_NAME,
-        payload: manga.data
-      })
-    }catch(error){
-      console.log(error)
-    }
-  }
-}
-
-export function getGenres(){
-  return async function (dispatch){
-    try{
-      let allGenres = await axios.get('http://localhost:3000/genres');
-      return dispatch({
-        type: GET_GENRES,
-        payload: allGenres.data.genresDB,
+        payload: manga.data,
       });
     } catch (error) {
       console.log(error);
     }
   };
 }
+
+export function getGenres() {
+  return async function (dispatch) {
+    try {
+      // let allGenres = await axios.get("http://localhost:3000/genres");
+      return dispatch({
+        type: GET_GENRES,
+        // payload: allGenres.data.genresDB,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+// ANIMES actions
+
+export function getAnimes() {
+  return async function (dispatch) {
+    try {
+      let response = await axios.get("http://localhost:3000/animes");
+      return dispatch({
+        type: GET_ANIMES,
+        payload: response.data.animesDB,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export const getAnimesDetails = () => (dispatch) => {
+  return dispatch({ type: GET_ANIME_DETAILS });
+};
+
+export const getTopAnimes = () => async (dispatch) => {
+  let res = await axios.get("http://localhost:3000/topAnimes");
+  return dispatch({ type: GET_TOP_ANIMES, payload: res.data.topAnimesDB });
+};
+
+export const getAnimesGenres = () => (dispatch) => {
+  return dispatch({ type: GET_ANIME_GENRES})
+};
+
+export function getAnimeByTitle(name) {
+  return async function (dispatch) {
+    try {
+      let animes = await axios.get(
+        `http://localhost:3000/animes/name?name=${name}`
+      );
+      dispatch({
+        type: GET_ANIME_NAME,
+        payload: animes.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+// FILTERS actions
 
 export function filterByGenre(payload) {
   console.log(payload);
@@ -117,7 +159,8 @@ export function orderByChapters(payload) {
   };
 }
 
-// var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
+// OTHERS action
+
 export function getUsers(email) {
   const url = `http://localhost:3000/users/${email}`;
   return async function (dispatch) {
@@ -133,3 +176,7 @@ export function getUsers(email) {
     }
   };
 }
+
+export const setCategory = (state) => (dispatch) => {
+  return dispatch({ type: SET_CATEGORY, payload: state });
+};
