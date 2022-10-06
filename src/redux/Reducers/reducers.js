@@ -4,11 +4,16 @@ import {
   GET_ANIMES,
   GET_MANGAS,
   TOP_MANGAS,
+  GET_MANGA_NAME,
+  GET_TOP_ANIMES,
   GET_GENRES,
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
-  POST_USER
+  GET_USER_BY_ID,
+  SET_CATEGORY,
+  GET_ANIME_GENRES,
+  GET_ANIME_NAME,
 } from "../Constants/animes";
 
 const initialState = {
@@ -16,8 +21,13 @@ const initialState = {
   details: {},
   mangas: [],
   allMangas: [],
+  allAnimes: [],
   genres: [],
-  topFourMangas: [],
+  animeGenres: [],
+  topMangas: [],
+  topAnimes: [],
+  user: [],
+  category: { id: 1, type: "anime" },
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -36,7 +46,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         animes: action.payload,
-        allMangas: action.payload,
+        allAnimes: action.payload,
       };
 
     case GET_MANGAS:
@@ -48,12 +58,32 @@ const rootReducer = (state = initialState, action) => {
     case TOP_MANGAS:
       return {
         ...state,
-        topFourMangas: action.payload,
+        topMangas: action.payload,
       };
-    case GET_GENRES:
+    case GET_MANGA_NAME:
+      const manga = [];
+      if (action.payload.length === 0) {
+        return "This Manga doesn't exist";
+      } else {
+        manga.push(...action.payload);
+      }
       return {
         ...state,
-        genres: action.payload,
+        mangas: manga,
+      };
+    case GET_GENRES:
+      const allGenres = [];
+      state.mangas.forEach((item) => {
+        let itemGenres = item.genres.split(",");
+        for (let i = 0; i < itemGenres.length; i++) {
+          allGenres.push(itemGenres[i].trim());
+        }
+      });
+      const dataArr = new Set(allGenres);
+      let genres = [...dataArr];
+      return {
+        ...state,
+        genres: genres,
       };
     
     case FILTER_BY_GENRE:
@@ -64,7 +94,7 @@ const rootReducer = (state = initialState, action) => {
           : allMangas.filter((m) => m.genres.includes(action.payload));
       return {
         ...state,
-        mangas: filteredStatus,
+        mangas: [...filteredStatus],
       };
     case ORDER_BY_TITLE:
       let mangasByTitle =
@@ -81,7 +111,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        mangas: mangasByTitle,
+        mangas: [...mangasByTitle],
       };
     case ORDER_BY_CHAPTERS:
       let mangasByChapters =
@@ -90,7 +120,48 @@ const rootReducer = (state = initialState, action) => {
           : state.mangas.sort((a, b) => b.chapters - a.chapters);
       return {
         ...state,
-        mangas: mangasByChapters,
+        mangas: [...mangasByChapters],
+      };
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case SET_CATEGORY:
+      return {
+        ...state,
+        category: action.payload,
+      };
+    case GET_TOP_ANIMES:
+      return {
+        ...state,
+        topAnimes: action.payload,
+      };
+    case GET_ANIME_GENRES:
+      const allAnimeGenres = [];
+      state.animes.forEach((item) => {
+        for (let i = 0; i < item.genres.length; i++) {
+          allAnimeGenres.push(item.genres[i].trim());
+        }
+      });
+      const animesArr = new Set(allAnimeGenres);
+      let animeGenres = [...animesArr];
+      return {
+        ...state,
+        animeGenres: animeGenres,
+      };
+    case GET_ANIME_NAME:
+      const anime = [];
+      if (action.payload.length === 0) {
+        return "This Manga doesn't exist";
+      } else if (action.payload.length > 100) {
+        anime.push(...action.payload.slice(0, 100));
+      } else {
+        anime.push(...action.payload);
+      }
+      return {
+        ...state,
+        animes: anime,
       };
     default:
       return state;

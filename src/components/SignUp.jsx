@@ -35,9 +35,19 @@ function SignUp() {
     setError((state) => {
       const err = {
         ...state,
-        [e.target.name]: validate(e.target.name, e.target.value, input.password),
+        [e.target.name]: validate(
+          e.target.name,
+          e.target.value,
+          input.password
+        ),
       };
-      if (err.username === "" && err.password === "" && err.cpassword === "" && err.email === "" && err.date === "") {
+      if (
+        err.username === "" &&
+        err.password === "" &&
+        err.cpassword === "" &&
+        err.email === "" &&
+        err.date === ""
+      ) {
         setSubmit(false);
       } else setSubmit(true);
       return err;
@@ -47,7 +57,7 @@ function SignUp() {
   function onSubmit(e) {
     e.preventDefault();
     setTimeout(async () => {
-      await axios.post("http://localhost:3001/users", {
+      await axios.post("http://localhost:3000/users", {
         username: input.username,
         password: input.password,
         email: input.email,
@@ -62,7 +72,10 @@ function SignUp() {
       <h1>Get started with Animmerce!</h1>
       <form className="sign-up" onSubmit={onSubmit}>
         <div>
-          <label htmlFor="username" className={error.username ? "label-error" : ""}>
+          <label
+            htmlFor="username"
+            className={error.username ? "label-error" : ""}
+          >
             Username:
           </label>
           <input
@@ -73,7 +86,11 @@ function SignUp() {
             onChange={onChange}
             className={error.username ? "input-error" : ""}
           />
-          {!error.username ? <div>&nbsp;</div> : <div className="validate">{error.username}</div>}
+          {!error.username ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.username}</div>
+          )}
         </div>
         <div>
           <label htmlFor="email" className={error.email ? "label-error" : ""}>
@@ -87,10 +104,17 @@ function SignUp() {
             onChange={onChange}
             className={error.email ? "input-error" : ""}
           />
-          {!error.email ? <div>&nbsp;</div> : <div className="validate">{error.email}</div>}
+          {!error.email ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.email}</div>
+          )}
         </div>
         <div style={{ position: "relative" }}>
-          <label htmlFor="password" className={error.password ? "label-error" : ""}>
+          <label
+            htmlFor="password"
+            className={error.password ? "label-error" : ""}
+          >
             Password:
           </label>
           <input
@@ -101,16 +125,25 @@ function SignUp() {
             onChange={onChange}
             className={error.password ? "input-error" : ""}
           />
-          {!error.password ? <div>&nbsp;</div> : <div className="validate">{error.password}</div>}
+          {!error.password ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.password}</div>
+          )}
           <img
             src={password === "password" ? eyeOff : eyeOn}
             alt="on"
             height="25"
-            onClick={() => setPassword(password === "password" ? "text" : "password")}
+            onClick={() =>
+              setPassword(password === "password" ? "text" : "password")
+            }
           />
         </div>
         <div style={{ position: "relative" }}>
-          <label htmlFor="cpassword" className={error.cpassword ? "label-error" : ""}>
+          <label
+            htmlFor="cpassword"
+            className={error.cpassword ? "label-error" : ""}
+          >
             Confirm password:
           </label>
           <input
@@ -121,23 +154,43 @@ function SignUp() {
             onChange={onChange}
             className={error.cpassword ? "input-error" : ""}
           />
-          {!error.cpassword ? <div>&nbsp;</div> : <div className="validate">{error.cpassword}</div>}
+          {!error.cpassword ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.cpassword}</div>
+          )}
           <img
             src={cpassword === "password" ? eyeOff : eyeOn}
             alt="on"
             height="25"
-            onClick={() => setCpassword(cpassword === "password" ? "text" : "password")}
+            onClick={() =>
+              setCpassword(cpassword === "password" ? "text" : "password")
+            }
           />
         </div>
         <div>
           <label htmlFor="date">Date of birth:</label>
-          <input type="date" id="date" name="date" value={input.date || ""} onChange={onChange} />
+          <input
+            type="date"
+            id="date"
+            name="date"
+            value={input.date || ""}
+            onChange={onChange}
+          />
         </div>
-        <Link to='/login'>Do you already have an account?</Link>
-        <button type="submit" disabled={submit} className={clickbtn} onClick={() => setClickbtn("click")}>
+        <Link to="/login">Do you already have an account?</Link>
+        <button
+          type="submit"
+          disabled={submit}
+          className={clickbtn}
+          onClick={() => setClickbtn("click")}
+        >
           Sign Up
         </button>
-        <div className="terms">By continuing, you accept our standard terms and conditions and our privacy policy.</div>
+        <div className="terms">
+          By continuing, you accept our standard terms and conditions and our
+          privacy policy.
+        </div>
       </form>
     </div>
   );

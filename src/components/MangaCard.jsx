@@ -9,7 +9,8 @@ const MangaCard = ({
   synopsis,
   genres,
   id,
-  price
+  price,
+  chapters
 }) => {
   return (
     <Link className="manga_card_container" to={`/details/${id}`}>
@@ -26,13 +27,19 @@ const MangaCard = ({
         </p>
         <p>
           <span>Synopsis: </span>
-          {synopsis.substr(0, 300)}
+          {!synopsis ? "No synopsis available." : synopsis.substr(0, 300)}
         </p>
         <p>
           <span>Genre: </span>
           {genres}
         </p>
-        <p className="price">${price}</p>
+        <p>
+          <span>Chapters: </span>
+          {chapters}
+        </p>
+        <p className="price">
+          ${!price ? "59.99" : price.toString().substr(0, 5)}
+        </p>
       </div>
     </Link>
   );

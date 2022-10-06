@@ -1,0 +1,32 @@
+.searchbar_container{
+    @include flex(row, center, center);
+    input{
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        border: none;
+        padding: 10px;
+        width: 0px;
+        transition: 0.5s;
+    }
+    input:focus{
+        width: 10vw;
+    }
+    button{
+        border-radius: 0 5px 5px 0;
+        outline: none;
+        border: none;
+        padding: 10px;
+        background: linear-gradient(45deg, $color-orange, $color-fuxia);
+        color: $color-white;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    button:hover{
+        background: linear-gradient(0deg, $color-orange, $color-fuxia);
+    }
+}
+.searchbar_container:hover{
+    input{
+        width: 10vw;
+    }
+}

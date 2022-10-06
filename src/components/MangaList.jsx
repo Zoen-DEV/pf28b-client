@@ -6,6 +6,10 @@ const MangaList = ({ mangas }) => {
   let PageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredMangas, setFilteresMangas] = useState(mangas)
+  
+  useEffect(() => {
+    setFilteresMangas(mangas);
+  }, [mangas]);
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -13,11 +17,13 @@ const MangaList = ({ mangas }) => {
     return filteredMangas.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, PageSize, filteredMangas]);
 
+
   return (
     <div className="manga_list">
-      {currentTableData.map((m) => (
-        <MangaCard
-          key={m.id}
+      {currentTableData?.map((m, index) => {
+        return(
+          <MangaCard
+          key={index}
           title={m.title}
           image={m.image}
           score={m.score}
@@ -26,8 +32,10 @@ const MangaList = ({ mangas }) => {
           genres={m.genres}
           id={m.id}
           price={m.price}
+          chapters={m.chapters}
         />
-      ))}
+        )
+      })}
       <Pagination
         className="pagination-bar"
         currentPage={currentPage}

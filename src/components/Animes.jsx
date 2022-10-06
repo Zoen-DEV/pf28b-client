@@ -1,6 +1,6 @@
 import React from "react";
 import Filters from "./Filters";
-import MangaList from "./MangaList";
+import AnimeList from "./AnimeList";
 import { useDispatch, useSelector } from "react-redux";
 import {
   filterByGenre,
@@ -8,9 +8,9 @@ import {
   orderByTitle,
 } from "../redux/Actions/actions";
 
-const Mangas = () => {
+const Animes = () => {
   const dispatch = useDispatch();
-  const mangas = useSelector((state) => state.mangas);
+  const animes = useSelector((state) => state.animes);
 
   function handleGenre(e) {
     dispatch(filterByGenre(e.target.value));
@@ -36,8 +36,8 @@ const Mangas = () => {
         byGenre={handleGenre}
         byChapters={handleChapters}
       />
-      {mangas.length > 0 ? (
-        <MangaList mangas={mangas}></MangaList>
+      {animes.length > 0 ? (
+        <AnimeList animes={animes}></AnimeList>
       ) : (
         <p>loading</p>
       )}
@@ -45,4 +45,4 @@ const Mangas = () => {
   );
 };
 
-export default Mangas;
+export default Animes;
