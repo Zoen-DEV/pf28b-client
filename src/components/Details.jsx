@@ -1,51 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { deleteDetails, getDetails } from "../redux/Actions/actions";
+import {
+  deleteDetails,
+  getDetails,
+  setCartItems,
+} from "../redux/Actions/actions";
 
 const Details = () => {
   const [isFav, setIsFav] = useState(false);
   const dispatch = useDispatch();
-  const { title, score, image, chapters, synopsis, genres, price } =
-    useSelector((state) => state.details);
+  const details = useSelector((state) => state.details);
   const id = useParams().id;
-  const [allChapters, setAllChapters] = useState(
-    Array.from(Array(chapters).keys())
-  );
+  // const [allChapters, setAllChapters] = useState(
+  //   Array.from(Array(chapters).keys())
+  // );
 
   useEffect(() => {
     dispatch(getDetails(id));
     return () => {
       dispatch(deleteDetails());
     };
-  }, [dispatch]);
+  }, [dispatch, id]);
+
+  const toCart = (e) => {
+    dispatch(setCartItems(details));
+  };
 
   return (
     <article className="details_component">
       <h1>MANGA DETAILS</h1>
       <div className="details_container">
-        <img src={image} alt="" />
+        <img src={details.image} alt="" />
         <div className="detail_content">
           <div className="title_container">
             <h1>
-              {title}
-              <span> ⭐{score}</span>
+              {details.title}
+              <span> ⭐{details.score}</span>
             </h1>
             <p>
               <span>Genres: </span>
-              {genres}
+              {details.genres}
             </p>
             <p>
               <span>Synopsis: </span>
-              {synopsis}
+              {details.synopsis ? details.synopsis : details.description}
             </p>
             <p>
               <span>Number of chapters: </span>
-              {chapters}
+              {details.chapters}
             </p>
             <p>
-              <span>Price: </span>
-              ${price}
+              <span>Price: </span>${details.price}
             </p>
           </div>
           <div className="btns_container">
@@ -56,7 +62,10 @@ const Details = () => {
               }}
               className="bi bi-heart-fill fav"
             ></button>
-            <button className="bi bi-cart-plus add"> Add to cart</button>
+            <button onClick={toCart} className="bi bi-cart-plus add">
+              {" "}
+              Add to cart
+            </button>
           </div>
         </div>
       </div>

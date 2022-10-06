@@ -15,7 +15,11 @@ import {
   GET_ANIME_DETAILS,
   GET_TOP_ANIMES,
   GET_ANIME_GENRES,
-  GET_ANIME_NAME
+  GET_ANIME_NAME,
+  SET_CART_ITEMS,
+  ORDER_ANIME_BY_GENRE,
+  ORDER_ANIME_BY_CHAPTERS,
+  ORDER_ANIME_BY_TITLE,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -116,7 +120,7 @@ export const getTopAnimes = () => async (dispatch) => {
 };
 
 export const getAnimesGenres = () => (dispatch) => {
-  return dispatch({ type: GET_ANIME_GENRES})
+  return dispatch({ type: GET_ANIME_GENRES });
 };
 
 export function getAnimeByTitle(name) {
@@ -138,7 +142,6 @@ export function getAnimeByTitle(name) {
 // FILTERS actions
 
 export function filterByGenre(payload) {
-  console.log(payload);
   return {
     type: FILTER_BY_GENRE,
     payload,
@@ -155,6 +158,27 @@ export function orderByTitle(payload) {
 export function orderByChapters(payload) {
   return {
     type: ORDER_BY_CHAPTERS,
+    payload,
+  };
+}
+
+export function filterAnimeByGenre(payload) {
+  return {
+    type: ORDER_ANIME_BY_GENRE,
+    payload,
+  };
+}
+
+export function orderAnimeByTitle(payload) {
+  return {
+    type: ORDER_ANIME_BY_TITLE,
+    payload,
+  };
+}
+
+export function orderAnimeByChapters(payload) {
+  return {
+    type: ORDER_ANIME_BY_CHAPTERS,
     payload,
   };
 }
@@ -179,4 +203,10 @@ export function getUsers(email) {
 
 export const setCategory = (state) => (dispatch) => {
   return dispatch({ type: SET_CATEGORY, payload: state });
+};
+
+// CART actions
+
+export const setCartItems = (item) => (dispatch) => {
+  return dispatch({ type: SET_CART_ITEMS, payload: item });
 };

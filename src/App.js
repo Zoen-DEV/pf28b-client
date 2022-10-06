@@ -9,6 +9,7 @@ import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
 import Landing from "./components/Landing";
 import Animes from "./components/Animes";
+import Cart from "./components/Cart"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer></Footer>
     </div>

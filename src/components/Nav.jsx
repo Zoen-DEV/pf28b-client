@@ -14,7 +14,8 @@ import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const category = useSelector((state) => state.category);
-  const [animeClicked, setAnimeCLicked] = useState(true);
+  const cart = useSelector((state) => state.cart);
+  const [animeClicked, setAnimeCLicked] = useState(false);
   const [mangaClicked, setMangaCLicked] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const Nav = () => {
   // });
 
   useEffect(() => {
+    let localStorageCategory = localStorage.getItem("category");
+    dispatch(setCategory(JSON.parse(localStorageCategory)));
     if (category.id === 1) {
       setAnimeCLicked(true);
       setMangaCLicked(false);
@@ -42,10 +45,22 @@ const Nav = () => {
   const changeCategory = (e) => {
     switch (e.target.name) {
       case "anime":
-        dispatch(setCategory({ id: 1, type: e.target.name }));
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 1, type: e.target.name })
+        );
+        let categoryA = localStorage.getItem("category");
+        dispatch(setCategory(JSON.parse(categoryA)));
         break;
       case "manga":
-        dispatch(setCategory({ id: 2, type: e.target.name }));
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 2, type: e.target.name })
+        );
+        let categoryM = localStorage.getItem("category");
+        dispatch(setCategory(JSON.parse(categoryM)));
         break;
       default:
         break;
@@ -115,9 +130,21 @@ const Nav = () => {
           )}
         </button> */}
         <SearchBar />
-        {/* <Link className="link" to="cart">
-          <i className="bi bi-cart"></i>
-        </Link> */}
+        <Link className="link2" to={`/${category.type}s`}>
+          List of {category.type}s
+        </Link>
+        <div className="cart_icon">
+          {cart.length > 0 ? (
+            <div className="cart_count">
+              {cart.length > 9 ? "9+" : cart.length}
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <Link className="cart_link" to="/cart">
+            <i className="bi bi-cart"></i>
+          </Link>
+        </div>
         <button className="profileBtn">
           <i className="bi bi-person-fill"></i>
         </button>

@@ -10,10 +10,22 @@ const Landing = () => {
   const selectCategory = (e) => {
     switch (e.target.name) {
       case "anime":
-        dispatch(setCategory({ id: 1, type: e.target.name }));
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 1, type: e.target.name })
+        );
+        let categoryA = localStorage.getItem('category')
+        dispatch(setCategory(JSON.parse(categoryA)));
         break;
       case "manga":
-        dispatch(setCategory({ id: 2, type: e.target.name }));
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 2, type: e.target.name })
+        );
+        let categoryM = localStorage.getItem('category')
+        dispatch(setCategory(JSON.parse(categoryM)));
         break;
       default:
         break;

@@ -14,8 +14,11 @@ import {
   SET_CATEGORY,
   GET_ANIME_GENRES,
   GET_ANIME_NAME,
+  SET_CART_ITEMS,
+  ORDER_ANIME_BY_TITLE,
+  ORDER_ANIME_BY_GENRE,
+  ORDER_ANIME_BY_CHAPTERS,
 } from "../Constants/animes";
-
 const initialState = {
   animes: [],
   details: {},
@@ -27,7 +30,8 @@ const initialState = {
   topMangas: [],
   topAnimes: [],
   user: [],
-  category: { id: 1, type: "anime" },
+  category: {},
+  cart: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -161,6 +165,50 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         animes: anime,
+      };
+    case SET_CART_ITEMS:
+      return {
+        ...state,
+        cart: [...state.cart, action.payload],
+      };
+    case ORDER_ANIME_BY_GENRE:
+      console.log(ORDER_ANIME_BY_GENRE)
+      let allAnimes = state.allAnimes;
+      let filteredStatusAnime =
+        action.payload === "All"
+          ? allAnimes
+          : allAnimes.filter((m) => m.genres.includes(action.payload));
+      return {
+        ...state,
+        animes: [...filteredStatusAnime],
+      };
+    case ORDER_ANIME_BY_TITLE:
+      console.log(ORDER_ANIME_BY_TITLE)
+      let animesByTitle =
+        action.payload === "asc"
+          ? state.animes.sort((a, b) => {
+              if (a.title > b.title) return 1;
+              if (a.title < b.title) return -1;
+              return 0;
+            })
+          : state.animes.sort((a, b) => {
+              if (a.title < b.title) return 1;
+              if (a.title > b.title) return -1;
+              return 0;
+            });
+      return {
+        ...state,
+        animes: [...animesByTitle],
+      };
+    case ORDER_ANIME_BY_CHAPTERS:
+      console.log(ORDER_ANIME_BY_CHAPTERS)
+      let animesByChapters =
+        action.payload === "chapters asc"
+          ? state.animes.sort((a, b) => a.chapters - b.chapters)
+          : state.animes.sort((a, b) => b.chapters - a.chapters);
+      return {
+        ...state,
+        animes: [...animesByChapters],
       };
     default:
       return state;
