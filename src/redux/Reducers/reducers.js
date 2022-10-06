@@ -25,7 +25,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_DETAILS:
       return {
         ...state,
-        details: action.payload,
+        details: action.payload
       };
     case DELETE_DETAILS:
       return {
