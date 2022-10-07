@@ -189,7 +189,7 @@ export function getUsers() {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: error.response.data.error,
+        text: error.response.data.msg,
         // footer: '<a href="">Why do I have this issue?</a>'
       });
     }
