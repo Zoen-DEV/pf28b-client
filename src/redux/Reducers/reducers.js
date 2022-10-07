@@ -19,7 +19,12 @@ import {
   ORDER_ANIME_BY_GENRE,
   ORDER_ANIME_BY_CHAPTERS,
   GET_ANIME_DETAILS,
+  VALIDATE_USER,
+  IS_ACTIVE,
+  GET_USERS,
+  LOGOUT,
 } from "../Constants/animes";
+
 const initialState = {
   animes: [],
   details: {},
@@ -33,6 +38,10 @@ const initialState = {
   user: [],
   category: {},
   cart: [],
+  topFourMangas: [],
+  user: {},
+  users: [],
+  authenticated: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -133,7 +142,22 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         mangas: [...mangasByChapters],
       };
-    case GET_USER_BY_ID:
+    case VALIDATE_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case IS_ACTIVE:
+      return {
+        ...state,
+        authenticated: action.payload,
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case LOGOUT:
       return {
         ...state,
         user: action.payload,

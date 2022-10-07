@@ -1,4 +1,6 @@
 import axios from "axios";
+import Swal from "sweetalert2";
+import animerceApp from "../../helpers/axiosConfigure";
 import {
   GET_ANIMES,
   GET_MANGAS,
@@ -20,6 +22,10 @@ import {
   ORDER_ANIME_BY_GENRE,
   ORDER_ANIME_BY_CHAPTERS,
   ORDER_ANIME_BY_TITLE,
+  VALIDATE_USER,
+  IS_ACTIVE,
+  GET_USERS,
+  LOGOUT,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -186,18 +192,57 @@ export function orderAnimeByChapters(payload) {
 
 // OTHERS action
 
-export function getUsers(email) {
-  const url = `http://localhost:3000/users/${email}`;
+// export function getUsers(email) {
+//   const url = `http://localhost:3000/users/${email}`;
+  // var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
+  // export function getUsers(email) {
+  //   const url = `http://localhost:3000/login/${email}`;
+  //   return async function (dispatch) {
+  //     try {
+  //       const resp = await axios.get(url);
+  //       // console.log({ resp });
+  //       dispatch({
+  //         type: GET_USER_BY_ID,
+  //         payload: resp.data,
+  //       });
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  //   };
+// }
+
+export function validateUser(obj) {
+  // const url = "http://localhost:3000/login/auth";
   return async function (dispatch) {
     try {
-      const resp = await axios.get(url);
-      // console.log({ resp });
-      dispatch({
-        type: GET_USER_BY_ID,
-        payload: resp.data,
+      // const resp = await axios.post(url, obj);
+      const resp = await animerceApp.post("/auth", obj);
+      const { msg, user, token } = resp.data;
+      console.log(msg, user, token);
+      localStorage.setItem("token", token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+      localStorage.setItem("user", JSON.stringify(user));
+      const us = localStorage.getItem("user");
+      dispatch({ type: VALIDATE_USER, payload: JSON.parse(us) });
+      dispatch({ type: IS_ACTIVE, payload: true });
+      Swal.fire({
+        title: msg,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
       });
     } catch (error) {
-      alert(error);
+      console.log(error.response.data.error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.error,
+        // footer: '<a href="">Why do I have this issue?</a>'
+      });
+      // Swal.fire(error.response.data.error);
     }
   };
 }
@@ -211,3 +256,28 @@ export const setCategory = (state) => (dispatch) => {
 export const setCartItems = (item) => (dispatch) => {
   return dispatch({ type: SET_CART_ITEMS, payload: item });
 };
+export function getUsers() {
+  return async function (dispatch) {
+    try {
+      const resp = await animerceApp.get("/users");
+      // console.log({ resp });
+      dispatch({ type: GET_USERS, payload: resp.data });
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.msg,
+        // footer: '<a href="">Why do I have this issue?</a>'
+      });
+    }
+  };
+}
+
+export function logOut() {
+  return function (dispatch) {
+    dispatch({ type: LOGOUT, payload: {} });
+    localStorage.removeItem("token");
+    localStorage.removeItem("token-init-date");
+  };
+}
