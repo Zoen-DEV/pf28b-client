@@ -7,12 +7,14 @@ import {
   orderByChapters,
   orderByTitle,
 } from "../redux/Actions/actions";
+import Loader from "./Loader";
 
 const Mangas = () => {
   const dispatch = useDispatch();
   const mangas = useSelector((state) => state.mangas);
 
   function handleGenre(e) {
+    console.log(e.target.value)
     dispatch(filterByGenre(e.target.value));
     // setAllMangas(mangas);
   }
@@ -28,7 +30,7 @@ const Mangas = () => {
     dispatch(orderByTitle(e.target.value));
     // setAllMangas(mangas);
   }
-  
+
   return (
     <article className="mangas_container">
       <Filters
@@ -36,11 +38,7 @@ const Mangas = () => {
         byGenre={handleGenre}
         byChapters={handleChapters}
       />
-      {mangas.length > 0 ? (
-        <MangaList mangas={mangas}></MangaList>
-      ) : (
-        <p>loading</p>
-      )}
+      {mangas.length > 0 ? <MangaList mangas={mangas}></MangaList> : <Loader />}
     </article>
   );
 };

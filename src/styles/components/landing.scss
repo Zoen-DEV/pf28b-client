@@ -8,6 +8,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 100;
   .welcome_container {
     @include flex(column, flex-start, center);
     text-align: center;
