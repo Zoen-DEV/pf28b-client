@@ -56,7 +56,7 @@ const Nav = () => {
         {/* <Link className="link" to="cart">
           <i className="bi bi-cart"></i>
         </Link> */}
-        <Link to="/login" className="profileBtn">
+        <Link to="/login2" className="profileBtn">
           <i className="bi bi-person-fill"></i>
         </Link>
       </div>

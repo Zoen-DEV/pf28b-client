@@ -57,7 +57,7 @@ function SignUp() {
   function onSubmit(e) {
     e.preventDefault();
     setTimeout(async () => {
-      await axios.post("http://localhost:3000/users", {
+      await axios.post("http://localhost:3000/login", {
         username: input.username,
         password: input.password,
         email: input.email,

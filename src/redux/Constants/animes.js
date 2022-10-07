@@ -10,3 +10,7 @@ export const ORDER_BY_TITLE = "ORDER_BY_TITLE";
 export const ORDER_BY_CHAPTERS = "ORDER_BY_CHAPTERS";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const GET_MANGA_NAME = "GET_MANGA_NAME";
+export const VALIDATE_USER = "VALIDATE_USER";
+export const IS_ACTIVE = "IS_ACTIVE";
+export const GET_USERS = "GET_USERS";
+export const LOGOUT = "LOGOUT";

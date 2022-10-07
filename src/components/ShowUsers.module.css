@@ -1,0 +1,24 @@
+.contMaster {
+  border: solid red 4px;
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  gap: 20px;
+}
+
+.container {
+  border: solid black 2px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  position: relative;
+}
+
+.btnDelete {
+  position: absolute;
+  right: 0;
+  border: 0;
+}
+
+.btnDelete:hover {
+  cursor: pointer;
+}

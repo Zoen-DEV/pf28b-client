@@ -9,7 +9,10 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
-  GET_USER_BY_ID,
+  VALIDATE_USER,
+  IS_ACTIVE,
+  GET_USERS,
+  LOGOUT,
 } from "../Constants/animes";
 
 const initialState = {
@@ -19,7 +22,9 @@ const initialState = {
   allMangas: [],
   genres: [],
   topFourMangas: [],
-  user: [],
+  user: {},
+  users: [],
+  authenticated: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -50,19 +55,19 @@ const rootReducer = (state = initialState, action) => {
     case TOP_MANGAS:
       return {
         ...state,
-        topFourMangas: action.payload
-      }
+        topFourMangas: action.payload,
+      };
     case GET_MANGA_NAME:
       const manga = [];
-        if(action.payload.length === 0){
-          return "This Manga doesn't exist"
-        } else {
-          manga.push(...action.payload)
-        }
-      return { 
-        ...state, 
-        mangas: manga
+      if (action.payload.length === 0) {
+        return "This Manga doesn't exist";
+      } else {
+        manga.push(...action.payload);
       }
+      return {
+        ...state,
+        mangas: manga,
+      };
     case GET_GENRES:
       const allGenres = [];
       state.mangas.forEach((item) => {
@@ -113,9 +118,24 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         mangas: [...mangasByChapters],
       };
-    case GET_USER_BY_ID:
+    case VALIDATE_USER:
       return {
-        state,
+        ...state,
+        user: action.payload,
+      };
+    case IS_ACTIVE:
+      return {
+        ...state,
+        authenticated: action.payload,
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case LOGOUT:
+      return {
+        ...state,
         user: action.payload,
       };
     default:

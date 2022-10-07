@@ -7,6 +7,8 @@ import Mangas from "./components/Mangas";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
+import Login2 from "./components/Login2";
+import ShowUsers from "./components/ShowUsers";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/login2" element={<Login2 />} />
+        <Route path="/users" element={<ShowUsers />} />
       </Routes>
       <Footer></Footer>
     </div>
