@@ -10,6 +10,7 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
+<<<<<<< HEAD
   GET_USER_BY_ID,
   SET_CATEGORY,
   GET_ANIME_GENRES,
@@ -19,6 +20,12 @@ import {
   ORDER_ANIME_BY_GENRE,
   ORDER_ANIME_BY_CHAPTERS,
   GET_ANIME_DETAILS,
+=======
+  VALIDATE_USER,
+  IS_ACTIVE,
+  GET_USERS,
+  LOGOUT,
+>>>>>>> db7d2cf831a4aa5df8bea53221cc536314759c92
 } from "../Constants/animes";
 const initialState = {
   animes: [],
@@ -27,12 +34,19 @@ const initialState = {
   allMangas: [],
   allAnimes: [],
   genres: [],
+<<<<<<< HEAD
   animeGenres: [],
   topMangas: [],
   topAnimes: [],
   user: [],
   category: {},
   cart: [],
+=======
+  topFourMangas: [],
+  user: {},
+  users: [],
+  authenticated: false,
+>>>>>>> db7d2cf831a4aa5df8bea53221cc536314759c92
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -70,7 +84,11 @@ const rootReducer = (state = initialState, action) => {
     case TOP_MANGAS:
       return {
         ...state,
+<<<<<<< HEAD
         topMangas: action.payload,
+=======
+        topFourMangas: action.payload,
+>>>>>>> db7d2cf831a4aa5df8bea53221cc536314759c92
       };
     case GET_MANGA_NAME:
       const manga = [];
@@ -133,9 +151,27 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         mangas: [...mangasByChapters],
       };
-    case GET_USER_BY_ID:
+    case VALIDATE_USER:
       return {
         ...state,
+<<<<<<< HEAD
+=======
+        user: action.payload,
+      };
+    case IS_ACTIVE:
+      return {
+        ...state,
+        authenticated: action.payload,
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+>>>>>>> db7d2cf831a4aa5df8bea53221cc536314759c92
         user: action.payload,
       };
     case SET_CATEGORY:

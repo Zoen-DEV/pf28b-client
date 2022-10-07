@@ -10,6 +10,8 @@ import Profile from "./components/Profile";
 import Landing from "./components/Landing";
 import Animes from "./components/Animes";
 import Cart from "./components/Cart"
+import Login2 from "./components/Login2";
+import ShowUsers from "./components/ShowUsers";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/login" element={<LogIn />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/login2" element={<Login2 />} />
+        <Route path="/users" element={<ShowUsers />} />
       </Routes>
       <Footer></Footer>
     </div>
