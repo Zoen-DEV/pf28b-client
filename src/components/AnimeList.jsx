@@ -28,6 +28,7 @@ const AnimeList = ({ animes }) => {
           rating={a.rating}
           description={a.description}
           genres={a.genres}
+          id={a.id}
         />
       ))}
       <Pagination
