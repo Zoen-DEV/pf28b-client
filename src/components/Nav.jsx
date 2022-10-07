@@ -25,12 +25,15 @@ const Nav = () => {
   // });
 
   useEffect(() => {
+    // localStorage.removeItem('category')
     let localStorageCategory = localStorage.getItem("category");
-    dispatch(setCategory(JSON.parse(localStorageCategory)));
+    if (localStorageCategory) {
+      dispatch(setCategory(JSON.parse(localStorageCategory)));
+    }
     if (category.id === 1) {
       setAnimeCLicked(true);
       setMangaCLicked(false);
-    } else {
+    } else if (category.id === 2) {
       setAnimeCLicked(false);
       setMangaCLicked(true);
     }
@@ -65,7 +68,8 @@ const Nav = () => {
       default:
         break;
     }
-    navigate("/home");
+    // navigate("/home");
+    navigate(`/${e.target.name}s`);
   };
 
   // const changeTheme = (e) => {
@@ -94,13 +98,17 @@ const Nav = () => {
               name="anime"
               style={
                 animeClicked
-                  ? { color: "#7688E5", cursor: "default" }
-                  : { color: "#fdfdfd", cursor: "pointer" }
+                  ? { color: "#fdfdfd", cursor: "default" }
+                  : { color: "#7688E5", cursor: "pointer" }
               }
               className="link"
             >
               ANIME
             </button>
+            <div
+              style={mangaClicked ? { display: "none" } : { display: "block" }}
+              className="border_bottom"
+            ></div>
           </li>
           <li>
             <p className="link">/</p>
@@ -111,13 +119,17 @@ const Nav = () => {
               name="manga"
               style={
                 mangaClicked
-                  ? { color: "#7688E5", cursor: "default" }
-                  : { color: "#fdfdfd", cursor: "pointer" }
+                  ? { color: "#fdfdfd", cursor: "default" }
+                  : { color: "#7688E5", cursor: "pointer" }
               }
               className="link"
             >
               MANGAS
             </button>
+            <div
+              style={mangaClicked ? { display: "block" } : { display: "none" }}
+              className="border_bottom"
+            ></div>
           </li>
         </ul>
       </div>

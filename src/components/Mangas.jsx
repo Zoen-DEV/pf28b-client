@@ -14,7 +14,7 @@ const Mangas = () => {
   const mangas = useSelector((state) => state.mangas);
 
   function handleGenre(e) {
-    console.log(e.target.value)
+    console.log(e.target.value);
     dispatch(filterByGenre(e.target.value));
     // setAllMangas(mangas);
   }
@@ -32,14 +32,21 @@ const Mangas = () => {
   }
 
   return (
-    <article className="mangas_container">
-      <Filters
-        byTitle={handleTitle}
-        byGenre={handleGenre}
-        byChapters={handleChapters}
-      />
-      {mangas.length > 0 ? <MangaList mangas={mangas}></MangaList> : <Loader />}
-    </article>
+    <div className="all_products">
+      <h1>MANGAS</h1>
+      <article className="mangas_container">
+        <Filters
+          byTitle={handleTitle}
+          byGenre={handleGenre}
+          byChapters={handleChapters}
+        />
+        {mangas.length > 0 ? (
+          <MangaList mangas={mangas}></MangaList>
+        ) : (
+          <Loader />
+        )}
+      </article>
+    </div>
   );
 };
 

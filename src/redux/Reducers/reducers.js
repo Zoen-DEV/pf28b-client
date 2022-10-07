@@ -55,10 +55,17 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_MANGAS:
+      const restPriceMangas = action.payload.map((item) => {
+        let newPrice = Number(item.price) - 49;
+        return {
+          ...item,
+          price: Number(newPrice.toString().substring(0, 5)),
+        };
+      });
       return {
         ...state,
-        mangas: action.payload,
-        allMangas: action.payload,
+        mangas: restPriceMangas,
+        allMangas: restPriceMangas,
       };
     case TOP_MANGAS:
       return {
@@ -173,7 +180,7 @@ const rootReducer = (state = initialState, action) => {
         cart: [...state.cart, action.payload],
       };
     case ORDER_ANIME_BY_GENRE:
-      console.log(ORDER_ANIME_BY_GENRE)
+      console.log(ORDER_ANIME_BY_GENRE);
       let allAnimes = state.allAnimes;
       let filteredStatusAnime =
         action.payload === "All"
@@ -184,7 +191,7 @@ const rootReducer = (state = initialState, action) => {
         animes: [...filteredStatusAnime],
       };
     case ORDER_ANIME_BY_TITLE:
-      console.log(ORDER_ANIME_BY_TITLE)
+      console.log(ORDER_ANIME_BY_TITLE);
       let animesByTitle =
         action.payload === "asc"
           ? state.animes.sort((a, b) => {
@@ -202,7 +209,7 @@ const rootReducer = (state = initialState, action) => {
         animes: [...animesByTitle],
       };
     case ORDER_ANIME_BY_CHAPTERS:
-      console.log(ORDER_ANIME_BY_CHAPTERS)
+      console.log(ORDER_ANIME_BY_CHAPTERS);
       let animesByChapters =
         action.payload === "chapters asc"
           ? state.animes.sort((a, b) => a.chapters - b.chapters)
@@ -214,8 +221,8 @@ const rootReducer = (state = initialState, action) => {
     case GET_ANIME_DETAILS:
       return {
         ...state,
-        details: action.payload
-      }
+        details: action.payload,
+      };
     default:
       return state;
   }
