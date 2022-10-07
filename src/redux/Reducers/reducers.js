@@ -18,6 +18,7 @@ import {
   ORDER_ANIME_BY_TITLE,
   ORDER_ANIME_BY_GENRE,
   ORDER_ANIME_BY_CHAPTERS,
+  GET_ANIME_DETAILS,
 } from "../Constants/animes";
 const initialState = {
   animes: [],
@@ -210,6 +211,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         animes: [...animesByChapters],
       };
+    case GET_ANIME_DETAILS:
+      return {
+        ...state,
+        details: action.payload
+      }
     default:
       return state;
   }

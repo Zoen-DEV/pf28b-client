@@ -110,8 +110,9 @@ export function getAnimes() {
   };
 }
 
-export const getAnimesDetails = () => (dispatch) => {
-  return dispatch({ type: GET_ANIME_DETAILS });
+export const getAnimesDetails = (id) => async (dispatch) => {
+  let res = await axios.get(`http://localhost:3000/animes/${id}`);
+  return dispatch({ type: GET_ANIME_DETAILS, payload: res.data });
 };
 
 export const getTopAnimes = () => async (dispatch) => {
