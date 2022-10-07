@@ -10,7 +10,6 @@ export const ORDER_BY_TITLE = "ORDER_BY_TITLE";
 export const ORDER_BY_CHAPTERS = "ORDER_BY_CHAPTERS";
 export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const GET_MANGA_NAME = "GET_MANGA_NAME";
-<<<<<<< HEAD
 export const SET_CATEGORY = "SET_CATEGORY";
 export const GET_ANIME_DETAILS = "GET_ANIME_DETAILS";
 export const GET_TOP_ANIMES = "GET_TOP_ANIMES";
@@ -20,9 +19,7 @@ export const SET_CART_ITEMS = "SET_CART_ITEMS";
 export const ORDER_ANIME_BY_GENRE = "ORDER_ANIME_BY_GENRE"
 export const ORDER_ANIME_BY_CHAPTERS = "ORDER_ANIME_BY_CHAPTERS"
 export const ORDER_ANIME_BY_TITLE = "ORDER_ANIME_BY_TITLE"
-=======
 export const VALIDATE_USER = "VALIDATE_USER";
 export const IS_ACTIVE = "IS_ACTIVE";
 export const GET_USERS = "GET_USERS";
 export const LOGOUT = "LOGOUT";
->>>>>>> db7d2cf831a4aa5df8bea53221cc536314759c92

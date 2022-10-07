@@ -89,20 +89,6 @@ export function getMangaByTitle(name) {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      let allGenres = await axios.get("http://localhost:3000/genres");
-      return dispatch({
-        type: GET_GENRES,
-        payload: allGenres.data.genresDB,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
-
-export function getGenres() {
-  return async function (dispatch) {
-    try {
       // let allGenres = await axios.get("http://localhost:3000/genres");
       return dispatch({
         type: GET_GENRES,
@@ -206,8 +192,8 @@ export function orderAnimeByChapters(payload) {
 
 // OTHERS action
 
-export function getUsers(email) {
-  const url = `http://localhost:3000/users/${email}`;
+// export function getUsers(email) {
+//   const url = `http://localhost:3000/users/${email}`;
   // var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
   // export function getUsers(email) {
   //   const url = `http://localhost:3000/login/${email}`;
@@ -223,7 +209,7 @@ export function getUsers(email) {
   //       alert(error);
   //     }
   //   };
-}
+// }
 
 export function validateUser(obj) {
   // const url = "http://localhost:3000/login/auth";
