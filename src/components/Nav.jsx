@@ -94,8 +94,8 @@ const Nav = () => {
               name="anime"
               style={
                 animeClicked
-                  ? { color: "#7688E5", cursor: "default" }
-                  : { color: "#fdfdfd", cursor: "pointer" }
+                  ? { color: "#fdfdfd", cursor: "default" }
+                  : { color: "#7688E5", cursor: "pointer" }
               }
               className="link"
             >
@@ -111,8 +111,8 @@ const Nav = () => {
               name="manga"
               style={
                 mangaClicked
-                  ? { color: "#7688E5", cursor: "default" }
-                  : { color: "#fdfdfd", cursor: "pointer" }
+                  ? { color: "#fdfdfd", cursor: "default" }
+                  : { color: "#7688E5", cursor: "pointer" }
               }
               className="link"
             >

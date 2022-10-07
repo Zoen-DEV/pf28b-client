@@ -31,14 +31,21 @@ const Animes = () => {
   }
 
   return (
-    <article className="mangas_container">
-      <Filters
-        byTitle={handleAnimeTitle}
-        byGenre={handleAnimeGenre}
-        byChapters={handleAnimeChapters}
-      />
-      {animes.length > 0 ? <AnimeList animes={animes}></AnimeList> : <Loader />}
-    </article>
+    <div className="all_products">
+      <h1>ANIMES</h1>
+      <article className="mangas_container">
+        <Filters
+          byTitle={handleAnimeTitle}
+          byGenre={handleAnimeGenre}
+          byChapters={handleAnimeChapters}
+        />
+        {animes.length > 0 ? (
+          <AnimeList animes={animes}></AnimeList>
+        ) : (
+          <Loader />
+        )}
+      </article>
+    </div>
   );
 };
 

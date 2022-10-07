@@ -104,7 +104,7 @@ const Details = () => {
                 {details.chapters}
               </p>
               <p>
-                <span>Price: </span>${details.price}
+                <span>Price: </span>${(details.price - 49).toString().substring(0, 5)}
               </p>
             </div>
             <div className="btns_container">

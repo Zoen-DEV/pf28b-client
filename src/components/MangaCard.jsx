@@ -38,7 +38,7 @@ const MangaCard = ({
           {chapters}
         </p>
         <p className="price">
-          ${!price ? "59.99" : price.toString().substr(0, 5)}
+          ${!price ? "9.99" : price.toString().substr(0, 5)}
         </p>
       </div>
     </Link>
