@@ -152,7 +152,9 @@ export function validateUser(obj) {
       console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("token-init-date", new Date().getTime());
-      dispatch({ type: VALIDATE_USER, payload: user });
+      localStorage.setItem("user", JSON.stringify(user))
+      const us = localStorage.getItem('user')
+      dispatch({ type: VALIDATE_USER, payload: JSON.parse(us) });
       dispatch({ type: IS_ACTIVE, payload: true });
       Swal.fire({
         title: msg,

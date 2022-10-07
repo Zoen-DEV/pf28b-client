@@ -59,7 +59,7 @@ function SignUp() {
     setTimeout(async () => {
       await axios.post("http://localhost:3000/login", {
         username: input.username,
-        password: input.password,
+        pass: input.password,
         email: input.email,
         cellphone: "991728192",
       });

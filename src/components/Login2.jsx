@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, validateUser } from "../redux/Actions/actions";
-import GoogleLogin from "react-google-login";
+import jwt_decode from 'jwt-decode'
 
 function Login2() {
   const [usuario, setUsuario] = useState(null);
@@ -14,6 +14,28 @@ function Login2() {
     email: "",
     password: "",
   });
+
+  const handleCallbackResponse = (response) => {
+    console.log("Encoded JWT ID token: " + response.credential)
+    var userObject = jwt_decode(response.credential)
+    console.log(userObject);
+    localStorage.setItem('token', response.credential)
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    google.accounts.id.initialize({
+      client_id: "37722855478-e3e8kuom5kn2v9n8slfn25lb8084vlq0.apps.googleusercontent.com",
+      callback: handleCallbackResponse
+    })
+    // eslint-disable-next-line no-undef
+    google.accounts.id.renderButton(
+      document.getElementById("signInDiv"),
+      {theme: "outline", size: "large"}
+    )
+
+  }, [])
+  
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -34,19 +56,11 @@ function Login2() {
     }
   };
 
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
+
 
   return (
     <section className="h-100">
-      <GoogleLogin
-        clientId="37722855478-e3e8kuom5kn2v9n8slfn25lb8084vlq0.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={"single_host_origin"}
-      />
+      <div id="signInDiv"></div>
 
       <div className="container h-100">
         <div className="row justify-content-sm-center h-100">
