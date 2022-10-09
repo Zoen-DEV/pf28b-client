@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut, validateUser } from "../redux/Actions/actions";
+import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
 import jwt_decode from 'jwt-decode'
 
 function Login2() {
@@ -15,11 +15,15 @@ function Login2() {
     password: "",
   });
 
-  const handleCallbackResponse = (response) => {
-    console.log("Encoded JWT ID token: " + response.credential)
-    var userObject = jwt_decode(response.credential)
-    console.log(userObject);
-    localStorage.setItem('token', response.credential)
+  /********************GOOGLE AUTHENTICATION****************** */
+
+  //the data user is save in userObject, uncomment to see.
+  const handleCallbackResponse = async (response) => {
+    // console.log("Encoded JWT ID token: " + response.credential)
+    // var userObject = jwt_decode(response.credential)
+    // console.log(userObject);
+    dispatch(googleAuth(response.credential))
+
   }
 
   useEffect(() => {
@@ -33,9 +37,8 @@ function Login2() {
       document.getElementById("signInDiv"),
       {theme: "outline", size: "large"}
     )
-
   }, [])
-  
+/*************************************************************** */ 
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -60,6 +63,7 @@ function Login2() {
 
   return (
     <section className="h-100">
+      {/* the div with id=signInDiv below renders the google login on the screen */}
       <div id="signInDiv"></div>
 
       <div className="container h-100">
