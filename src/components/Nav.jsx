@@ -224,13 +224,13 @@ const Nav = () => {
             ></i>
           </div>
         )}
-        {user ? (
+        {/* {user ? (
           user.google ? (
-            <Link to={"login2"}>
+            <Link to={"login2"}> */}
               {/* <button className="profileBtn">
                 <i className="bi bi-person-fill"></i>
               </button> */}
-              <input type="image" src={user.image} alt={user.username} width='50px'/>
+              {/* <input type="image" src={user.image} alt={user.username} width='50px'/>
             </Link>
           ) : (
             <Link to={"login2"}>
@@ -245,7 +245,7 @@ const Nav = () => {
               <i className="bi bi-person-fill"></i>
             </button>
           </Link>
-        )}
+        )} */}
         {/* <Link to={'login2'}>
         <button className="profileBtn">
           <i className="bi bi-person-fill"></i>
