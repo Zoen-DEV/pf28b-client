@@ -26,6 +26,7 @@ import {
   IS_ACTIVE,
   GET_USERS,
   LOGOUT,
+  UPDATE_CART
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -85,6 +86,10 @@ export function getMangaByTitle(name) {
     }
   };
 }
+
+export const updateCart = (cart) => (dispatch) => {
+  return dispatch({ type: UPDATE_CART, payload: cart });
+};
 
 export function getGenres() {
   return async function (dispatch) {
@@ -194,21 +199,21 @@ export function orderAnimeByChapters(payload) {
 
 // export function getUsers(email) {
 //   const url = `http://localhost:3000/users/${email}`;
-  // var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
-  // export function getUsers(email) {
-  //   const url = `http://localhost:3000/login/${email}`;
-  //   return async function (dispatch) {
-  //     try {
-  //       const resp = await axios.get(url);
-  //       // console.log({ resp });
-  //       dispatch({
-  //         type: GET_USER_BY_ID,
-  //         payload: resp.data,
-  //       });
-  //     } catch (error) {
-  //       alert(error);
-  //     }
-  //   };
+// var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
+// export function getUsers(email) {
+//   const url = `http://localhost:3000/login/${email}`;
+//   return async function (dispatch) {
+//     try {
+//       const resp = await axios.get(url);
+//       // console.log({ resp });
+//       dispatch({
+//         type: GET_USER_BY_ID,
+//         payload: resp.data,
+//       });
+//     } catch (error) {
+//       alert(error);
+//     }
+//   };
 // }
 
 export function validateUser(obj) {

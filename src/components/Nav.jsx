@@ -8,24 +8,34 @@ import {
   getAnimes,
   getAnimesGenres,
   getTopAnimes,
+  updateCart,
+  logOut,
+  getMangas,
+  getGenres,
+  topMangas,
 } from "../redux/Actions/actions";
-import { getMangas, getGenres, topMangas } from "../redux/Actions/actions";
 import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   const category = useSelector((state) => state.category);
   const cart = useSelector((state) => state.cart);
+  const isLogin = useSelector((state) => state.isLogin);
   const [animeClicked, setAnimeCLicked] = useState(false);
   const [mangaClicked, setMangaCLicked] = useState(false);
+  const [showSlide, setShowSlide] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const lsCart = localStorage.getItem("cart");
   // const [toggleBtn, setToggleBtn] = useState(true);
   // const [toggleStyle, setToggleStyle] = useState({
   //   color: "#b82601",
   // });
 
   useEffect(() => {
-    // localStorage.removeItem('category')
+    // localStorage.clear()
+    if (lsCart) {
+      dispatch(updateCart(JSON.parse(lsCart)));
+    }
     let localStorageCategory = localStorage.getItem("category");
     if (localStorageCategory) {
       dispatch(setCategory(JSON.parse(localStorageCategory)));
@@ -111,9 +121,6 @@ const Nav = () => {
             ></div>
           </li>
           <li>
-            <p className="link">/</p>
-          </li>
-          <li>
             <button
               onClick={changeCategory}
               name="manga"
@@ -157,9 +164,64 @@ const Nav = () => {
             <i className="bi bi-cart"></i>
           </Link>
         </div>
-        <button className="profileBtn">
+        <button
+          onClick={() => {
+            if (showSlide) {
+              setShowSlide(false);
+            } else {
+              setShowSlide(true);
+            }
+          }}
+          className="profileBtn"
+        >
           <i className="bi bi-person-fill"></i>
         </button>
+        {!isLogin ? (
+          <div
+            style={showSlide ? { display: "flex" } : { display: "none" }}
+            className="links_slide"
+          >
+            <Link className="link" to="/login2">
+              LOGIN
+            </Link>
+            <Link className="link" to="/signup">
+              SIGNUP
+            </Link>
+            <i
+              onClick={() => {
+                setShowSlide(false);
+              }}
+              className="bi bi-caret-up"
+            ></i>
+          </div>
+        ) : (
+          <div
+            style={showSlide ? { display: "flex" } : { display: "none" }}
+            className="links_slide"
+          >
+            <Link className="link" to="/profile">
+              PROFILE
+            </Link>
+            <Link className="link" to="/signup">
+              FAVORITES
+            </Link>
+            <Link
+              className="link"
+              onClick={() => {
+                setShowSlide(false);
+              }}
+              to="/login2"
+            >
+              LOG OUT
+            </Link>
+            <i
+              onClick={() => {
+                setShowSlide(false);
+              }}
+              className="bi bi-caret-up"
+            ></i>
+          </div>
+        )}
       </div>
     </nav>
   );

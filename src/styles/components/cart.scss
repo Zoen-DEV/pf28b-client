@@ -1,5 +1,33 @@
-.cart_container{
-    .cart_card_container{
-        
+.cart_container {
+  @include flex(row, flex-start, center);
+  width: 60vw;
+  .products_container {
+    padding: 100px;
+    .products_cart_title {
+        border-left: 2px solid $color-orange;
+        padding-left: 10px;
     }
+    ul {
+        @include flex(column, flex-start, center);
+        gap: 10px;
+        list-style: none;
+        color: $color-white;
+      .cart_card_container {
+        @include flex(row, flex-start, center);
+        background: linear-gradient(to right, $color-shadowblue, transparent);
+        width: 40vw;
+        height: 250px;
+        gap: 10px;
+        img {
+          width: 180px;
+          height: 250px;
+          object-fit: cover;
+        }
+        .cart_card_info {
+            @include flex(column, space-between, flex-start);
+            height: 250px;
+        }
+      }
+    }
+  }
 }
