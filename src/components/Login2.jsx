@@ -3,11 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from "jwt-decode";
+import Profile from "./Profile";
 
 function Login2() {
-  const [usuario, setUsuario] = useState(null);
-  const user = useSelector((state) => state.user);
+  // const [usuario, setUsuario] = useState(null);
+  // const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [datos, setDatos] = useState({
@@ -15,30 +16,33 @@ function Login2() {
     password: "",
   });
 
-  /********************GOOGLE AUTHENTICATION****************** */
+
+
+  /********************GOOGLE AUTHENTICATION(don't touch)****************** */
 
   //the data user is save in userObject, uncomment to see.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleCallbackResponse = async (response) => {
     // console.log("Encoded JWT ID token: " + response.credential)
     // var userObject = jwt_decode(response.credential)
     // console.log(userObject);
-    dispatch(googleAuth(response.credential))
-
-  }
+    dispatch(googleAuth(response.credential));
+  };
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
     google.accounts.id.initialize({
-      client_id: "37722855478-e3e8kuom5kn2v9n8slfn25lb8084vlq0.apps.googleusercontent.com",
-      callback: handleCallbackResponse
-    })
+      client_id:
+        "37722855478-e3e8kuom5kn2v9n8slfn25lb8084vlq0.apps.googleusercontent.com",
+      callback: handleCallbackResponse,
+    });
     // eslint-disable-next-line no-undef
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      {theme: "outline", size: "large"}
-    )
-  }, [])
-/*************************************************************** */ 
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, [handleCallbackResponse]);
+  /*************************************************************** */
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -55,15 +59,17 @@ function Login2() {
       // console.log(res.data);
       // navigate("/profile");
       dispatch(validateUser(datos));
-      navigate('/profile')
+      // navigate('/profile')
     }
   };
-
-
+  const user = localStorage.getItem("user");
+  const userActive = JSON.parse(user)
+  // console.log({userActive});
 
   return (
+    !userActive ?
     <section className="h-100">
-      {/* the div with id=signInDiv below renders the google login on the screen */}
+      {/* the div with id=signInDiv below renders the google login on the screen (don't touch)*/}
       <div id="signInDiv"></div>
 
       <div className="container h-100">
@@ -80,17 +86,18 @@ function Login2() {
                 >
                   <div className="mb-3">
                     <label className="mb-2 text-muted" htmlFor="email">
-                      Usuario
+                      Email
                     </label>
                     <input
                       id="email"
-                      type="text"
+                      type="email"
                       onChange={handleInputChange}
                       value={datos.email}
                       className="form-control"
                       name="email"
                       required
                       autoFocus
+                      autoComplete="true"
                     />
                     <div className="invalid-feedback">Usuario inválido</div>
                   </div>
@@ -99,7 +106,7 @@ function Login2() {
                       <label className="text-muted" htmlFor="password">
                         Contraseña
                       </label>
-                      <a href="/" className="float-end">
+                      <a href="/signup" className="float-end">
                         ¿Olvidaste tu contraseña?
                       </a>
                     </div>
@@ -140,13 +147,11 @@ function Login2() {
             </div>
           </div>
         </div>
-        <button onClick={() => {
-          dispatch(logOut())
-          navigate('/')
-        }
-        }>LogOut</button>
+
       </div>
     </section>
+    :
+    <Profile />
   );
 }
 
