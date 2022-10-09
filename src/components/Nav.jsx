@@ -17,6 +17,8 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
+  const userSaved = localStorage.getItem("user");
+  const user = JSON.parse(userSaved);
   const category = useSelector((state) => state.category);
   const cart = useSelector((state) => state.cart);
   const isLogin = useSelector((state) => state.isLogin);
@@ -222,6 +224,33 @@ const Nav = () => {
             ></i>
           </div>
         )}
+        {user ? (
+          user.google ? (
+            <Link to={"login2"}>
+              {/* <button className="profileBtn">
+                <i className="bi bi-person-fill"></i>
+              </button> */}
+              <input type="image" src={user.image} alt={user.username} width='50px'/>
+            </Link>
+          ) : (
+            <Link to={"login2"}>
+              <button className="profileBtn">
+                <i className="bi bi-person-fill"></i>
+              </button>
+            </Link>
+          )
+        ) : (
+          <Link to={"login2"}>
+            <button className="profileBtn">
+              <i className="bi bi-person-fill"></i>
+            </button>
+          </Link>
+        )}
+        {/* <Link to={'login2'}>
+        <button className="profileBtn">
+          <i className="bi bi-person-fill"></i>
+        </button>
+        </Link> */}
       </div>
     </nav>
   );

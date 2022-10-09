@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
-import jwt_decode from 'jwt-decode'
+import jwt_decode from "jwt-decode";
+import Profile from "./Profile";
 
 function Login2() {
-  const [usuario, setUsuario] = useState(null);
-  const user = useSelector((state) => state.user);
+  // const [usuario, setUsuario] = useState(null);
+  // const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [datos, setDatos] = useState({
@@ -14,16 +15,16 @@ function Login2() {
     password: "",
   });
 
-  /********************GOOGLE AUTHENTICATION****************** */
+  /********************GOOGLE AUTHENTICATION(don't touch)****************** */
 
   //the data user is save in userObject, uncomment to see.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleCallbackResponse = async (response) => {
     // console.log("Encoded JWT ID token: " + response.credential)
     // var userObject = jwt_decode(response.credential)
     // console.log(userObject);
-    dispatch(googleAuth(response.credential))
-
-  }
+    dispatch(googleAuth(response.credential));
+  };
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -33,12 +34,12 @@ function Login2() {
       callback: handleCallbackResponse,
     });
     // eslint-disable-next-line no-undef
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      {theme: "outline", size: "large"}
-    )
-  }, [])
-/*************************************************************** */ 
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+  }, [handleCallbackResponse]);
+  /*************************************************************** */
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -55,30 +56,71 @@ function Login2() {
       // console.log(res.data);
       // navigate("/profile");
       dispatch(validateUser(datos));
-      navigate("/profile");
+      // navigate('/profile')
     }
   };
+  const user = localStorage.getItem("user");
+  const userActive = JSON.parse(user);
+  // console.log({userActive});
 
-  return (
-    <article className="login2_container">
+  return !userActive ? (
+    <section className="h-100">
+      {/* the div with id=signInDiv below renders the google login on the screen (don't touch)*/}
       <div id="signInDiv"></div>
-      <section className="h-100">
-        <div className="container h-100">
-          <div className="row justify-content-sm-center h-100">
-            <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-              <div className="card shadow-lg">
-                <div className="card-body p-5">
-                  <h1 className="fs-4 card-title fw-bold mb-4">Login</h1>
-                  <form
-                    onSubmit={handleSubmit}
-                    className="needs-validation"
-                    noValidate={true}
-                    autoComplete="off"
-                  >
-                    <div className="mb-3">
-                      <label className="mb-2 text-muted" htmlFor="email">
-                        Usuario
+
+      <div className="container h-100">
+        <div className="row justify-content-sm-center h-100">
+          <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+            <div className="card shadow-lg">
+              <div className="card-body p-5">
+                <h1 className="fs-4 card-title fw-bold mb-4">Login</h1>
+                <form
+                  onSubmit={handleSubmit}
+                  className="needs-validation"
+                  noValidate={true}
+                  autoComplete="off"
+                >
+                  <div className="mb-3">
+                    <label className="mb-2 text-muted" htmlFor="email">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      onChange={handleInputChange}
+                      value={datos.email}
+                      className="form-control"
+                      name="email"
+                      required
+                      autoFocus
+                      autoComplete="true"
+                    />
+                    <div className="invalid-feedback">Usuario inválido</div>
+                  </div>
+                  <div className="mb-3">
+                    <div className="mb-2 w-100">
+                      <label className="text-muted" htmlFor="password">
+                        Contraseña
                       </label>
+                      <a href="/signup" className="float-end">
+                        ¿Olvidaste tu contraseña?
+                      </a>
+                    </div>
+                    <input
+                      id="password"
+                      type="password"
+                      onChange={handleInputChange}
+                      value={datos.password}
+                      className="form-control"
+                      name="password"
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      Contraseña es requirida
+                    </div>
+                  </div>
+                  <div className="d-flex align-items-center">
+                    <div className="form-check">
                       <input
                         id="email"
                         type="text"
@@ -129,17 +171,19 @@ function Login2() {
                         <i className="bi bi-box-arrow-in-right"></i> Ingresar
                       </button>
                     </div>
-                  </form>
-                </div>
-                <div className="card-footer py-3 border-0">
-                  <div className="text-center">Animmerce &copy; 2022</div>
-                </div>
+                  </div>
+                </form>
+              </div>
+              <div className="card-footer py-3 border-0">
+                <div className="text-center">Animmerce &copy; 2022</div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </article>
+      </div>
+    </section>
+  ) : (
+    <Profile />
   );
 }
 

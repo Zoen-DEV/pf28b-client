@@ -5,6 +5,7 @@ import axios from "axios";
 import validate from "./validate";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
+import Swal from "sweetalert2";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -44,9 +45,8 @@ function SignUp() {
       if (
         err.username === "" &&
         err.password === "" &&
-        err.cpassword === "" &&
-        err.email === "" &&
-        err.date === ""
+        err.email === "" 
+        // && err.date === ""
       ) {
         setSubmit(false);
       } else setSubmit(true);
@@ -57,13 +57,17 @@ function SignUp() {
   function onSubmit(e) {
     e.preventDefault();
     setTimeout(async () => {
-      await axios.post("http://localhost:3000/login", {
-        username: input.username,
-        pass: input.password,
-        email: input.email,
-        cellphone: "991728192",
-      });
-      navigate("/");
+      try {
+        const resp = await axios.post("http://localhost:3000/login", {
+          username: input.username,
+          pass: input.password,
+          email: input.email,
+        });
+        navigate("/login2");
+        Swal.fire(resp.data.msg + 'Now you can start session')
+      } catch (error) {
+        Swal.fire(error.response.data)
+      }
     }, 1000);
   }
 
@@ -168,7 +172,7 @@ function SignUp() {
             }
           />
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="date">Date of birth:</label>
           <input
             type="date"
@@ -177,8 +181,8 @@ function SignUp() {
             value={input.date || ""}
             onChange={onChange}
           />
-        </div>
-        <Link to="/login">Do you already have an account?</Link>
+        </div> */}
+        <Link to="/login2">Do you already have an account?</Link>
         <button
           type="submit"
           disabled={submit}
