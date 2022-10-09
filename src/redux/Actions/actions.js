@@ -212,41 +212,6 @@ export function orderAnimeByChapters(payload) {
   //   };
 // }
 
-export function validateUser(obj) {
-  // const url = "http://localhost:3000/login/auth";
-  return async function (dispatch) {
-    try {
-      // const resp = await axios.post(url, obj);
-      const resp = await animerceApp.post("/auth", obj);
-      const { msg, user, token } = resp.data;
-      console.log(msg, user, token);
-      localStorage.setItem("token", token);
-      localStorage.setItem("token-init-date", new Date().getTime());
-      localStorage.setItem("user", JSON.stringify(user));
-      const us = localStorage.getItem("user");
-      dispatch({ type: VALIDATE_USER, payload: JSON.parse(us) });
-      dispatch({ type: IS_ACTIVE, payload: true });
-      Swal.fire({
-        title: msg,
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      });
-    } catch (error) {
-      console.log(error.response.data.error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.response.data.error,
-        // footer: '<a href="">Why do I have this issue?</a>'
-      });
-      // Swal.fire(error.response.data.error);
-    }
-  };
-}
 
 export const setCategory = (state) => (dispatch) => {
   return dispatch({ type: SET_CATEGORY, payload: state });
@@ -274,13 +239,45 @@ export function getUsers() {
   };
 }
 
+export function validateUser(obj) {
+  return async function (dispatch) {
+    try {
+      const resp = await animerceApp.post("/auth", obj);
+      const { msg, user, token } = resp.data;
+      // console.log(msg, user, token);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      dispatch({ type: VALIDATE_USER, payload: user });
+      dispatch({ type: IS_ACTIVE, payload: true });
+      Swal.fire({
+        title: msg,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
+      window.location.reload()
+    } catch (error) {
+      // console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data,
+      });
+    }
+  };
+}
+
 export function googleAuth(tokenGoogle){
   return async function(dispatch){
     try {
       const resp = await axios.post('http://localhost:3000/login/auth/google', {id_token: tokenGoogle})
       const {msg, user, token} = resp.data
-      console.log(msg, user, token);
+      // console.log(msg, user, token);
       localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(user))
       dispatch({
         type: GOOGLE_AUTH,
         payload: user
@@ -295,6 +292,7 @@ export function googleAuth(tokenGoogle){
           popup: "animate__animated animate__fadeOutUp",
         },
       });
+      window.location.reload()
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -309,6 +307,6 @@ export function logOut() {
   return function (dispatch) {
     dispatch({ type: LOGOUT, payload: {} });
     localStorage.removeItem("token");
-    localStorage.removeItem("token-init-date");
+    localStorage.removeItem('user')
   };
 }
