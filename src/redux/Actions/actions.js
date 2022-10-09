@@ -26,7 +26,8 @@ import {
   IS_ACTIVE,
   GET_USERS,
   LOGOUT,
-  UPDATE_CART
+  UPDATE_CART,
+  GOOGLE_AUTH
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -273,10 +274,40 @@ export function getUsers() {
         icon: "error",
         title: "Oops...",
         text: error.response.data.msg,
-        // footer: '<a href="">Why do I have this issue?</a>'
       });
     }
   };
+}
+
+export function googleAuth(tokenGoogle){
+  return async function(dispatch){
+    try {
+      const resp = await axios.post('http://localhost:3000/login/auth/google', {id_token: tokenGoogle})
+      const {msg, user, token} = resp.data
+      console.log(msg, user, token);
+      localStorage.setItem('token', token)
+      dispatch({
+        type: GOOGLE_AUTH,
+        payload: user
+      })
+      dispatch({ type: IS_ACTIVE, payload: true });
+      Swal.fire({
+        title: msg,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.msg,
+      })
+    }
+  }
 }
 
 export function logOut() {

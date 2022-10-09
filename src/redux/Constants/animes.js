@@ -24,3 +24,4 @@ export const IS_ACTIVE = "IS_ACTIVE";
 export const GET_USERS = "GET_USERS";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_CART = "UPDATE_CART";
+export const GOOGLE_AUTH = "GOOGLE_AUTH"

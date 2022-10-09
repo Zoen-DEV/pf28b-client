@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { validateUser } from "../redux/Actions/actions";
-import jwt_decode from "jwt-decode";
+import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
+import jwt_decode from 'jwt-decode'
 
 function Login2() {
   const [usuario, setUsuario] = useState(null);
@@ -14,12 +14,16 @@ function Login2() {
     password: "",
   });
 
-  const handleCallbackResponse = (response) => {
+  /********************GOOGLE AUTHENTICATION****************** */
+
+  //the data user is save in userObject, uncomment to see.
+  const handleCallbackResponse = async (response) => {
     // console.log("Encoded JWT ID token: " + response.credential)
-    var userObject = jwt_decode(response.credential);
+    // var userObject = jwt_decode(response.credential)
     // console.log(userObject);
-    localStorage.setItem("token", response.credential);
-  };
+    dispatch(googleAuth(response.credential))
+
+  }
 
   useEffect(() => {
     // eslint-disable-next-line no-undef
@@ -29,11 +33,12 @@ function Login2() {
       callback: handleCallbackResponse,
     });
     // eslint-disable-next-line no-undef
-    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-      theme: "outline",
-      size: "large",
-    });
-  }, []);
+    google.accounts.id.renderButton(
+      document.getElementById("signInDiv"),
+      {theme: "outline", size: "large"}
+    )
+  }, [])
+/*************************************************************** */ 
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;

@@ -10,7 +10,6 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
-  GET_USER_BY_ID,
   SET_CATEGORY,
   GET_ANIME_GENRES,
   GET_ANIME_NAME,
@@ -24,6 +23,7 @@ import {
   GET_USERS,
   LOGOUT,
   UPDATE_CART,
+  GOOGLE_AUTH,
 } from "../Constants/animes";
 
 const initialState = {
@@ -142,6 +142,11 @@ const rootReducer = (state = initialState, action) => {
         user: action.payload,
         isLogin: true
       };
+    case GOOGLE_AUTH:
+      return {
+        ...state,
+        user: action.payload
+      }
     case IS_ACTIVE:
       return {
         ...state,
