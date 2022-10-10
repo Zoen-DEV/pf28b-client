@@ -143,6 +143,19 @@ const Nav = () => {
             <i className="bi bi-moon"></i>
           )}
         </button> */}
+
+        {/* ***********Link to admin page******** */}
+        {user ? (
+          user.isAdmin ? (
+            <Link>
+              <button className="profileBtn">
+                <ion-icon name="lock-open-outline"></ion-icon>
+              </button>
+            </Link>
+          ) : null
+        ) : null}
+
+
         <SearchBar />
         <Link className="link2" to={`/${category.type}s`}>
           List of {category.type}s
@@ -159,13 +172,20 @@ const Nav = () => {
             <i className="bi bi-cart"></i>
           </Link>
         </div>
+
+        {/* *******comprobation to implemeny image of google profile******** */}
         {user ? (
           user.google ? (
             <Link to={"login2"}>
               {/* <button className="profileBtn">
                 <i className="bi bi-person-fill"></i>
               </button> */}
-              <input type="image" src={user.image} alt={user.username} width='50px'/>
+              <input
+                type="image"
+                src={user.image}
+                alt={user.username}
+                width="50px"
+              />
             </Link>
           ) : (
             <Link to={"login2"}>
