@@ -64,7 +64,7 @@ function SignUp() {
           email: input.email,
         });
         navigate("/login");
-        Swal.fire(resp.data.msg + "Now you can start session");
+        Swal.fire(`${resp.data.msg}. Now you can start session`);
       } catch (error) {
         console.log(error);
         Swal.fire(error.response.data.error);
