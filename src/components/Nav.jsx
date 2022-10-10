@@ -55,7 +55,7 @@ const Nav = () => {
     dispatch(getMangas());
     dispatch(getGenres());
     dispatch(getAnimesGenres());
-  }, [dispatch, category.id]);
+  }, [dispatch, category.id, lsCart]);
 
   const changeCategory = (e) => {
     switch (e.target.name) {
@@ -110,8 +110,8 @@ const Nav = () => {
               name="anime"
               style={
                 animeClicked
-                  ? { color: "#fdfdfd", cursor: "default" }
-                  : { color: "#7688E5", cursor: "pointer" }
+                  ? { color: "#fdfdfd"}
+                  : { color: "#7688E5"}
               }
               className="link"
             >
@@ -128,8 +128,8 @@ const Nav = () => {
               name="manga"
               style={
                 mangaClicked
-                  ? { color: "#fdfdfd", cursor: "default" }
-                  : { color: "#7688E5", cursor: "pointer" }
+                  ? { color: "#fdfdfd"}
+                  : { color: "#7688E5"}
               }
               className="link"
             >
@@ -177,7 +177,7 @@ const Nav = () => {
           <Link className="cart_link" to="/cart">
             <i className="bi bi-cart"></i>
           </Link>
-        </div>¿
+        </div>
         <button
           onClick={() => {
             if (showSlide) {
@@ -200,12 +200,12 @@ const Nav = () => {
                <input type="image" src={user.image} alt={user.username} width='50px'/>
 
          *******comprobation to implemeny image of google profile********  */}
-        {user ? (
+        {!user ? (
           <div
             style={showSlide ? { display: "flex" } : { display: "none" }}
             className="links_slide"
           >
-            <Link className="link" to="/login2">
+            <Link className="link" to="/login">
               LOGIN
             </Link>
             <Link className="link" to="/signup">

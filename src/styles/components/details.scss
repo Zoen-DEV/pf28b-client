@@ -118,23 +118,23 @@
       }
     }
   }
-  .chapters_container {
-    width: 70vw;
-    margin: 100px auto;
-    .chapters_titles {
-      border-left: 3px solid $color-orange;
-      padding-left: 10px;
-    }
-    ul {
-      @include flex(column, normal, center);
-      gap: 10px;
-      list-style: none;
-      li {
-        border-radius: 3px 0 0 3px;
-        width: 60vw;
-        height: 100px;
-        background: linear-gradient(to right, $color-cian3, transparent);
-      }
-    }
-  }
+  // .chapters_container {
+  //   width: 70vw;
+  //   margin: 100px auto;
+  //   .chapters_titles {
+  //     border-left: 3px solid $color-orange;
+  //     padding-left: 10px;
+  //   }
+  //   ul {
+  //     @include flex(column, normal, center);
+  //     gap: 10px;
+  //     list-style: none;
+  //     li {
+  //       border-radius: 3px 0 0 3px;
+  //       width: 60vw;
+  //       height: 100px;
+  //       background: linear-gradient(to right, $color-cian3, transparent);
+  //     }
+  //   }
+  // }
 }

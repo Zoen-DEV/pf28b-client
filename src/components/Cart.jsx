@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import CartCard from "./CartCard";
 import Loader from "./Loader";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
-  const [total, setTotal] = useState(0);
-  useEffect(()=>{
-    if(cartItems.length>0){
-      cartItems.forEach(item=>{
-        setTotal(total + item.totalPrice)
-      })
-    }
-  },[])
+  let total = 0;
   return (
     <article className="cart_container">
       <div className="products_container">
@@ -41,7 +34,7 @@ const Cart = () => {
           )}
         </ul>
       </div>
-      <div className="prices">
+      <div className="summary_cart">
         <div className="products_cart_title">
           <h2>Summary</h2>
         </div>
@@ -51,8 +44,8 @@ const Cart = () => {
               return (
                 <li key={index}>
                   <p>
-                    {item.product.price} x {item.amount} ={" "}
-                    <span>{item.totalPrice}</span>
+                    ${item.product.price} x {item.amount} ={" "}
+                    <span>${item.totalPrice}</span>
                   </p>
                 </li>
               );
@@ -63,8 +56,12 @@ const Cart = () => {
         </ul>
         <p>
           <span>Total: </span>
-          {total}
+          {cartItems.forEach(item=>{
+            total += item.totalPrice
+          })}
+          ${total}
         </p>
+      <button>Checkout</button>
       </div>
     </article>
   );
