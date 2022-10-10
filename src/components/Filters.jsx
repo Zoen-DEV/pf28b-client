@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAnimesGenres,
   getGenres,
-  getMangas,
+  // getMangas,
   reloadFilters,
 } from "../redux/Actions/actions";
 // import Autocomplete from "@mui/material/Autocomplete";

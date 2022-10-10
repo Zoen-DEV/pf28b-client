@@ -5,7 +5,7 @@ import Nav from "./components/Nav";
 import Details from "./components/Details";
 import Mangas from "./components/Mangas";
 import SignUp from "./components/SignUp";
-import LogIn from "./components/LogIn";
+// import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
 import Landing from "./components/Landing";
 import Animes from "./components/Animes";
