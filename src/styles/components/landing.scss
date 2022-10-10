@@ -1,0 +1,90 @@
+.landing_container {
+  @include flex(row, space-between, center);
+  background: url("../../assets/landingBg.jpg");
+  background-size: 100%;
+  background-position: 0 -120px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  .welcome_container {
+    @include flex(column, flex-start, center);
+    text-align: center;
+    width: 60vw;
+    height: 70%;
+    h1 {
+      font-size: 50px;
+      color: $color-white;
+      text-shadow: 2px 2px 2px $color-shadow;
+      letter-spacing: 1px;
+      animation: ease startH1 3s;
+      span {
+        color: $color-blue;
+        span {
+          color: $color-white;
+        }
+      }
+    }
+    p {
+      color: $color-orange3;
+      font-size: 25px;
+      width: 30vw;
+      animation: ease opacityLanding 2s;
+      text-shadow: 2px 2px 2px $color-shadowblue;
+    }
+  }
+  .links_container {
+    @include flex(column, space-between, center);
+    width: 40vw;
+    height: 100%;
+    transition: all 1s;
+    button {
+      border: none;
+      outline: none;
+      height: 50%;
+      width: 40vw;
+      font-weight: 900;
+      font-size: 3rem;
+      transition: font-size 0.8s, text-shadow 0.5s, background-color 1s, color 0.5s;
+      color: $color-white;
+      text-shadow: 2px 2px 2px $color-black2;
+      cursor: pointer;
+      background: linear-gradient(to right, $color-shadow2, $color-shadow);
+    }
+    button:hover {
+      font-size: 4rem;
+      text-shadow: 0 0 5px $color-black2;
+    }
+    .anime_btn:hover {
+      background-color: $color-shadoworange;
+      color: $color-orange;
+    }
+    .manga_btn:hover {
+      color: $color-blue3;
+      background-color: $color-shadowblue;
+    }
+  }
+}
+
+@keyframes startH1 {
+  0% {
+    letter-spacing: 10px;
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: 1px;
+  }
+}
+@keyframes opacityLanding {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+}

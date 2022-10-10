@@ -1,0 +1,98 @@
+.filters_container {
+  @include flex(column, space-around, flex-start);
+  background: linear-gradient(to right, $color-blue3, transparent);
+  width: 20vw;
+  height: 50vh;
+  //   box-shadow: 2px 2px 5px 0 $color-shadow2;
+  border-radius: 0 3px 3px 0;
+  padding-left: 10px;
+  position: fixed;
+  .filters_title_container {
+    @include flex(row, space-around, center);
+    width: 80%;
+    h2{
+      color: $color-orange;
+      text-shadow: 2px 2px 2px $color-shadow2;
+      letter-spacing: 1px;
+    }
+    .btnreload {
+      border: none;
+      background: linear-gradient(45deg, $color-orange, $color-fuxia);
+      color: $color-white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+  }
+  .btnreload:hover {
+    transform: scale(1.1);
+  }
+  .cntselect {
+    @include flex(column, space-around, center);
+    height: 40vh;
+    padding-left: 20px;
+    .select {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    .select select {
+      font-family: "Arial";
+      display: inline-block;
+      width: 100%;
+      cursor: pointer;
+      padding: 10px 15px;
+      outline: 0;
+      border: 0px solid #000000;
+      border-radius: 5px;
+      background: linear-gradient(45deg, $color-orange, $color-fuxia);
+      color: #fdfdfd;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      transition: 0.3s;
+      padding-right: 30px;
+    }
+    .select select::-ms-expand {
+      display: none;
+    }
+    .select select:hover,
+    .select select:focus {
+      color: #fdfdfd;
+      background: $color-orange2;
+    }
+    .select select:hover {
+      transform: scale(1.1);
+    }
+    .select select:focus {
+      transform: scale(1);
+    }
+    .select select:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .select_arrow {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 2px;
+      height: 2px;
+      border: solid $color-white;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+    }
+    .select select:hover ~ .select_arrow,
+    .select select:focus ~ .select_arrow {
+      border-color: $color-white;
+      transform: rotate(-45deg);
+    }
+    .select select:disabled ~ .select_arrow {
+      border-top-color: #cccccc;
+    }
+  }
+}

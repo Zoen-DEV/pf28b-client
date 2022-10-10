@@ -1,0 +1,106 @@
+.form_container{
+  min-height: 75vh;
+}
+.log-in-container {
+  background-image: linear-gradient(to right, $color-blue3, $color-cian3);
+  font-family: Calibri;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 5px 0px $color-shadow;
+  width: 450px;
+  margin: 40px auto 100px;
+  padding: 30px;
+  border-radius: 3px;
+}
+
+.log-in-container h1 {
+  font-size: 22px;
+  margin: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  color: $color-black;
+  text-shadow: 1px 1px 5px $color-shadow2;
+}
+
+.log-in {
+  width: 350px;
+  margin-inline: auto;
+  text-align: start;
+}
+
+.log-in label {
+  color: $color-black2;
+  transition: 0.1s ease-out;
+}
+
+.log-in .label-error {
+  color: red;
+  font-weight: bold;
+}
+
+.log-in input {
+  display: block;
+  font: inherit;
+  box-sizing: border-box;
+  border: 1px solid gray;
+  height: 35px;
+  padding-inline: 10px;
+  margin-top: 5px;
+  margin-bottom: 2px;
+  width: 100%;
+  outline: 0;
+  transition: 0.1s ease-out;
+}
+
+.log-in input[id*="password"] {
+  padding-left: 10px;
+  padding-right: 35px;
+}
+
+.log-in input:is(:hover, :focus) {
+  border-color: orange;
+}
+
+.log-in .input-error {
+  border-width: 2px;
+  border-color: red !important;
+  color: red;
+}
+
+.log-in div div {
+  font-size: 4px;
+  color: transparent;
+  transition: 0.5s ease-out;
+}
+
+.log-in div.validate {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: red;
+}
+
+.log-in input + img {
+  position: absolute;
+  top: 29px;
+  left: 318px;
+  cursor: pointer;
+}
+
+.log-in [type="submit"] {
+  display: block;
+  margin-top: 30px;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  background-color: rgb(255, 136, 0);
+  color: white;
+  transition: 0.3s ease-out;
+}
+
+.log-in [type="submit"]:hover {
+  background-color: rgb(255, 163, 57);
+  color: white;
+}
+
+.log-in .click {
+  background-color: rgb(255, 195, 82) !important;
+}

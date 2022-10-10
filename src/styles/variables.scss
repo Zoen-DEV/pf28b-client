@@ -1,0 +1,49 @@
+$color-black: #050505;
+$color-black2: #0e0b16;
+$color-black3: #232323;
+
+$color-fuxia: #a239ca;
+$color-fuxia2: #b74edf;
+
+$color-darkfuxia: #712762;
+$color-darkfuxia2: #813772;
+
+$color-orange: #b82601;
+$color-orange2: #c83611;
+$color-orange3: #FEA134;
+
+$color-cian: #aacbe2;
+$color-cian2: #caebf2;
+$color-cian3: #B6C1FF;
+$color-cian4: #9ca5db;
+
+$color-blue: #4717f6;
+$color-blue2: #5c2cff;
+$color-blue3: #7688E5;
+
+$color-darkblue: #062f4f;
+$color-darkblue2: #163f5f;
+$color-darkblue3: #264f6f;
+
+$color-cream: #e7dfdd;
+$color-cream2: #f7efed;
+
+$color-white: #fdfdfd;
+$color-white2: #f0f0f0;
+
+$color-grey: #a2a2af;
+$color-grey2: #72727f;
+
+$color-shadow: #232323b1;
+$color-shadow2: #23232365;
+$color-shadow3: #23232328;
+$color-shadowblue: #11053cdd;
+$color-shadowblue2: #11053c6c;
+$color-shadoworange: #b826018c;
+
+@mixin flex($d, $j, $a){
+    display: flex;
+    flex-direction: $d;
+    justify-content: $j;
+    align-items: $a;
+}

@@ -1,0 +1,209 @@
+.home {
+  @include flex(column, center, center);
+  min-height: 100vh;
+  .slides-container {
+    @include flex(row, space-between, center);
+    animation: ease slider 3s;
+    margin: 50px 0 100px 0;
+    width: 30vw;
+    height: 94vh;
+    border-radius: 5px;
+    .slide-content {
+      @include flex(column, space-between, center);
+      height: 101%;
+      .link {
+        @include flex(column, space-between, center);
+        text-decoration: none;
+        color: $color-black2;
+        letter-spacing: 0.8px;
+        text-align: center;
+        img {
+          position: absolute;
+          box-shadow: 0 2px 10px 2px $color-shadow2;
+          z-index: 1;
+          width: 30vw;
+          height: 90vh;
+          border-radius: 5px;
+          object-fit: cover;
+        }
+        .manga_info {
+          animation: ease slider 0.6s;
+          display: none;
+          z-index: 4;
+          position: absolute;
+          background: linear-gradient(to bottom, $color-black2, transparent);
+          width: 30vw;
+          height: 60vh;
+          border-radius: 5px;
+          // letter-spacing: 0;
+          h1 {
+            color: $color-orange;
+            text-shadow: 1px 1px 2px $color-black;
+          }
+          p {
+            color: $color-white;
+            text-shadow: 1px 1px 2px $color-black;
+            width: 80%;
+            margin: auto;
+          }
+        }
+      }
+      .link:hover {
+        .manga_info {
+          display: block;
+        }
+      }
+      ul {
+        @include flex(row, center, center);
+        list-style: none;
+        gap: 20px;
+        padding: 0;
+        position: relative;
+        top: 5px;
+        button {
+          border: none;
+          border-radius: 100%;
+          width: 12px;
+          height: 12px;
+          transition: 0.3s;
+          box-shadow: 1px 1px 3px 0px $color-shadow2;
+        }
+        button:hover {
+          cursor: pointer;
+          background: linear-gradient(to top, $color-orange, $color-fuxia);
+        }
+      }
+    }
+    .btn-left {
+      animation: ease btnLeft 3s;
+      border: none;
+      background: none;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      position: relative;
+      font-size: 35px;
+      left: -25px;
+      color: $color-white;
+      text-shadow: 2px -2px 2px $color-orange;
+      cursor: pointer;
+      z-index: 5;
+      transition: 0.3s;
+    }
+    .btn-right {
+      animation: ease btnRight 3s;
+      border: none;
+      background: none;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      position: relative;
+      font-size: 35px;
+      left: 25px;
+      color: $color-white;
+      text-shadow: -2px 2px 2px $color-orange;
+      cursor: pointer;
+      z-index: 5;
+      transition: 0.3s;
+    }
+    .btn-left:hover {
+      color: $color-orange2;
+      text-shadow: 1px -1px 2px $color-shadow;
+      transform: rotate(45deg) scale(1.2);
+    }
+    .btn-right:hover {
+      color: $color-orange2;
+      text-shadow: -1px 1px 2px $color-shadow;
+      transform: rotate(45deg) scale(1.2);
+    }
+    .btn-left:active {
+      left: -21px;
+    }
+    .btn-right:active {
+      left: 21px;
+    }
+  }
+  .tops-container {
+    @include flex(column, center, center);
+    width: 70vw;
+    margin: 100px auto;
+    .tops-title {
+      border-left: 3px solid $color-orange;
+      padding-left: 10px;
+      align-self: flex-start;
+    }
+    .container {
+      margin: 0 auto;
+      .ul_slide {
+        @include flex(row, center, center);
+        flex-wrap: wrap;
+        gap: 20px;
+        .link {
+          border: 1px solid $color-orange;
+          border-radius: 3px;
+          height: 50vh;
+          width: 20vw;
+          box-shadow: 1px 1px 5px 2px $color-shadow2;
+          img {
+            width: 20vw;
+            border-radius: 3px;
+            height: 50vh;
+            object-fit: cover;
+          }
+        }
+        .link:hover {
+          filter: opacity(0.8);
+        }
+      }
+    }
+    .show {
+      border: none;
+      background: linear-gradient(45deg, $color-orange, $color-fuxia);
+      align-self: flex-end;
+      color: $color-white;
+      font-size: 19px;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes btnLeft {
+  0% {
+    opacity: 0;
+    left: -100px;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    left: -20px;
+  }
+}
+
+@keyframes btnRight {
+  0% {
+    opacity: 0;
+    left: 100px;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    left: 20px;
+  }
+}
+
+@keyframes slider {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

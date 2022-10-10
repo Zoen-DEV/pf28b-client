@@ -1,0 +1,208 @@
+import React, { useEffect, useId, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
+import {
+  deleteDetails,
+  getAnimesDetails,
+  getDetails,
+  setCartItems,
+} from "../redux/Actions/actions";
+
+const Details = () => {
+  const [isFav, setIsFav] = useState(false);
+  const dispatch = useDispatch();
+  const details = useSelector((state) => state.details);
+  const id = useParams().id;
+  const [count, setCount] = useState(1);
+  const lsCategory = localStorage.getItem("category");
+  const randomId = uuidv4()
+  
+  useEffect(() => {
+    if (JSON.parse(lsCategory).id === 1) {
+      dispatch(getAnimesDetails(id));
+    } else {
+      dispatch(getDetails(id));
+    }
+    return () => {
+      dispatch(deleteDetails());
+    };
+  }, [dispatch, id, lsCategory]);
+  const toCart = (e) => {
+    dispatch(setCartItems({ id: randomId, product: details, amount: count, totalPrice: details.price * count }));
+    Swal.fire(
+      `${count} product has been added to the cart`,
+      `${details.title}`,
+      "success"
+    );
+  };
+  if (JSON.parse(lsCategory).id === 1) {
+    return (
+      <article className="details_component">
+        <h1>ANIME DETAILS</h1>
+        <div className="details_container">
+          <img src={details.image} alt="" />
+          <div className="detail_content">
+            <div className="title_container">
+              <h1>
+                {details.title}
+                <span> ⭐{details.rating}</span>
+              </h1>
+              <p>
+                <span>Genres: </span>
+                {details.genres}
+              </p>
+              <p>
+                <span>Release: </span>
+                {details.release}
+              </p>
+              <p>
+                <span>Produced by: </span>
+                {details.producers}
+              </p>
+            </div>
+            <div className="details_functions">
+              <div className="stock_container">
+                <button
+                  onClick={(e) => {
+                    if (count > 1) {
+                      setCount(count - 1);
+                    }
+                  }}
+                >
+                  -
+                </button>
+                <span>{count}</span>
+                <button
+                  onClick={() => {
+                    setCount(count + 1);
+                  }}
+                >
+                  +
+                </button>
+              </div>
+              <p>
+                <span>$</span>
+                {details.price * count}
+              </p>
+              <div className="btns_container">
+                <button
+                  style={{ color: isFav ? "#b82601" : "#a2a2af" }}
+                  onClick={() => {
+                    isFav ? setIsFav(false) : setIsFav(true);
+                  }}
+                  className="bi bi-heart-fill fav"
+                ></button>
+                <button onClick={toCart} className="bi bi-cart-plus add">
+                  {" "}
+                  Add to cart
+                </button>
+              </div>
+            </div>
+            {/* <div className="btns_container">
+              <button
+                style={{ color: isFav ? "#b82601" : "#a2a2af" }}
+                onClick={() => {
+                  isFav ? setIsFav(false) : setIsFav(true);
+                }}
+                className="bi bi-heart-fill fav"
+              ></button>
+              <button onClick={toCart} className="bi bi-cart-plus add">
+                {" "}
+                Add to cart
+              </button>
+            </div> */}
+          </div>
+        </div>
+        <div className="description_container">
+          <p>
+            <span>Synopsis: </span><br/>
+            {details.synopsis ? details.synopsis : details.description}
+          </p>
+        </div>
+        {/* <div className="chapters_container">
+        <div className="chapters_titles">
+          <h2>Chapters</h2>
+        </div>
+      </div> */}
+      </article>
+    );
+  } else {
+    return (
+      <article className="details_component">
+        <h1>MANGA DETAILS</h1>
+        <div className="details_container">
+          <img src={details.image} alt="" />
+          <div className="detail_content">
+            <div className="title_container">
+              <h1>
+                {details.title}
+                <span> ⭐{details.score}</span>
+              </h1>
+              <p>
+                <span>Genres: </span>
+                {details.genres}
+              </p>
+              <p>
+                <span>Number of chapters: </span>
+                {details.chapters}
+              </p>
+            </div>
+            <div className="details_functions">
+              <div className="stock_container">
+                <button
+                  onClick={(e) => {
+                    if (count > 1) {
+                      setCount(count - 1);
+                    }
+                  }}
+                >
+                  -
+                </button>
+                <span>{count}</span>
+                <button
+                  onClick={() => {
+                    setCount(count + 1);
+                  }}
+                >
+                  +
+                </button>
+              </div>
+              <p>
+                <span>$</span>
+                {details.price * count}
+              </p>
+              <div className="btns_container">
+                <button
+                  style={{ color: isFav ? "#b82601" : "#a2a2af" }}
+                  onClick={() => {
+                    isFav ? setIsFav(false) : setIsFav(true);
+                  }}
+                  className="bi bi-heart-fill fav"
+                ></button>
+                <button onClick={toCart} className="bi bi-cart-plus add">
+                  {" "}
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="description_container">
+          <p>
+            <span>Synopsis: </span>
+            {details.synopsis ? details.synopsis : details.description}
+          </p>
+        </div>
+        {/* <div className="chapters_container">
+        <div className="chapters_titles">
+          <h2>Chapters</h2>
+        </div>
+      </div> */}
+      </article>
+    );
+  }
+};
+
+export default Details;
