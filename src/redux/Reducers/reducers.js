@@ -22,8 +22,10 @@ import {
   IS_ACTIVE,
   GET_USERS,
   LOGOUT,
+  UPDATE_CART,
   GOOGLE_AUTH,
   DELETE_USER,
+  DELETE_ITEM_CART,
 } from "../Constants/animes";
 
 const initialState = {
@@ -42,6 +44,7 @@ const initialState = {
   user: {},
   users: [],
   authenticated: false,
+  isLogin: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -64,17 +67,10 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_MANGAS:
-      const restPriceMangas = action.payload.map((item) => {
-        let newPrice = Number(item.price) - 49;
-        return {
-          ...item,
-          price: Number(newPrice.toString().substring(0, 5)),
-        };
-      });
       return {
         ...state,
-        mangas: restPriceMangas,
-        allMangas: restPriceMangas,
+        mangas: action.payload,
+        allMangas: action.payload,
       };
     case TOP_MANGAS:
       return {
@@ -146,6 +142,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isLogin: true,
       };
     case GOOGLE_AUTH:
       return {
@@ -166,6 +163,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isLogin: false,
       };
     case SET_CATEGORY:
       return {
@@ -203,7 +201,22 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         animes: anime,
       };
+    case UPDATE_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      };
     case SET_CART_ITEMS:
+      // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
+      let lsCart = localStorage.getItem("cart");
+      if (lsCart) {
+        localStorage.setItem(
+          "cart",
+          JSON.stringify([...JSON.parse(lsCart), action.payload])
+        );
+      } else {
+        localStorage.setItem("cart", JSON.stringify([action.payload]));
+      }
       return {
         ...state,
         cart: [...state.cart, action.payload],
@@ -256,6 +269,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         users: state.users.filter((user) => user.email !== action.payload),
+      };
+    case DELETE_ITEM_CART:
+      const newCart = state.cart.filter((item) => item.id !== action.payload);
+      localStorage.setItem('cart', JSON.stringify(newCart))
+      return {
+        ...state,
+        cart: [...newCart],
       };
     default:
       return state;

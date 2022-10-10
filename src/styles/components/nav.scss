@@ -25,7 +25,7 @@
       list-style: none;
       li {
         @include flex(column, normal, center);
-        .border_bottom{
+        .border_bottom {
           width: 100px;
           background-color: $color-white;
           height: 2px;
@@ -57,6 +57,37 @@
   .btns-container {
     @include flex(row, space-between, center);
     gap: 3vw;
+    height: 9vh;
+    .links_slide {
+      @include flex(column, space-between, flex-start);
+      position: absolute;
+      left: 85vw;
+      top: 12vh;
+      background: $color-shadowblue2;
+      width: 12vw;
+      box-shadow: 0px 5px 5px 2px $color-shadow3;
+      padding-top: 10px;
+      .link {
+        text-decoration: none;
+        font-size: 20px;
+        letter-spacing: 1px;
+        margin-left: 10px;
+      }
+      .link:hover {
+        transform: scale(1.05);
+      }
+      i {
+        align-self: center;
+        color: $color-orange;
+        cursor: pointer;
+        font-size: 20px;
+        width: 100%;
+        text-align: center;
+      }
+      i:hover {
+        background: linear-gradient(to top, $color-shadowblue, transparent);
+      }
+    }
     .themeBtn {
       background: none;
       outline: none;
@@ -145,10 +176,10 @@
 }
 
 @keyframes borderBottom {
-  0%{
+  0% {
     width: 0;
   }
-  60%{
+  60% {
     width: 75%;
   }
 }

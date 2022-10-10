@@ -34,7 +34,7 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
   return category.id === 1 ? (
     <div className="filters_container">
       <div className="filters_title_container">
-        <h2><i className="bi bi-sliders"></i>FILTERS</h2>
+        <h2><i className="bi bi-sliders"></i> FILTERS</h2>
         {filterOn ? (
           <button
             className="btnreload bi bi-arrow-clockwise"

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
 import jwt_decode from "jwt-decode";
 import Profile from "./Profile";
-import s from './styles/Login2.module.css'
+import s from "./styles/Login2.module.css";
 
 function Login2() {
   // const [usuario, setUsuario] = useState(null);
@@ -16,8 +16,6 @@ function Login2() {
     email: "",
     password: "",
   });
-
-
 
   /********************GOOGLE AUTHENTICATION(don't touch)****************** */
 
@@ -64,88 +62,73 @@ function Login2() {
     }
   };
   const user = localStorage.getItem("user");
-  const userActive = JSON.parse(user)
+  const userActive = JSON.parse(user);
   // console.log({userActive});
 
-  return (
-    !userActive ?
+  return !userActive ? (
     <section className="h-100">
       {/* the div with id=signInDiv below renders the google login on the screen (don't touch)*/}
-      <div id="signInDiv" className={s.googleBtn
-      }></div>
+      <div id="signInDiv" className={s.googleBtn}></div>
 
-
-              <div className="form_container">
-                <div className="log-in-container">
-                <h1>Welcome back to Animmerce!</h1>
-                <form
-                  onSubmit={handleSubmit}
-                  className="log-in"
-                  noValidate={true}
-                  autoComplete="off"
-                >
-                  <div >
-                    <label htmlFor="email">
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      onChange={handleInputChange}
-                      value={datos.email}
-                      name="email"
-                      required
-                      autoFocus
-                      autoComplete="true"
-                    />
-                    <div className="invalid-feedback">Usuario inválido</div>
-                  </div>
-                  <div >
-                    <div >
-                      <label  className={s.labelPass} htmlFor="password">
-                        Password
-                      </label>
-
-                    </div>
-                    <input
-                      id="password"
-                      type="password"
-                      onChange={handleInputChange}
-                      value={datos.password}
-                      className="form-control"
-                      name="password"
-                      required
-                    />
-                    <div className="invalid-feedback">
-                      Contraseña es requirida
-                    </div>
-                  </div>
-
-                  <div className="d-flex align-items-center">
-
-                    <button type="submit" className="btn btn-primary ms-auto">
-                      <i className="bi bi-box-arrow-in-right"></i> Ingresar
-                    </button>
-                  </div>
-                </form>
-                <div>
-                  <Link to="/signup" className="float-end" >
-                        <p className={s.labelPass} >
-
-                        don't have an acount yet?
-                        </p>
-                      </Link>
-                  </div>
+      <div className="form_container">
+        <div className="log-in-container">
+          <h1>Welcome back to Animmerce!</h1>
+          <form
+            onSubmit={handleSubmit}
+            className="log-in"
+            noValidate={true}
+            autoComplete="off"
+          >
+            <div>
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                onChange={handleInputChange}
+                value={datos.email}
+                name="email"
+                required
+                autoFocus
+                autoComplete="true"
+              />
+              <div className="invalid-feedback">Usuario inválido</div>
+            </div>
+            <div>
+              <div>
+                <label className={s.labelPass} htmlFor="password">
+                  Password
+                </label>
               </div>
-              <div className="card-footer py-3 border-0">
-                <div className="text-center">Animmerce &copy; 2022</div>
-              </div>
-                </div>
+              <input
+                id="password"
+                type="password"
+                onChange={handleInputChange}
+                value={datos.password}
+                className="form-control"
+                name="password"
+                required
+              />
+              <div className="invalid-feedback">Contraseña es requirida</div>
+            </div>
 
-
-
+            <div className="d-flex align-items-center">
+              <button type="submit" className="btn btn-primary ms-auto">
+                <i className="bi bi-box-arrow-in-right"></i> Ingresar
+              </button>
+            </div>
+          </form>
+          <div>
+            <Link to="/signup" className="float-end">
+              <p className={s.labelPass}>don't have an acount yet?</p>
+            </Link>
+          </div>
+        </div>
+        <div className="card-footer py-3 border-0">
+          <div className="text-center">Animmerce &copy; 2022</div>
+        </div>
+      </div>
     </section>
-    :
+  ) : (
     <Profile />
   );
 }

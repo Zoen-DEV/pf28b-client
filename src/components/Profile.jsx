@@ -11,7 +11,7 @@ const Profile = () => {
   const user = JSON.parse(userActive);
   return (
     <div className={s.container}>
-      <button
+      {/* <button
         className={s.btnLogout}
         onClick={() => {
           dispatch(logOut());
@@ -19,7 +19,7 @@ const Profile = () => {
         }}
       >
         LogOut
-      </button>
+      </button> */}
 
       <div className={s.card}>
         <div className={s.name}>

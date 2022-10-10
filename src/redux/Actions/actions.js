@@ -26,8 +26,10 @@ import {
   IS_ACTIVE,
   GET_USERS,
   LOGOUT,
+  UPDATE_CART,
   GOOGLE_AUTH,
   DELETE_USER,
+  DELETE_ITEM_CART
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -87,6 +89,10 @@ export function getMangaByTitle(name) {
     }
   };
 }
+
+export const updateCart = (cart) => (dispatch) => {
+  return dispatch({ type: UPDATE_CART, payload: cart });
+};
 
 export function getGenres() {
   return async function (dispatch) {
@@ -218,6 +224,10 @@ export const setCategory = (state) => (dispatch) => {
 };
 
 // CART actions
+
+export const deleteItemCart = (id) => (dispatch) => {
+  return dispatch({ type: DELETE_ITEM_CART, payload: id})
+}
 
 export const setCartItems = (item) => (dispatch) => {
   return dispatch({ type: SET_CART_ITEMS, payload: item });
