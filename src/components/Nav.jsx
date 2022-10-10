@@ -34,7 +34,6 @@ const Nav = () => {
   // });
 
   useEffect(() => {
-    // localStorage.clear()
     if (lsCart) {
       dispatch(updateCart(JSON.parse(lsCart)));
     }
@@ -108,11 +107,7 @@ const Nav = () => {
             <button
               onClick={changeCategory}
               name="anime"
-              style={
-                animeClicked
-                  ? { color: "#fdfdfd"}
-                  : { color: "#7688E5"}
-              }
+              style={animeClicked ? { color: "#fdfdfd" } : { color: "#7688E5" }}
               className="link"
             >
               ANIME
@@ -126,11 +121,7 @@ const Nav = () => {
             <button
               onClick={changeCategory}
               name="manga"
-              style={
-                mangaClicked
-                  ? { color: "#fdfdfd"}
-                  : { color: "#7688E5"}
-              }
+              style={mangaClicked ? { color: "#fdfdfd" } : { color: "#7688E5" }}
               className="link"
             >
               MANGAS
@@ -152,7 +143,7 @@ const Nav = () => {
         </button> */}
 
         {/* ***********Link to admin page******** */}
-        {user ? (
+        {/* {user ? (
           user.isAdmin ? (
             <Link to="admin">
               <button className="profileBtn">
@@ -160,7 +151,7 @@ const Nav = () => {
               </button>
             </Link>
           ) : null
-        ) : null}
+        ) : null} */}
 
         <SearchBar />
         <Link className="link2" to={`/${category.type}s`}>
@@ -226,15 +217,20 @@ const Nav = () => {
             <Link className="link" to="/profile">
               PROFILE
             </Link>
-            <Link className="link" to="/signup">
+            <Link className="link" to="/favorites">
               FAVORITES
             </Link>
+            {user.isAdmin ? (
+            <Link style={{color: "red"}} className="link" to="admin">
+                ADMIN
+            </Link>
+            ) : null}
             <Link
               className="link"
               onClick={() => {
-                setShowSlide(false);
+                dispatch(logOut());
               }}
-              to="/login2"
+              to="/login"
             >
               LOG OUT
             </Link>
