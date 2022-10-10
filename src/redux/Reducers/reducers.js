@@ -23,6 +23,7 @@ import {
   GET_USERS,
   LOGOUT,
   GOOGLE_AUTH,
+  DELETE_USER,
 } from "../Constants/animes";
 
 const initialState = {
@@ -149,8 +150,8 @@ const rootReducer = (state = initialState, action) => {
     case GOOGLE_AUTH:
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     case IS_ACTIVE:
       return {
         ...state,
@@ -250,6 +251,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         details: action.payload,
+      };
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter((user) => user.email !== action.payload),
       };
     default:
       return state;
