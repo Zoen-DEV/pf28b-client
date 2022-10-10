@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
-import jwt_decode from "jwt-decode";
+// import axios from "axios";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { googleAuth, validateUser } from "../redux/Actions/actions";
+// import jwt_decode from "jwt-decode";
 import Profile from "./Profile";
 import s from "./styles/Login2.module.css";
 
@@ -11,7 +11,7 @@ function Login2() {
   // const [usuario, setUsuario] = useState(null);
   // const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [datos, setDatos] = useState({
     email: "",
     password: "",

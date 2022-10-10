@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import CartCard from "./CartCard";
 import Loader from "./Loader";
@@ -60,7 +60,7 @@ const Cart = () => {
           {cartItems.forEach(item=>{
             total += item.totalPrice
           })}
-          ${total}
+          ${total.toString().substring(0, 5)}
         </p>
       <button>Checkout</button>
       </div>

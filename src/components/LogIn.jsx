@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, validateUser } from "../redux/Actions/actions";
+import { validateUser } from "../redux/Actions/actions";
 
 function LogIn() {
   const navigate = useNavigate();

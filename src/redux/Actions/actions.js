@@ -12,7 +12,7 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
-  GET_USER_BY_ID,
+  // GET_USER_BY_ID,
   SET_CATEGORY,
   GET_ANIME_DETAILS,
   GET_TOP_ANIMES,
@@ -29,7 +29,8 @@ import {
   UPDATE_CART,
   GOOGLE_AUTH,
   DELETE_USER,
-  DELETE_ITEM_CART
+  DELETE_ITEM_CART,
+  RELOAD_FILTERS
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -77,18 +78,22 @@ export const topMangas = () => async (dispatch) => {
 export function getMangaByTitle(name) {
   return async function (dispatch) {
     try {
-      let manga = await axios.get(
-        `http://localhost:3000/manga/searchmanga?name=${name}`
-      );
+      // let manga = await axios.get(
+      //   `http://localhost:3000/manga/searchmanga?name=${name}`
+      // );
       dispatch({
         type: GET_MANGA_NAME,
-        payload: manga.data,
+        payload: name,
       });
     } catch (error) {
       console.log(error);
     }
   };
 }
+
+export const reloadFilters = () => (dispatch) => {
+  return dispatch({ type: RELOAD_FILTERS });
+};
 
 export const updateCart = (cart) => (dispatch) => {
   return dispatch({ type: UPDATE_CART, payload: cart });
@@ -141,12 +146,12 @@ export const getAnimesGenres = () => (dispatch) => {
 export function getAnimeByTitle(name) {
   return async function (dispatch) {
     try {
-      let animes = await axios.get(
-        `http://localhost:3000/animes/name?name=${name}`
-      );
+      // let animes = await axios.get(
+      //   `http://localhost:3000/animes/name?name=${name}`
+      // );
       dispatch({
         type: GET_ANIME_NAME,
-        payload: animes.data,
+        payload: name,
       });
     } catch (error) {
       console.log(error);
@@ -226,8 +231,8 @@ export const setCategory = (state) => (dispatch) => {
 // CART actions
 
 export const deleteItemCart = (id) => (dispatch) => {
-  return dispatch({ type: DELETE_ITEM_CART, payload: id})
-}
+  return dispatch({ type: DELETE_ITEM_CART, payload: id });
+};
 
 export const setCartItems = (item) => (dispatch) => {
   return dispatch({ type: SET_CART_ITEMS, payload: item });

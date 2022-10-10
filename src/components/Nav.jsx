@@ -21,7 +21,7 @@ const Nav = () => {
   const user = JSON.parse(userSaved);
   const category = useSelector((state) => state.category);
   const cart = useSelector((state) => state.cart);
-  const isLogin = useSelector((state) => state.isLogin);
+  // const isLogin = useSelector((state) => state.isLogin);
   const [animeClicked, setAnimeCLicked] = useState(false);
   const [mangaClicked, setMangaCLicked] = useState(false);
   const [showSlide, setShowSlide] = useState(false);

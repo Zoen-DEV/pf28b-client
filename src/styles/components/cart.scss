@@ -81,7 +81,7 @@
         .btns_container {
           @include flex(row, flex-end, center);
           align-self: flex-end;
-          width: 100%;
+          width: 20%;
           padding: 10px 20px;
           button {
             border: none;
@@ -105,6 +105,7 @@
         .cart_card_info {
           @include flex(column, space-between, flex-start);
           height: 250px;
+          width: 100%;
         }
       }
     }
