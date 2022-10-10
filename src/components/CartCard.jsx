@@ -5,8 +5,11 @@ import { deleteItemCart } from "../redux/Actions/actions";
 
 const CartCard = ({ title, price, id, image, amount, cartId }) => {
   // const [count, setCount] = useState(1);
+  let dots = ''
   const dispatch = useDispatch()
-
+  if(title.length>15){
+    dots = '...'
+  }
   const deleteItemFromCart = (e, id) => {
     Swal.fire({
       title: 'Are you sure you want to delete this item?',
@@ -24,7 +27,7 @@ const CartCard = ({ title, price, id, image, amount, cartId }) => {
     <div className="cart_card_container">
       <img src={image} alt={id} />
       <div className="cart_card_info">
-        <h1>{title}</h1>
+        <h1>{title.substring(0, 15)}{dots}</h1>
         <p>
           <span>Price by unit: </span>
           {price}

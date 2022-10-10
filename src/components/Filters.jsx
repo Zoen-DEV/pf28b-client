@@ -4,12 +4,13 @@ import {
   getAnimesGenres,
   getGenres,
   getMangas,
+  reloadFilters,
 } from "../redux/Actions/actions";
 // import Autocomplete from "@mui/material/Autocomplete";
 // import TextField from "@mui/material/TextField";
 // import Loader from "./Loader";
 
-const Filters = ({ byTitle, byGenre, byChapters }) => {
+const Filters = ({ byTitle, byGenre, byChapters, product }) => {
   const dispatch = useDispatch();
   const select1Ref = useRef();
   const select2Ref = useRef();
@@ -25,7 +26,6 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
 
   function handleClick(e) {
     e.preventDefault();
-    dispatch(getMangas());
     select1Ref.current.value = "alpha";
     select2Ref.current.value = "order";
     select3Ref.current.value = "All";
@@ -34,12 +34,15 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
   return category.id === 1 ? (
     <div className="filters_container">
       <div className="filters_title_container">
-        <h2><i className="bi bi-sliders"></i> FILTERS</h2>
-        {filterOn ? (
+        <h2>
+          <i className="bi bi-sliders"></i> FILTERS
+        </h2>
+        {filterOn || product.length < 100 ? (
           <button
             className="btnreload bi bi-arrow-clockwise"
             onClick={(e) => {
-              handleClick(e);
+              dispatch(reloadFilters());
+              handleClick(e)
             }}
           ></button>
         ) : (
@@ -146,7 +149,9 @@ const Filters = ({ byTitle, byGenre, byChapters }) => {
     // ACA ESTA EL CENTRO ///////////////////////////////////////////
     <div className="filters_container">
       <div className="filters_title_container">
-        <h2><i className="bi bi-sliders"></i> FILTERS</h2>
+        <h2>
+          <i className="bi bi-sliders"></i> FILTERS
+        </h2>
         {filterOn ? (
           <button
             className="btnreload bi bi-arrow-clockwise"

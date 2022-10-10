@@ -60,7 +60,7 @@ const Cart = () => {
           {cartItems.forEach(item=>{
             total += item.totalPrice
           })}
-          ${total}
+          ${total.toString().substring(0, 5)}
         </p>
       <button>Checkout</button>
       </div>
