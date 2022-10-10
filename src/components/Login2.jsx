@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
 import jwt_decode from "jwt-decode";
 import Profile from "./Profile";
+import s from "./styles/Login2.module.css";
 
 function Login2() {
   // const [usuario, setUsuario] = useState(null);
@@ -66,119 +68,63 @@ function Login2() {
   return !userActive ? (
     <section className="h-100">
       {/* the div with id=signInDiv below renders the google login on the screen (don't touch)*/}
-      <div id="signInDiv"></div>
+      <div id="signInDiv" className={s.googleBtn}></div>
 
-      <div className="container h-100">
-        <div className="row justify-content-sm-center h-100">
-          <div className="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-            <div className="card shadow-lg">
-              <div className="card-body p-5">
-                <h1 className="fs-4 card-title fw-bold mb-4">Login</h1>
-                <form
-                  onSubmit={handleSubmit}
-                  className="needs-validation"
-                  noValidate={true}
-                  autoComplete="off"
-                >
-                  <div className="mb-3">
-                    <label className="mb-2 text-muted" htmlFor="email">
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      onChange={handleInputChange}
-                      value={datos.email}
-                      className="form-control"
-                      name="email"
-                      required
-                      autoFocus
-                      autoComplete="true"
-                    />
-                    <div className="invalid-feedback">Usuario inválido</div>
-                  </div>
-                  <div className="mb-3">
-                    <div className="mb-2 w-100">
-                      <label className="text-muted" htmlFor="password">
-                        Contraseña
-                      </label>
-                      <a href="/signup" className="float-end">
-                        ¿Olvidaste tu contraseña?
-                      </a>
-                    </div>
-                    <input
-                      id="password"
-                      type="password"
-                      onChange={handleInputChange}
-                      value={datos.password}
-                      className="form-control"
-                      name="password"
-                      required
-                    />
-                    <div className="invalid-feedback">
-                      Contraseña es requirida
-                    </div>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <div className="form-check">
-                      <input
-                        id="email"
-                        type="text"
-                        onChange={handleInputChange}
-                        value={datos.email}
-                        className="form-control"
-                        name="email"
-                        required
-                        autoFocus
-                      />
-                      <div className="invalid-feedback">Usuario inválido</div>
-                    </div>
-                    <div className="mb-3">
-                      <div className="mb-2 w-100">
-                        <label className="text-muted" htmlFor="password">
-                          Contraseña
-                        </label>
-                        <a href="/" className="float-end">
-                          ¿Olvidaste tu contraseña?
-                        </a>
-                      </div>
-                      <input
-                        id="password"
-                        type="password"
-                        onChange={handleInputChange}
-                        value={datos.password}
-                        className="form-control"
-                        name="password"
-                        required
-                      />
-                      <div className="invalid-feedback">
-                        Contraseña es requirida
-                      </div>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <div className="form-check">
-                        <input
-                          type="checkbox"
-                          name="remember"
-                          id="remember"
-                          className="form-check-input"
-                        />
-                        <label htmlFor="remember" className="form-check-label">
-                          Recordarme
-                        </label>
-                      </div>
-                      <button type="submit" className="btn btn-primary ms-auto">
-                        <i className="bi bi-box-arrow-in-right"></i> Ingresar
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div className="card-footer py-3 border-0">
-                <div className="text-center">Animmerce &copy; 2022</div>
-              </div>
+      <div className="form_container">
+        <div className="log-in-container">
+          <h1>Welcome back to Animmerce!</h1>
+          <form
+            onSubmit={handleSubmit}
+            className="log-in"
+            noValidate={true}
+            autoComplete="off"
+          >
+            <div>
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                onChange={handleInputChange}
+                value={datos.email}
+                name="email"
+                required
+                autoFocus
+                autoComplete="true"
+              />
+              <div className="invalid-feedback">Usuario inválido</div>
             </div>
+            <div>
+              <div>
+                <label className={s.labelPass} htmlFor="password">
+                  Password
+                </label>
+              </div>
+              <input
+                id="password"
+                type="password"
+                onChange={handleInputChange}
+                value={datos.password}
+                className="form-control"
+                name="password"
+                required
+              />
+              <div className="invalid-feedback">Contraseña es requirida</div>
+            </div>
+
+            <div className="d-flex align-items-center">
+              <button type="submit" className="btn btn-primary ms-auto">
+                <i className="bi bi-box-arrow-in-right"></i> Ingresar
+              </button>
+            </div>
+          </form>
+          <div>
+            <Link to="/signup" className="float-end">
+              <p className={s.labelPass}>don't have an acount yet?</p>
+            </Link>
           </div>
+        </div>
+        <div className="card-footer py-3 border-0">
+          <div className="text-center">Animmerce &copy; 2022</div>
         </div>
       </div>
     </section>

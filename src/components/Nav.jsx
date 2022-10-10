@@ -150,6 +150,18 @@ const Nav = () => {
             <i className="bi bi-moon"></i>
           )}
         </button> */}
+
+        {/* ***********Link to admin page******** */}
+        {user ? (
+          user.isAdmin ? (
+            <Link to="admin">
+              <button className="profileBtn">
+                <ion-icon name="lock-open-outline"></ion-icon>
+              </button>
+            </Link>
+          ) : null
+        ) : null}
+
         <SearchBar />
         <Link className="link2" to={`/${category.type}s`}>
           List of {category.type}s
@@ -165,7 +177,7 @@ const Nav = () => {
           <Link className="cart_link" to="/cart">
             <i className="bi bi-cart"></i>
           </Link>
-        </div>
+        </div>¿
         <button
           onClick={() => {
             if (showSlide) {
@@ -178,7 +190,17 @@ const Nav = () => {
         >
           <i className="bi bi-person-fill"></i>
         </button>
-        {!isLogin ? (
+        {/* {!isLogin 
+         {user ? (
+           user.google ? (
+            <Link to={"login2"}> 
+               <button className="profileBtn">
+                 <i className="bi bi-person-fill"></i>
+               </button> 
+               <input type="image" src={user.image} alt={user.username} width='50px'/>
+
+         *******comprobation to implemeny image of google profile********  */}
+        {user ? (
           <div
             style={showSlide ? { display: "flex" } : { display: "none" }}
             className="links_slide"
@@ -224,28 +246,6 @@ const Nav = () => {
             ></i>
           </div>
         )}
-        {/* {user ? (
-          user.google ? (
-            <Link to={"login2"}> */}
-              {/* <button className="profileBtn">
-                <i className="bi bi-person-fill"></i>
-              </button> */}
-              {/* <input type="image" src={user.image} alt={user.username} width='50px'/>
-            </Link>
-          ) : (
-            <Link to={"login2"}>
-              <button className="profileBtn">
-                <i className="bi bi-person-fill"></i>
-              </button>
-            </Link>
-          )
-        ) : (
-          <Link to={"login2"}>
-            <button className="profileBtn">
-              <i className="bi bi-person-fill"></i>
-            </button>
-          </Link>
-        )} */}
         {/* <Link to={'login2'}>
         <button className="profileBtn">
           <i className="bi bi-person-fill"></i>
