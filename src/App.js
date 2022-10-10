@@ -11,7 +11,7 @@ import Landing from "./components/Landing";
 import Animes from "./components/Animes";
 import Cart from "./components/Cart"
 import Login2 from "./components/Login2";
-import ShowUsers from "./components/ShowUsers";
+import Admin from "./components/Admin";
 
 function App() {
   return (
@@ -24,11 +24,12 @@ function App() {
         <Route path="/animes" element={<Animes></Animes>} />
         <Route path="/details/:id" element={<Details></Details>} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<LogIn />} />
+        {/* <Route path="/login" element={<LogIn />} /> */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/login2" element={<Login2 />} />
-        <Route path="/users" element={<ShowUsers />} />
+        <Route path="/login" element={<Login2 />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
       <Footer></Footer>
     </div>

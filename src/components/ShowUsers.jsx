@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../redux/Actions/actions";
-import s from "./ShowUsers.module.css";
+import s from "./styles/ShowUsers.module.css";
 
 const ShowUsers = () => {
   const dispatch = useDispatch();

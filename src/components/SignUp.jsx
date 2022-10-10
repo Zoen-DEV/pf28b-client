@@ -45,7 +45,7 @@ function SignUp() {
       if (
         err.username === "" &&
         err.password === "" &&
-        err.email === "" 
+        err.email === ""
         // && err.date === ""
       ) {
         setSubmit(false);
@@ -63,10 +63,11 @@ function SignUp() {
           pass: input.password,
           email: input.email,
         });
-        navigate("/login2");
-        Swal.fire(resp.data.msg + 'Now you can start session')
+        navigate("/login");
+        Swal.fire(resp.data.msg + "Now you can start session");
       } catch (error) {
-        Swal.fire(error.response.data)
+        console.log({ error });
+        Swal.fire(error.response.data.error);
       }
     }, 1000);
   }
@@ -182,7 +183,7 @@ function SignUp() {
             onChange={onChange}
           />
         </div> */}
-        <Link to="/login2">Do you already have an account?</Link>
+        <Link to="/login">Do you already have an account?</Link>
         <button
           type="submit"
           disabled={submit}

@@ -27,6 +27,7 @@ import {
   GET_USERS,
   LOGOUT,
   GOOGLE_AUTH,
+  DELETE_USER,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -195,23 +196,22 @@ export function orderAnimeByChapters(payload) {
 
 // export function getUsers(email) {
 //   const url = `http://localhost:3000/users/${email}`;
-  // var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
-  // export function getUsers(email) {
-  //   const url = `http://localhost:3000/login/${email}`;
-  //   return async function (dispatch) {
-  //     try {
-  //       const resp = await axios.get(url);
-  //       // console.log({ resp });
-  //       dispatch({
-  //         type: GET_USER_BY_ID,
-  //         payload: resp.data,
-  //       });
-  //     } catch (error) {
-  //       alert(error);
-  //     }
-  //   };
+// var id = "86359f78-9835-474b-8e98-dd0eb7be0c32"
+// export function getUsers(email) {
+//   const url = `http://localhost:3000/login/${email}`;
+//   return async function (dispatch) {
+//     try {
+//       const resp = await axios.get(url);
+//       // console.log({ resp });
+//       dispatch({
+//         type: GET_USER_BY_ID,
+//         payload: resp.data,
+//       });
+//     } catch (error) {
+//       alert(error);
+//     }
+//   };
 // }
-
 
 export const setCategory = (state) => (dispatch) => {
   return dispatch({ type: SET_CATEGORY, payload: state });
@@ -258,7 +258,7 @@ export function validateUser(obj) {
           popup: "animate__animated animate__fadeOutUp",
         },
       });
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       // console.log(error);
       Swal.fire({
@@ -270,18 +270,20 @@ export function validateUser(obj) {
   };
 }
 
-export function googleAuth(tokenGoogle){
-  return async function(dispatch){
+export function googleAuth(tokenGoogle) {
+  return async function (dispatch) {
     try {
-      const resp = await axios.post('http://localhost:3000/login/auth/google', {id_token: tokenGoogle})
-      const {msg, user, token} = resp.data
+      const resp = await axios.post("http://localhost:3000/login/auth/google", {
+        id_token: tokenGoogle,
+      });
+      const { msg, user, token } = resp.data;
       // console.log(msg, user, token);
-      localStorage.setItem('token', token)
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       dispatch({
         type: GOOGLE_AUTH,
-        payload: user
-      })
+        payload: user,
+      });
       dispatch({ type: IS_ACTIVE, payload: true });
       Swal.fire({
         title: msg,
@@ -292,21 +294,47 @@ export function googleAuth(tokenGoogle){
           popup: "animate__animated animate__fadeOutUp",
         },
       });
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: error.response.data.msg,
-      })
+      });
     }
-  }
+  };
+}
+
+export function deleteUser(email) {
+  return async function (dispatch) {
+    const url = `http://localhost:3000/login/${email}`;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        axios.delete(url);
+        dispatch({
+          type: DELETE_USER,
+          payload: email,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Delete canceled!!");
+      }
+    });
+  };
 }
 
 export function logOut() {
   return function (dispatch) {
     dispatch({ type: LOGOUT, payload: {} });
     localStorage.removeItem("token");
-    localStorage.removeItem('user')
+    localStorage.removeItem("user");
   };
 }
