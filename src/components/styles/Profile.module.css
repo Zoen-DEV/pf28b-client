@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+.card {
+  border: solid black 2px;
+  border-radius: 15px;
+  background-color: #636597;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  margin-top: 20px;
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.image {
+  height: 150px;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.name {
+  text-transform: capitalize;
+}
+
+.btnLogout {
+  border: 0;
+  border-radius: 8px;
+  background-color: #aa3282;
+  color: #fff;
+  width: 100px;
+  letter-spacing: 2px;
+  font-size: 18px;
+  position: absolute;
+  right: 0;
+}
+
+.data {
+  display: flex;
+}
