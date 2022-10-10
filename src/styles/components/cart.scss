@@ -2,6 +2,7 @@
   @include flex(row, space-between, flex-start);
   padding: 100px 10vw;
   width: 90vw;
+  min-height: 80vh;
   margin: auto;
   .summary_cart {
     @include flex(column, flex-start, flex-start);
@@ -25,9 +26,9 @@
         p {
           @include flex(row, space-between, center);
           letter-spacing: 1.5px;
-            color: $color-orange;
+          color: $color-orange;
           span {
-          color: $color-cream;
+            color: $color-cream;
           }
         }
       }
@@ -35,15 +36,15 @@
     p {
       align-self: flex-end;
       font-weight: 700;
-        color: $color-cream;
+      color: $color-cream;
       margin-right: 30px;
       font-size: 25px;
       text-shadow: 1px 1px 2px $color-shadow;
-      span{
-      color: $color-orange;
+      span {
+        color: $color-orange;
       }
     }
-    button{
+    button {
       width: 100%;
       border: none;
       outline: none;
@@ -55,7 +56,7 @@
       transition: 0.3s;
       text-shadow: 1px 1px 2px $color-shadow;
     }
-    button:hover{
+    button:hover {
       color: $color-white;
       background: linear-gradient(20deg, $color-orange, $color-fuxia);
       transform: translate(0px, 3px);
@@ -77,6 +78,25 @@
         width: 40vw;
         height: 250px;
         gap: 10px;
+        .btns_container {
+          @include flex(row, flex-end, center);
+          align-self: flex-end;
+          width: 100%;
+          padding: 10px 20px;
+          button {
+            border: none;
+            outline: none;
+            background: none;
+            border-radius: 100%;
+            color: red;
+            font-size: 20px;
+            transition: 0.3s;
+            text-shadow: 1px 1px 2px $color-black2;
+          }
+          button:hover {
+            transform: scale(1.2);
+          }
+        }
         img {
           width: 180px;
           height: 250px;

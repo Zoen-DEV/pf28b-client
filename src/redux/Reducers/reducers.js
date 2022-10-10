@@ -25,6 +25,7 @@ import {
   UPDATE_CART,
   GOOGLE_AUTH,
   DELETE_USER,
+  DELETE_ITEM_CART,
 } from "../Constants/animes";
 
 const initialState = {
@@ -43,7 +44,7 @@ const initialState = {
   user: {},
   users: [],
   authenticated: false,
-  isLogin: false
+  isLogin: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -141,7 +142,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
-        isLogin: true
+        isLogin: true,
       };
     case GOOGLE_AUTH:
       return {
@@ -162,7 +163,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
-        isLogin: false
+        isLogin: false,
       };
     case SET_CATEGORY:
       return {
@@ -214,7 +215,7 @@ const rootReducer = (state = initialState, action) => {
           JSON.stringify([...JSON.parse(lsCart), action.payload])
         );
       } else {
-        localStorage.setItem('cart', JSON.stringify([action.payload]))
+        localStorage.setItem("cart", JSON.stringify([action.payload]));
       }
       return {
         ...state,
@@ -268,6 +269,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         users: state.users.filter((user) => user.email !== action.payload),
+      };
+    case DELETE_ITEM_CART:
+      const newCart = state.cart.filter((item) => item.id !== action.payload);
+      localStorage.setItem('cart', JSON.stringify(newCart))
+      return {
+        ...state,
+        cart: [...newCart],
       };
     default:
       return state;

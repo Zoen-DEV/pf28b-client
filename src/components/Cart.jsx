@@ -24,6 +24,7 @@ const Cart = () => {
                     producers={item.product.producers}
                     price={item.product.price}
                     id={item.product.id}
+                    cartId={item.id}
                     amount={item.amount}
                   />
                 </li>

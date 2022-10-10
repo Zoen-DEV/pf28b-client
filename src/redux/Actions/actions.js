@@ -29,6 +29,7 @@ import {
   UPDATE_CART,
   GOOGLE_AUTH,
   DELETE_USER,
+  DELETE_ITEM_CART
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -223,6 +224,10 @@ export const setCategory = (state) => (dispatch) => {
 };
 
 // CART actions
+
+export const deleteItemCart = (id) => (dispatch) => {
+  return dispatch({ type: DELETE_ITEM_CART, payload: id})
+}
 
 export const setCartItems = (item) => (dispatch) => {
   return dispatch({ type: SET_CART_ITEMS, payload: item });

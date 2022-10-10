@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from 'uuid';
 import {
   deleteDetails,
   getAnimesDetails,
@@ -16,7 +17,8 @@ const Details = () => {
   const id = useParams().id;
   const [count, setCount] = useState(1);
   const lsCategory = localStorage.getItem("category");
-
+  const randomId = uuidv4()
+  
   useEffect(() => {
     if (JSON.parse(lsCategory).id === 1) {
       dispatch(getAnimesDetails(id));
@@ -28,7 +30,7 @@ const Details = () => {
     };
   }, [dispatch, id, lsCategory]);
   const toCart = (e) => {
-    dispatch(setCartItems({ product: details, amount: count, totalPrice: details.price * count }));
+    dispatch(setCartItems({ id: randomId, product: details, amount: count, totalPrice: details.price * count }));
     Swal.fire(
       `${count} product has been added to the cart`,
       `${details.title}`,
