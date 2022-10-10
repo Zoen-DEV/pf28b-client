@@ -155,7 +155,6 @@ const Nav = () => {
           ) : null
         ) : null}
 
-
         <SearchBar />
         <Link className="link2" to={`/${category.type}s`}>
           List of {category.type}s
@@ -176,7 +175,7 @@ const Nav = () => {
         {/* *******comprobation to implemeny image of google profile******** */}
         {user ? (
           user.google ? (
-            <Link to={"login2"}>
+            <Link to={"login"}>
               {/* <button className="profileBtn">
                 <i className="bi bi-person-fill"></i>
               </button> */}
@@ -188,14 +187,14 @@ const Nav = () => {
               />
             </Link>
           ) : (
-            <Link to={"login2"}>
+            <Link to={"login"}>
               <button className="profileBtn">
                 <i className="bi bi-person-fill"></i>
               </button>
             </Link>
           )
         ) : (
-          <Link to={"login2"}>
+          <Link to={"login"}>
             <button className="profileBtn">
               <i className="bi bi-person-fill"></i>
             </button>
