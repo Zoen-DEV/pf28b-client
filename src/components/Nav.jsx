@@ -147,7 +147,7 @@ const Nav = () => {
         {/* ***********Link to admin page******** */}
         {user ? (
           user.isAdmin ? (
-            <Link>
+            <Link to="admin">
               <button className="profileBtn">
                 <ion-icon name="lock-open-outline"></ion-icon>
               </button>
