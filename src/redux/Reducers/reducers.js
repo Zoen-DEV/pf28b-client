@@ -258,8 +258,8 @@ const rootReducer = (state = initialState, action) => {
     case ORDER_ANIME_BY_CHAPTERS:
       let animesByChapters =
         action.payload === "chapters asc"
-          ? state.animes.sort((a, b) => a.chapters - b.chapters)
-          : state.animes.sort((a, b) => b.chapters - a.chapters);
+          ? state.animes.sort((a, b) => a.rating - b.rating)
+          : state.animes.sort((a, b) => b.rating - a.rating);
       return {
         ...state,
         animes: [...animesByChapters],

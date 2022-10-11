@@ -1,10 +1,11 @@
 .all_products {
-    @include flex(column, normal, normal);
-    h1{
-        align-self: center
-    }
+  @include flex(column, normal, normal);
+  h1 {
+    align-self: center;
+  }
   .mangas_container {
     @include flex(row, space-between, flex-start);
     padding-top: 100px;
+    min-height: 100vh;
   }
 }
