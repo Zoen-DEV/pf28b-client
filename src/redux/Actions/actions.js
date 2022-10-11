@@ -12,7 +12,7 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
-  GET_USER_BY_ID,
+  // GET_USER_BY_ID,
   SET_CATEGORY,
   GET_ANIME_DETAILS,
   GET_TOP_ANIMES,
@@ -26,6 +26,11 @@ import {
   IS_ACTIVE,
   GET_USERS,
   LOGOUT,
+  UPDATE_CART,
+  GOOGLE_AUTH,
+  DELETE_USER,
+  DELETE_ITEM_CART,
+  RELOAD_FILTERS,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -73,16 +78,26 @@ export const topMangas = () => async (dispatch) => {
 export function getMangaByTitle(name) {
   return async function (dispatch) {
     try {
-      let manga = await axios.get(`http://localhost:3000/manga/searchmanga?name=${name}`);
+      // let manga = await axios.get(
+      //   `http://localhost:3000/manga/searchmanga?name=${name}`
+      // );
       dispatch({
         type: GET_MANGA_NAME,
-        payload: manga.data,
+        payload: name,
       });
     } catch (error) {
       console.log(error);
     }
   };
 }
+
+export const reloadFilters = () => (dispatch) => {
+  return dispatch({ type: RELOAD_FILTERS });
+};
+
+export const updateCart = (cart) => (dispatch) => {
+  return dispatch({ type: UPDATE_CART, payload: cart });
+};
 
 export function getGenres() {
   return async function (dispatch) {
@@ -131,10 +146,12 @@ export const getAnimesGenres = () => (dispatch) => {
 export function getAnimeByTitle(name) {
   return async function (dispatch) {
     try {
-      let animes = await axios.get(`http://localhost:3000/animes/name?name=${name}`);
+      // let animes = await axios.get(
+      //   `http://localhost:3000/animes/name?name=${name}`
+      // );
       dispatch({
         type: GET_ANIME_NAME,
-        payload: animes.data,
+        payload: name,
       });
     } catch (error) {
       console.log(error);
@@ -207,47 +224,15 @@ export function orderAnimeByChapters(payload) {
 //   };
 // }
 
-export function validateUser(obj) {
-  // const url = "http://localhost:3000/login/auth";
-  return async function (dispatch) {
-    try {
-      // const resp = await axios.post(url, obj);
-      const resp = await animerceApp.post("/auth", obj);
-      const { msg, user, token } = resp.data;
-      console.log(msg, user, token);
-      localStorage.setItem("token", token);
-      localStorage.setItem("token-init-date", new Date().getTime());
-      localStorage.setItem("user", JSON.stringify(user));
-      const us = localStorage.getItem("user");
-      dispatch({ type: VALIDATE_USER, payload: JSON.parse(us) });
-      dispatch({ type: IS_ACTIVE, payload: true });
-      Swal.fire({
-        title: msg,
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      });
-    } catch (error) {
-      console.log(error.response.data.error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.response.data.error,
-        // footer: '<a href="">Why do I have this issue?</a>'
-      });
-      // Swal.fire(error.response.data.error);
-    }
-  };
-}
-
 export const setCategory = (state) => (dispatch) => {
   return dispatch({ type: SET_CATEGORY, payload: state });
 };
 
 // CART actions
+
+export const deleteItemCart = (id) => (dispatch) => {
+  return dispatch({ type: DELETE_ITEM_CART, payload: id });
+};
 
 export const setCartItems = (item) => (dispatch) => {
   return dispatch({ type: SET_CART_ITEMS, payload: item });
@@ -264,9 +249,100 @@ export function getUsers() {
         icon: "error",
         title: "Oops...",
         text: error.response.data.msg,
-        // footer: '<a href="">Why do I have this issue?</a>'
       });
     }
+  };
+}
+
+export function validateUser(obj) {
+  return async function (dispatch) {
+    try {
+      const resp = await animerceApp.post("/auth", obj);
+      const { msg, user, token } = resp.data;
+      // console.log(msg, user, token);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      dispatch({ type: VALIDATE_USER, payload: user });
+      dispatch({ type: IS_ACTIVE, payload: true });
+      Swal.fire({
+        title: msg,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      // console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data,
+      });
+    }
+  };
+}
+
+export function googleAuth(tokenGoogle) {
+  return async function (dispatch) {
+    try {
+      const resp = await axios.post("http://localhost:3000/login/auth/google", {
+        id_token: tokenGoogle,
+      });
+      const { msg, user, token } = resp.data;
+      // console.log(msg, user, token);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      dispatch({
+        type: GOOGLE_AUTH,
+        payload: user,
+      });
+      dispatch({ type: IS_ACTIVE, payload: true });
+      Swal.fire({
+        title: msg,
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.msg,
+      });
+    }
+  };
+}
+
+export function deleteUser(email) {
+  return async function (dispatch) {
+    const url = `http://localhost:3000/login/${email}`;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        axios.delete(url);
+        dispatch({
+          type: DELETE_USER,
+          payload: email,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Delete canceled!!");
+      }
+    });
   };
 }
 
@@ -274,6 +350,7 @@ export function logOut() {
   return function (dispatch) {
     dispatch({ type: LOGOUT, payload: {} });
     localStorage.removeItem("token");
-    localStorage.removeItem("token-init-date");
+    localStorage.removeItem("user");
+    window.location.reload();
   };
 }

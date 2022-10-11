@@ -1,0 +1,13 @@
+.login2_container{
+    min-height: 80vh;
+    padding: 80px;
+    #signInDiv{
+        @include flex(row, center, center);
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid $color-orange;
+    }
+    .form_container{
+        background: linear-gradient(45deg, $color-cian3, $color-cian2);
+    }
+}

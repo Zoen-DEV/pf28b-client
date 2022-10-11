@@ -6,6 +6,7 @@ import axios from "axios";
 import validate from "./validate";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
+import Swal from "sweetalert2";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -46,7 +47,12 @@ function SignUp() {
         ...state,
         [e.target.name]: validate(e.target.name, e.target.value, input.password),
       };
-      if (err.username === "" && err.password === "" && err.cpassword === "" && err.email === "" && err.tel === "") {
+      if (
+        err.username === "" &&
+        err.password === "" &&
+        err.email === ""
+        // && err.date === ""
+      ) {
         setSubmit(false);
       } else setSubmit(true);
       return err;
@@ -58,17 +64,16 @@ function SignUp() {
     setClickbtn("click");
     setTimeout(async () => {
       try {
-        await axios.post("http://localhost:3000/login", {
+        const resp = await axios.post("http://localhost:3000/login", {
           username: input.username,
           pass: input.password,
           email: input.email,
-          cellphone: input.tel,
         });
-        alert("Account created succesfully");
-        setTimeout(() => navigate("/"), 1000);
+        navigate("/login");
+        Swal.fire(`${resp.data.msg}. Now you can start session`);
       } catch (error) {
-        alert("Something went wrong, please try again later.");
-        setClickbtn("");
+        console.log(error);
+        Swal.fire(error.response.data.error);
       }
     }, 1000);
   }
@@ -148,21 +153,26 @@ function SignUp() {
             onClick={() => setCpassword(cpassword === "password" ? "text" : "password")}
           />
         </div>
-        <div>
-          <label htmlFor="tel" className={error.tel ? "label-error" : ""}>
-            Phone Number:
-          </label>
-          <PhoneInput
-            id="tel"
-            value={input.tel || ""}
+        {/* <div>
+          <label htmlFor="date">Date of birth:</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            value={input.date || ""}
             onChange={onChange}
             defaultCountry="US"
             international
             countryCallingCodeEditable={false}
           />
-          {!error.tel ? <div>&nbsp;</div> : <div className="validate">{error.tel}</div>}
-        </div>
-        <button type="submit" disabled={submit} className={clickbtn} onClick={() => setClickbtn("click")}>
+        </div> */}
+        <Link to="/login">Do you already have an account?</Link>
+        <button
+          type="submit"
+          disabled={submit}
+          className={clickbtn}
+          onClick={() => setClickbtn("click")}
+        >
           Sign Up
         </button>
         <div className="terms">By continuing, you accept our standard terms and conditions and our privacy policy.</div>

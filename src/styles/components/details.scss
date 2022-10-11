@@ -1,28 +1,48 @@
 .details_component {
+  @include flex(column, center, center);
   min-height: 100vh;
   padding: 100px 200px;
-  h1{
+  .description_container{
+      margin-top: 10vh;
+      p{
+        width: 60vw;
+        padding: 50px;
+        background: linear-gradient(to bottom, transparent 10%, $color-shadow2);
+        border-radius: 0 0 5px 5px;
+        color: $color-white;
+        span{
+          border-left: 2px solid $color-orange;
+          color: $color-black2;
+          padding-left: 5px;
+          font-weight: 700;
+        }
+      }
+  }
+  h1 {
     font-size: 40px;
     color: $color-orange;
-    text-align: center
+    text-align: center;
   }
   .details_container {
     @include flex(row, space-evenly, flex-start);
     gap: 100px;
     background: linear-gradient(to right, $color-black2, $color-shadow2);
     padding-right: 60px;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px;
     box-shadow: -15px 0 10px -10px $color-shadow2;
+    height: 80vh;
     img {
       height: 80vh;
       border-radius: 5px 0 0 5px;
     }
     .detail_content {
       @include flex(column, space-between, flex-start);
-      padding-top: 50px;
-      height: 70%;
+      padding: 50px 0;
+      height: 100%;
       .title_container {
+        @include flex(column, normal, normal);
         text-shadow: 1px 1px 2px $color-shadow;
+        gap: 20px;
         h1 {
           @include flex(row, normal, center);
           gap: 20px;
@@ -43,64 +63,78 @@
           }
         }
       }
-      .btns_container {
-        @include flex(row, center, center);
-        gap: 20px;
+      .details_functions {
+        @include flex(column, space-between, flex-end);
         align-self: flex-end;
-        .fav {
-          background: none;
-          border: none;
-          outline: none;
-          cursor: pointer;
-          text-align: justify;
-          font-size: 30px;
-          color: $color-orange;
-          text-shadow: 1px 1px 5px $color-shadow;
-          transition: 0.3s;
-        }
-        .fav:hover {
-          transform: scale(1.2);
-          text-shadow: 0 0 5px $color-shadow;
-        }
-        .fav:active {
-          position: relative;
-          top: 1.5px;
-        }
-        .add {
-          background: linear-gradient(45deg, $color-orange, $color-fuxia);
-          border: none;
-          padding: 10px;
+        p{
+          font-weight: 700;
+          font-size: 25px;
           color: $color-white;
-          border-radius: 5px;
-          font-size: 20px;
-          cursor: pointer;
-          transition: 0.5s;
-          box-shadow: 1px 1px 5px 2px $color-shadow3;
+          letter-spacing: 1px;
+          span{
+            font-size: 20px;
+            font-weight: 400;
+          }
         }
-        .add:hover {
-          transform: scale(1.02);
-          background: linear-gradient(90deg, $color-orange, $color-fuxia);
+        .btns_container {
+          @include flex(row, center, center);
+          gap: 20px;
+          align-self: flex-end;
+          .fav {
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            text-align: justify;
+            font-size: 30px;
+            color: $color-orange;
+            text-shadow: 1px 1px 5px $color-shadow;
+            transition: 0.3s;
+          }
+          .fav:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 5px $color-shadow;
+          }
+          .fav:active {
+            position: relative;
+            top: 1.5px;
+          }
+          .add {
+            background: linear-gradient(45deg, $color-orange, $color-fuxia);
+            border: none;
+            padding: 10px;
+            color: $color-white;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.5s;
+            box-shadow: 1px 1px 5px 2px $color-shadow3;
+          }
+          .add:hover {
+            transform: scale(1.02);
+            background: linear-gradient(90deg, $color-orange, $color-fuxia);
+          }
         }
       }
     }
   }
-  .chapters_container {
-    width: 70vw;
-    margin: 100px auto;
-    .chapters_titles {
-      border-left: 3px solid $color-orange;
-      padding-left: 10px;
-    }
-    ul {
-        @include flex(column, normal, center);
-        gap: 10px;
-        list-style: none;
-      li {
-        border-radius: 3px 0 0 3px;
-        width: 60vw;
-        height: 100px;
-        background: linear-gradient(to right, $color-cian3, transparent);
-      }
-    }
-  }
+  // .chapters_container {
+  //   width: 70vw;
+  //   margin: 100px auto;
+  //   .chapters_titles {
+  //     border-left: 3px solid $color-orange;
+  //     padding-left: 10px;
+  //   }
+  //   ul {
+  //     @include flex(column, normal, center);
+  //     gap: 10px;
+  //     list-style: none;
+  //     li {
+  //       border-radius: 3px 0 0 3px;
+  //       width: 60vw;
+  //       height: 100px;
+  //       background: linear-gradient(to right, $color-cian3, transparent);
+  //     }
+  //   }
+  // }
 }

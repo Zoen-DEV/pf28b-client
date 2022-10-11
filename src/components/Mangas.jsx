@@ -39,6 +39,7 @@ const Mangas = () => {
           byTitle={handleTitle}
           byGenre={handleGenre}
           byChapters={handleChapters}
+          product={mangas}
         />
         {mangas.length > 0 ? (
           <MangaList mangas={mangas}></MangaList>

@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import {
   DELETE_DETAILS,
   GET_DETAILS,
@@ -10,7 +11,6 @@ import {
   FILTER_BY_GENRE,
   ORDER_BY_TITLE,
   ORDER_BY_CHAPTERS,
-  GET_USER_BY_ID,
   SET_CATEGORY,
   GET_ANIME_GENRES,
   GET_ANIME_NAME,
@@ -23,6 +23,11 @@ import {
   IS_ACTIVE,
   GET_USERS,
   LOGOUT,
+  UPDATE_CART,
+  GOOGLE_AUTH,
+  DELETE_USER,
+  DELETE_ITEM_CART,
+  RELOAD_FILTERS
 } from "../Constants/animes";
 
 const initialState = {
@@ -35,13 +40,13 @@ const initialState = {
   animeGenres: [],
   topMangas: [],
   topAnimes: [],
-  user: [],
   category: {},
   cart: [],
   topFourMangas: [],
   user: {},
   users: [],
   authenticated: false,
+  isLogin: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -64,17 +69,10 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case GET_MANGAS:
-      const restPriceMangas = action.payload.map((item) => {
-        let newPrice = Number(item.price) - 49;
-        return {
-          ...item,
-          price: Number(newPrice.toString().substring(0, 5)),
-        };
-      });
       return {
         ...state,
-        mangas: restPriceMangas,
-        allMangas: restPriceMangas,
+        mangas: action.payload,
+        allMangas: action.payload,
       };
     case TOP_MANGAS:
       return {
@@ -82,16 +80,19 @@ const rootReducer = (state = initialState, action) => {
         topMangas: action.payload,
       };
     case GET_MANGA_NAME:
-      const manga = [];
+      console.log("search manga");
+      const manga = state.allMangas.filter((item) =>
+        item.title.includes(action.payload)
+      );
       if (action.payload.length === 0) {
-        return "This Manga doesn't exist";
+        Swal.fire("Oops?", "This Anime doesn't exist", "question");
+        break;
       } else {
-        manga.push(...action.payload);
+        return {
+          ...state,
+          mangas: manga,
+        };
       }
-      return {
-        ...state,
-        mangas: manga,
-      };
     case GET_GENRES:
       const allGenres = [];
       state.mangas.forEach((item) => {
@@ -146,6 +147,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isLogin: true,
+      };
+    case GOOGLE_AUTH:
+      return {
+        ...state,
+        user: action.payload,
       };
     case IS_ACTIVE:
       return {
@@ -161,6 +168,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isLogin: false,
       };
     case SET_CATEGORY:
       return {
@@ -186,25 +194,40 @@ const rootReducer = (state = initialState, action) => {
         animeGenres: animeGenres,
       };
     case GET_ANIME_NAME:
-      const anime = [];
-      if (action.payload.length === 0) {
-        return "This Manga doesn't exist";
-      } else if (action.payload.length > 100) {
-        anime.push(...action.payload.slice(0, 100));
+      const anime = state.allAnimes.filter((item) =>{
+        let title = item.title.toLowerCase()
+        return title.includes(action.payload.toLowerCase())
+      });
+      if (anime.length === 0) {
+        Swal.fire("Oops?", "This Anime doesn't exist", "question");
+        break;
       } else {
-        anime.push(...action.payload);
+        return {
+          ...state,
+          animes: anime,
+        };
       }
+    case UPDATE_CART:
       return {
         ...state,
-        animes: anime,
+        cart: action.payload,
       };
     case SET_CART_ITEMS:
+      // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
+      let lsCart = localStorage.getItem("cart");
+      if (lsCart) {
+        localStorage.setItem(
+          "cart",
+          JSON.stringify([...JSON.parse(lsCart), action.payload])
+        );
+      } else {
+        localStorage.setItem("cart", JSON.stringify([action.payload]));
+      }
       return {
         ...state,
         cart: [...state.cart, action.payload],
       };
     case ORDER_ANIME_BY_GENRE:
-      console.log(ORDER_ANIME_BY_GENRE);
       let allAnimes = state.allAnimes;
       let filteredStatusAnime =
         action.payload === "All"
@@ -215,7 +238,6 @@ const rootReducer = (state = initialState, action) => {
         animes: [...filteredStatusAnime],
       };
     case ORDER_ANIME_BY_TITLE:
-      console.log(ORDER_ANIME_BY_TITLE);
       let animesByTitle =
         action.payload === "asc"
           ? state.animes.sort((a, b) => {
@@ -233,7 +255,6 @@ const rootReducer = (state = initialState, action) => {
         animes: [...animesByTitle],
       };
     case ORDER_ANIME_BY_CHAPTERS:
-      console.log(ORDER_ANIME_BY_CHAPTERS);
       let animesByChapters =
         action.payload === "chapters asc"
           ? state.animes.sort((a, b) => a.chapters - b.chapters)
@@ -247,6 +268,24 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         details: action.payload,
       };
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter((user) => user.email !== action.payload),
+      };
+    case DELETE_ITEM_CART:
+      const newCart = state.cart.filter((item) => item.id !== action.payload);
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      return {
+        ...state,
+        cart: [...newCart],
+      };
+    case RELOAD_FILTERS:
+      return {
+        ...state,
+        animes: [...state.allAnimes],
+        mangas: [...state.allMangas]
+      }
     default:
       return state;
   }

@@ -1,5 +1,113 @@
-.cart_container{
-    .cart_card_container{
-        
+.cart_container {
+  @include flex(row, space-between, flex-start);
+  padding: 100px 10vw;
+  width: 90vw;
+  min-height: 80vh;
+  margin: auto;
+  .summary_cart {
+    @include flex(column, flex-start, flex-start);
+    background: linear-gradient(to bottom, transparent 10%, $color-shadow2);
+    border-radius: 0 0 3px 3px;
+    width: 20vw;
+    gap: 20px;
+    .products_cart_title {
+      border-left: 2px solid $color-orange;
+      padding-left: 10px;
+      h2 {
+      }
     }
+    ul {
+      margin-top: 20px;
+      list-style: none;
+      border-bottom: 1px solid $color-orange;
+      width: 100%;
+      align-self: center;
+      li {
+        p {
+          @include flex(row, space-between, center);
+          letter-spacing: 1.5px;
+          color: $color-orange;
+          span {
+            color: $color-cream;
+          }
+        }
+      }
+    }
+    p {
+      align-self: flex-end;
+      font-weight: 700;
+      color: $color-cream;
+      margin-right: 30px;
+      font-size: 25px;
+      text-shadow: 1px 1px 2px $color-shadow;
+      span {
+        color: $color-orange;
+      }
+    }
+    button {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: linear-gradient(45deg, $color-orange, $color-fuxia);
+      color: $color-cream;
+      font-size: 19px;
+      padding: 10px;
+      border-radius: 0 0 3px 3px;
+      transition: 0.3s;
+      text-shadow: 1px 1px 2px $color-shadow;
+    }
+    button:hover {
+      color: $color-white;
+      background: linear-gradient(20deg, $color-orange, $color-fuxia);
+      transform: translate(0px, 3px);
+    }
+  }
+  .products_container {
+    .products_cart_title {
+      border-left: 2px solid $color-orange;
+      padding-left: 10px;
+    }
+    ul {
+      @include flex(column, flex-start, center);
+      gap: 10px;
+      list-style: none;
+      color: $color-white;
+      .cart_card_container {
+        @include flex(row, flex-start, center);
+        background: linear-gradient(to right, $color-shadowblue, transparent);
+        width: 40vw;
+        height: 250px;
+        gap: 10px;
+        .btns_container {
+          @include flex(row, flex-end, center);
+          align-self: flex-end;
+          width: 20%;
+          padding: 10px 20px;
+          button {
+            border: none;
+            outline: none;
+            background: none;
+            border-radius: 100%;
+            color: red;
+            font-size: 20px;
+            transition: 0.3s;
+            text-shadow: 1px 1px 2px $color-black2;
+          }
+          button:hover {
+            transform: scale(1.2);
+          }
+        }
+        img {
+          width: 180px;
+          height: 250px;
+          object-fit: cover;
+        }
+        .cart_card_info {
+          @include flex(column, space-between, flex-start);
+          height: 250px;
+          width: 100%;
+        }
+      }
+    }
+  }
 }
