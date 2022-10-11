@@ -37,7 +37,7 @@ import {
 
 export const getDetails = (id) => async (dispatch) => {
   try {
-    let productDetail = await axios(`http://localhost:3000/manga/${id}`);
+    let productDetail = await axios(`${process.env.DB_ENDPOINT}manga/${id}`);
     return dispatch({ type: GET_DETAILS, payload: productDetail.data });
   } catch (err) {
     console.error(err);
@@ -55,7 +55,7 @@ export const deleteDetails = () => (dispatch) => {
 export function getMangas() {
   return async function (dispatch) {
     try {
-      let response = await axios.get("http://localhost:3000/manga");
+      let response = await axios.get(`${process.env.DB_ENDPOINT}manga`);
       dispatch({
         type: GET_MANGAS,
         payload: response.data,
@@ -68,7 +68,7 @@ export function getMangas() {
 
 export const topMangas = () => async (dispatch) => {
   try {
-    let topMangas = await axios(`http://localhost:3000/manga/top`);
+    let topMangas = await axios(`${process.env.DB_ENDPOINT}manga/top`);
     return dispatch({ type: TOP_MANGAS, payload: topMangas.data });
   } catch (err) {
     console.error(err);
@@ -79,7 +79,7 @@ export function getMangaByTitle(name) {
   return async function (dispatch) {
     try {
       // let manga = await axios.get(
-      //   `http://localhost:3000/manga/searchmanga?name=${name}`
+      //   `${process.env.DB_ENDPOINT}manga/searchmanga?name=${name}`
       // );
       dispatch({
         type: GET_MANGA_NAME,
@@ -102,7 +102,7 @@ export const updateCart = (cart) => (dispatch) => {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      // let allGenres = await axios.get("http://localhost:3000/genres");
+      // let allGenres = await axios.get(`${process.env.DB_ENDPOINT}genres`);
       return dispatch({
         type: GET_GENRES,
         // payload: allGenres.data.genresDB,
@@ -118,7 +118,7 @@ export function getGenres() {
 export function getAnimes() {
   return async function (dispatch) {
     try {
-      let response = await axios.get("http://localhost:3000/animes");
+      let response = await axios.get(`${process.env.DB_ENDPOINT}animes`);
       return dispatch({
         type: GET_ANIMES,
         payload: response.data.animesDB,
@@ -130,12 +130,12 @@ export function getAnimes() {
 }
 
 export const getAnimesDetails = (id) => async (dispatch) => {
-  let res = await axios.get(`http://localhost:3000/animes/${id}`);
+  let res = await axios.get(`${process.env.DB_ENDPOINT}animes/${id}`);
   return dispatch({ type: GET_ANIME_DETAILS, payload: res.data });
 };
 
 export const getTopAnimes = () => async (dispatch) => {
-  let res = await axios.get("http://localhost:3000/topAnimes");
+  let res = await axios.get(`${process.env.DB_ENDPOINT}topAnimes`);
   return dispatch({ type: GET_TOP_ANIMES, payload: res.data.topAnimesDB });
 };
 
@@ -288,7 +288,7 @@ export function validateUser(obj) {
 export function googleAuth(tokenGoogle) {
   return async function (dispatch) {
     try {
-      const resp = await axios.post("http://localhost:3000/login/auth/google", {
+      const resp = await axios.post(`${process.env.DB_ENDPOINT}login/auth/google`, {
         id_token: tokenGoogle,
       });
       const { msg, user, token } = resp.data;
@@ -322,7 +322,7 @@ export function googleAuth(tokenGoogle) {
 
 export function deleteUser(email) {
   return async function (dispatch) {
-    const url = `http://localhost:3000/login/${email}`;
+    const url = `${process.env.DB_ENDPOINT}login/${email}`;
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

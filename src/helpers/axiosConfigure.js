@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const animerceApp = axios.create({
-  baseURL: "http://localhost:3000/login",
+  baseURL: `${process.env.DB_ENDPOINT}login`,
 });
 
 animerceApp.interceptors.request.use((config) => {
