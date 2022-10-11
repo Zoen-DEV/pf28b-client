@@ -351,6 +351,6 @@ export function logOut() {
     dispatch({ type: LOGOUT, payload: {} });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.reload();
+    // window.location.reload();
   };
 }
