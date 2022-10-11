@@ -92,7 +92,7 @@ const Filters = ({ byTitle, byGenre, byChapters, product }) => {
             }}
           >
             <option value="order" key="order">
-              Order by chapters
+              Order by rating
             </option>
             <option value="chapters asc" key="chapters asc">
               chapters asc
