@@ -4,8 +4,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
-import { useDispatch } from "react-redux";
-import { getUsers } from "../redux/Actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { validateUser } from "../redux/Actions/actions";
 
 function LogIn() {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ function LogIn() {
   const [password, setPassword] = useState("password");
   const [clickbtn, setClickbtn] = useState("");
   const disptach = useDispatch();
+  const user1 = useSelector((state) => state.user);
 
   function onChange(e) {
     setInput((state) => ({
@@ -30,14 +31,22 @@ function LogIn() {
         email: input.email,
         password: input.password,
       };
-      const users = (await axios.get("http://localhost:3000/users")).data;
+      disptach(validateUser(data));
+      // const token = await user1.token;
+      // console.log(await token);
+      // localStorage.setItem("token", await token);
+      console.log(user1.token);
+      if (user1.token) {
+        localStorage.setItem("token", user1.token);
+      }
+
+      const users = (await axios.get("http://localhost:3000/login/users")).data;
       const user_email = users.find(
         (u) => u.email === data.email && u.password !== data.password
       );
       const user = users.find(
         (u) => u.email === data.email && u.password === data.password
       );
-      console.log(user.email);
 
       if (user_email)
         setError((state) => ({
@@ -50,7 +59,7 @@ function LogIn() {
           password: " ",
         }));
       else {
-        disptach(getUsers(user.email));
+        // disptach(getUsers(user.email));
         navigate("/");
       }
       setClickbtn("");

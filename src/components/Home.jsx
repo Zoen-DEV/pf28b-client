@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { setCategory } from "../redux/Actions/actions";
+import Loader from "./Loader";
 
 const Home = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const category = useSelector((state) => state.category);
   const top25Mangas = useSelector((state) => state.topMangas);
   const top25Animes = useSelector((state) => state.topAnimes);
@@ -20,6 +22,11 @@ const Home = () => {
   const tenAnimes = top25Animes.slice(5, showMoreTopAnimes);
   const [showMoreRecAnimes, setShowMoreRecAnimes] = useState(18);
   const recomendedAnimes = top25Animes.slice(15, showMoreRecAnimes);
+
+  useEffect(() => {
+    let ls = localStorage.getItem("category");
+    dispatch(setCategory(JSON.parse(ls)))
+  }, [dispatch]);
 
   const changeSlide = (e) => {
     switch (e.target.name) {
@@ -87,7 +94,7 @@ const Home = () => {
     }
   };
   if (category.length === 0) {
-    return <p>loading</p>;
+    return <Loader></Loader>;
   } else {
     if (category.id === 1) {
       return (
@@ -107,7 +114,9 @@ const Home = () => {
                   <img src={fourAnimes[slideIndex].image} alt="" />
                   <div className="manga_info">
                     <h1>{fourAnimes[slideIndex].title}</h1>
-                    <p>{fourAnimes[slideIndex].description.substr(0, 300)}...</p>
+                    <p>
+                      {fourAnimes[slideIndex].description.substr(0, 300)}...
+                    </p>
                   </div>
                 </Link>
                 <ul>
@@ -140,27 +149,31 @@ const Home = () => {
               ></button>
             </div>
           ) : (
-            <p>loading</p>
+            <Loader />
           )}
           <div className="tops-container">
             <div className="tops-title">
               <h2>Top animes</h2>
             </div>
-            <div className="container">
-              <ul className="ul_slide">
-                {tenAnimes?.map((item, index) => {
-                  return (
-                    <Link
-                      className="link"
-                      to={`/details/${item.id}`}
-                      key={index}
-                    >
-                      <img src={item.image} alt="" />
-                    </Link>
-                  );
-                })}
-              </ul>
-            </div>
+            {top25Animes.length > 0 ? (
+              <div className="container">
+                <ul className="ul_slide">
+                  {tenAnimes?.map((item, index) => {
+                    return (
+                      <Link
+                        className="link"
+                        to={`/details/${item.id}`}
+                        key={index}
+                      >
+                        <img src={item.image} alt="" />
+                      </Link>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <Loader />
+            )}
             <button onClick={showMoreAnimes} className="show" name="top">
               {showMoreTopAnimes === 8 ? "Show more" : "Hide animes"}
             </button>
@@ -169,21 +182,25 @@ const Home = () => {
             <div className="tops-title">
               <h2>Recommended</h2>
             </div>
-            <div className="container">
-              <ul className="ul_slide">
-                {recomendedAnimes?.map((item, index) => {
-                  return (
-                    <Link
-                      className="link"
-                      to={`/details/${item.id}`}
-                      key={index}
-                    >
-                      <img src={item.image} alt="" />
-                    </Link>
-                  );
-                })}
-              </ul>
-            </div>
+            {top25Animes.length > 0 ? (
+              <div className="container">
+                <ul className="ul_slide">
+                  {recomendedAnimes?.map((item, index) => {
+                    return (
+                      <Link
+                        className="link"
+                        to={`/details/${item.id}`}
+                        key={index}
+                      >
+                        <img src={item.image} alt="" />
+                      </Link>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <Loader />
+            )}
             <button
               onClick={showMoreAnimes}
               className="show"
@@ -245,27 +262,31 @@ const Home = () => {
               ></button>
             </div>
           ) : (
-            <p>loading</p>
+            <Loader />
           )}
           <div className="tops-container">
             <div className="tops-title">
               <h2>Top mangas</h2>
             </div>
-            <div className="container">
-              <ul className="ul_slide">
-                {tenMangas?.map((item, index) => {
-                  return (
-                    <Link
-                      className="link"
-                      to={`/details/${item.id}`}
-                      key={index}
-                    >
-                      <img src={item.image} alt="" />
-                    </Link>
-                  );
-                })}
-              </ul>
-            </div>
+            {top25Mangas.length > 0 ? (
+              <div className="container">
+                <ul className="ul_slide">
+                  {tenMangas?.map((item, index) => {
+                    return (
+                      <Link
+                        className="link"
+                        to={`/details/${item.id}`}
+                        key={index}
+                      >
+                        <img src={item.image} alt="" />
+                      </Link>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <Loader />
+            )}
             <button onClick={showMore} className="show" name="top">
               {showMoreTop === 8 ? "Show more" : "Hide mangas"}
             </button>
@@ -274,21 +295,25 @@ const Home = () => {
             <div className="tops-title">
               <h2>Recommended</h2>
             </div>
-            <div className="container">
-              <ul className="ul_slide">
-                {recomended?.map((item, index) => {
-                  return (
-                    <Link
-                      className="link"
-                      to={`/details/${item.id}`}
-                      key={index}
-                    >
-                      <img src={item.image} alt="" />
-                    </Link>
-                  );
-                })}
-              </ul>
-            </div>
+            {top25Mangas.length > 0 ? (
+              <div className="container">
+                <ul className="ul_slide">
+                  {recomended?.map((item, index) => {
+                    return (
+                      <Link
+                        className="link"
+                        to={`/details/${item.id}`}
+                        key={index}
+                      >
+                        <img src={item.image} alt="" />
+                      </Link>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <Loader />
+            )}
             <button onClick={showMore} className="show" name="recommended">
               {showMoreRec === 18 ? "Show more" : "Hide mangas"}
             </button>

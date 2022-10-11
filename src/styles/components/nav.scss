@@ -4,7 +4,7 @@
   //   width: 100vw;
   margin: auto;
   border-bottom: 2px solid $color-orange;
-  background: linear-gradient(to bottom, $color-shadowblue,  $color-shadowblue2);
+  background: linear-gradient(to bottom, $color-shadowblue, $color-shadowblue2);
   z-index: 0;
   .links-container {
     @include flex(row, space-between, center);
@@ -23,30 +23,71 @@
       @include flex(row, space-between, center);
       gap: 10px;
       list-style: none;
-      .link {
-        text-decoration: none;
-        font-weight: 700;
-        color: $color-white;
-        font-size: 1.2em;
-        text-shadow: 1px 1px 2px $color-shadow2;
-        letter-spacing: 1px;
-        transition: 0.3s;
-        background: none;
-        border: none;
-      }
-      .link:hover {
-        color: $color-orange2;
-        text-shadow: 1px 1px 2px $color-shadow;
-      }
-      .link:active {
-        position: relative;
-        top: 1px;
+      li {
+        @include flex(column, normal, center);
+        .border_bottom {
+          width: 100px;
+          background-color: $color-white;
+          height: 2px;
+          width: 75%;
+          animation: ease borderBottom 2s;
+        }
+        .link {
+          text-decoration: none;
+          font-weight: 700;
+          color: $color-white;
+          font-size: 1.2em;
+          text-shadow: 1px 1px 2px $color-shadow2;
+          letter-spacing: 1px;
+          transition: 0.3s;
+          background: none;
+          border: none;
+        }
+        .link:hover {
+          color: $color-orange2;
+          text-shadow: 1px 1px 2px $color-shadow;
+        }
+        .link:active {
+          position: relative;
+          top: 1px;
+        }
       }
     }
   }
   .btns-container {
     @include flex(row, space-between, center);
     gap: 3vw;
+    height: 9vh;
+    .links_slide {
+      @include flex(column, space-between, flex-start);
+      position: absolute;
+      left: 85vw;
+      top: 12vh;
+      background: $color-shadowblue2;
+      width: 12vw;
+      box-shadow: 0px 5px 5px 2px $color-shadow3;
+      padding-top: 10px;
+      .link {
+        text-decoration: none;
+        font-size: 20px;
+        letter-spacing: 1px;
+        margin-left: 10px;
+      }
+      .link:hover {
+        transform: scale(1.05);
+      }
+      i {
+        align-self: center;
+        color: $color-orange;
+        cursor: pointer;
+        font-size: 20px;
+        width: 100%;
+        text-align: center;
+      }
+      i:hover {
+        background: linear-gradient(to top, $color-shadowblue, transparent);
+      }
+    }
     .themeBtn {
       background: none;
       outline: none;
@@ -73,14 +114,72 @@
       cursor: pointer;
     }
     .link {
-      color: $color-orange;
+      color: $color-white;
       font-size: 1.5em;
       transition: 0.3s;
       text-shadow: 1px 1px 5px $color-shadow3;
     }
+    .link2 {
+      text-decoration: none;
+      font-weight: 700;
+      color: $color-white;
+      font-size: 1.3em;
+      text-shadow: 1px 1px 2px $color-shadow2;
+      letter-spacing: 1px;
+      transition: 0.3s;
+      background: none;
+      border: none;
+    }
     .link:hover {
-      // font-size: 1.6em;
+      color: $color-orange;
+      transform: scale(1.3);
+    }
+    .link2:hover {
+      color: $color-orange;
       transform: scale(1.1);
     }
+    .cart_icon {
+      @include flex(column, center, center);
+      .cart_count {
+        align-self: flex-end;
+        text-align: center;
+        color: $color-white;
+        background: linear-gradient(to right, $color-orange, $color-fuxia);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        position: relative;
+        top: 10px;
+        left: 5px;
+        z-index: 3;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+      .cart_link {
+        color: $color-white;
+        font-size: 1.5em;
+        transition: 0.3s;
+        text-shadow: 1px 1px 5px $color-shadow3;
+        z-index: 2;
+      }
+    }
+    .cart_icon:hover {
+      .cart_count {
+        transform: scale(1.2);
+      }
+      .cart_link {
+        color: $color-orange;
+        transform: scale(1.3);
+      }
+    }
+  }
+}
+
+@keyframes borderBottom {
+  0% {
+    width: 0;
+  }
+  60% {
+    width: 75%;
   }
 }

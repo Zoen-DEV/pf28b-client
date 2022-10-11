@@ -1,0 +1,61 @@
+.contMaster {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.title {
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #495057;
+}
+
+.card {
+  background-color: #636597;
+  border: solid black 2px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  height: 154px;
+}
+
+.data {
+  display: flex;
+}
+
+.data1 {
+  /* margin-left: -30px; */
+  margin-top: 10px;
+}
+
+.data2 {
+  margin-top: 10px;
+}
+
+.blackFont {
+  font-weight: bold;
+}
+
+.image {
+  height: 150px;
+  width: auto;
+}
+
+.btnDelete {
+  background-color: transparent;
+  border: 0;
+  font-size: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.btnDelete:hover {
+  cursor: pointer;
+  color: #fff;
+}

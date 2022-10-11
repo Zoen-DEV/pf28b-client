@@ -3,45 +3,50 @@ import Filters from "./Filters";
 import AnimeList from "./AnimeList";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  filterByGenre,
-  orderByChapters,
-  orderByTitle,
+  filterAnimeByGenre,
+  orderAnimeByChapters,
+  orderAnimeByTitle,
 } from "../redux/Actions/actions";
+import Loader from "./Loader";
 
 const Animes = () => {
   const dispatch = useDispatch();
   const animes = useSelector((state) => state.animes);
 
-  function handleGenre(e) {
-    dispatch(filterByGenre(e.target.value));
+  function handleAnimeGenre(e) {
+    dispatch(filterAnimeByGenre(e.target.value));
     // setAllMangas(mangas);
   }
 
-  function handleChapters(e) {
+  function handleAnimeChapters(e) {
     e.preventDefault();
-    dispatch(orderByChapters(e.target.value));
+    dispatch(orderAnimeByChapters(e.target.value));
     // setAllMangas(mangas);
   }
 
-  function handleTitle(e) {
+  function handleAnimeTitle(e) {
     e.preventDefault();
-    dispatch(orderByTitle(e.target.value));
+    dispatch(orderAnimeByTitle(e.target.value));
     // setAllMangas(mangas);
   }
-  
+
   return (
-    <article className="mangas_container">
-      <Filters
-        byTitle={handleTitle}
-        byGenre={handleGenre}
-        byChapters={handleChapters}
-      />
-      {animes.length > 0 ? (
-        <AnimeList animes={animes}></AnimeList>
-      ) : (
-        <p>loading</p>
-      )}
-    </article>
+    <div className="all_products">
+      <h1>ANIMES</h1>
+      <article className="mangas_container">
+        <Filters
+          byTitle={handleAnimeTitle}
+          byGenre={handleAnimeGenre}
+          byChapters={handleAnimeChapters}
+          product={animes}
+        />
+        {animes.length > 0 ? (
+          <AnimeList animes={animes}></AnimeList>
+        ) : (
+          <Loader />
+        )}
+      </article>
+    </div>
   );
 };
 
