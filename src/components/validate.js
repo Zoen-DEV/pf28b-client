@@ -20,7 +20,7 @@ function validate(name, value, password) {
     case "date":
       if (!value) return "Date is required";
       else return "";
-    // case "tel":
+  
     //   const telInput = document.getElementsByClassName("PhoneInputInput");
     //   if (!value) {
     //     telInput[0].classList.add("input-error");
