@@ -214,7 +214,7 @@ const rootReducer = (state = initialState, action) => {
         cart: action.payload,
       };
     case SET_CART_ITEMS:
-      // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
+     
       let lsCart = localStorage.getItem("cart");
       if (lsCart) {
         localStorage.setItem(
