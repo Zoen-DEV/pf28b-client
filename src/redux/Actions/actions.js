@@ -30,7 +30,7 @@ import {
   GOOGLE_AUTH,
   DELETE_USER,
   DELETE_ITEM_CART,
-  RELOAD_FILTERS
+  RELOAD_FILTERS,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -351,5 +351,6 @@ export function logOut() {
     dispatch({ type: LOGOUT, payload: {} });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    window.location.reload();
   };
 }

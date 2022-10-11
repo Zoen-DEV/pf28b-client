@@ -13,7 +13,7 @@ function LogIn() {
   const [error, setError] = useState({});
   const [password, setPassword] = useState("password");
   const [clickbtn, setClickbtn] = useState("");
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   const user1 = useSelector((state) => state.user);
 
   function onChange(e) {
@@ -25,44 +25,49 @@ function LogIn() {
 
   function onSubmit(e) {
     e.preventDefault();
+    setClickbtn("click");
     setTimeout(async () => {
-      setClickbtn("click");
       const data = {
         email: input.email,
         password: input.password,
       };
-      disptach(validateUser(data));
+      dispatch(validateUser(data)).then(() => {
+        // localStorage.removeItem("token");
+        if (localStorage.getItem("token")) {
+          setTimeout(() => navigate("/home"), 1000);
+        }
+        setClickbtn("");
+      });
       // const token = await user1.token;
       // console.log(await token);
       // localStorage.setItem("token", await token);
-      console.log(user1.token);
-      if (user1.token) {
-        localStorage.setItem("token", user1.token);
-      }
+      // console.log(user1.token);
+      // if (user1.token) {
+      //   localStorage.setItem("token", user1.token);
+      // }
 
-      const users = (await axios.get(`${process.env.DB_ENDPOINT}login/users`)).data;
-      const user_email = users.find(
-        (u) => u.email === data.email && u.password !== data.password
-      );
-      const user = users.find(
-        (u) => u.email === data.email && u.password === data.password
-      );
+      // const users = (await axios.get(`${process.env.DB_ENDPOINT}login/users`)).data;
+      // const user_email = users.find(
+      //   (u) => u.email === data.email && u.password !== data.password
+      // );
+      // const user = users.find(
+      //   (u) => u.email === data.email && u.password === data.password
+      // );
 
-      if (user_email)
-        setError((state) => ({
-          email: "",
-          password: "Incorrect password. Please try again.",
-        }));
-      else if (!user)
-        setError((state) => ({
-          email: "The account doesn't exist. Please try again.",
-          password: " ",
-        }));
-      else {
-        // disptach(getUsers(user.email));
-        navigate("/");
-      }
-      setClickbtn("");
+      // if (user_email)
+      //   setError((state) => ({
+      //     email: "",
+      //     password: "Incorrect password. Please try again.",
+      //   }));
+      // else if (!user)
+      //   setError((state) => ({
+      //     email: "The account doesn't exist. Please try again.",
+      //     password: " ",
+      //   }));
+      // else {
+      //   // disptach(getUsers(user.email));
+      //   navigate("/");
+      // }
     }, 1000);
   }
 
@@ -83,17 +88,10 @@ function LogIn() {
               onChange={onChange}
               className={error.email ? "input-error" : ""}
             />
-            {!error.email ? (
-              <div>&nbsp;</div>
-            ) : (
-              <div className="validate">{error.email}</div>
-            )}
+            {!error.email ? <div>&nbsp;</div> : <div className="validate">{error.email}</div>}
           </div>
           <div style={{ position: "relative" }}>
-            <label
-              htmlFor="password"
-              className={error.password ? "label-error" : ""}
-            >
+            <label htmlFor="password" className={error.password ? "label-error" : ""}>
               Password:
             </label>
             <input
@@ -108,20 +106,16 @@ function LogIn() {
               src={password === "password" ? eyeOff : eyeOn}
               alt="on"
               height="25"
-              onClick={() =>
-                setPassword(password === "password" ? "text" : "password")
-              }
+              onClick={() => setPassword(password === "password" ? "text" : "password")}
             />
-            {!error.password ? (
-              <div>&nbsp;</div>
-            ) : (
-              <div className="validate">{error.password}</div>
-            )}
+            {!error.password ? <div>&nbsp;</div> : <div className="validate">{error.password}</div>}
           </div>
           <button type="submit" className={clickbtn}>
             Log In
           </button>
-          <Link to="/signup">don't have an account yet?</Link>
+          <h2>
+            Not registered? <Link to="/signup">Create an Account</Link>
+          </h2>
         </form>
       </div>
     </div>

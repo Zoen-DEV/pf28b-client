@@ -6,7 +6,6 @@ import { googleAuth, validateUser } from "../redux/Actions/actions";
 // import jwt_decode from "jwt-decode";
 import Profile from "./Profile";
 import s from "./styles/Login2.module.css";
-
 function Login2() {
   // const [usuario, setUsuario] = useState(null);
   // const user = useSelector((state) => state.user);
@@ -69,7 +68,6 @@ function Login2() {
     <section className="h-100">
       {/* the div with id=signInDiv below renders the google login on the screen (don't touch)*/}
       <div id="signInDiv" className={s.googleBtn}></div>
-
       <div className="form_container">
         <div className="log-in-container">
           <h1>Welcome back to Animmerce!</h1>
