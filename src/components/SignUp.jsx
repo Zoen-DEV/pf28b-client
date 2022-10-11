@@ -64,7 +64,7 @@ function SignUp() {
     setClickbtn("click");
     setTimeout(async () => {
       try {
-        const resp = await axios.post("http://localhost:3000/login", {
+        const resp = await axios.post(`http://localhost:3000/login`, {
           username: input.username,
           pass: input.password,
           email: input.email,
