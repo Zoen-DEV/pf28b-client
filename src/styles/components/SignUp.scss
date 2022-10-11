@@ -14,9 +14,31 @@
 .sign-up-container h1 {
   font-size: 22px;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   text-align: center;
   text-shadow: 1px 1px 5px $color-shadow2;
+}
+
+.sign-up-container h2 {
+  font-size: 15px;
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 30px;
+  text-align: center;
+  text-shadow: 1px 1px 5px $color-shadow2;
+}
+
+.sign-up-container h2 a {
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.sign-up-container h2 a:hover {
+  color: rgb(209, 82, 9);
+  text-decoration: underline rgb(209, 82, 9);
+  text-shadow: 0.5px 0.5px 1px black;
 }
 
 .sign-up {
@@ -35,7 +57,7 @@
   font-weight: bold;
 }
 
-.sign-up input {
+.sign-up :is(input, select) {
   display: block;
   font: inherit;
   box-sizing: border-box;
@@ -54,7 +76,7 @@
   padding-right: 35px;
 }
 
-.sign-up input:is(:hover, :focus) {
+.sign-up :is(input, select):is(:hover, :focus) {
   border-color: orange;
 }
 
@@ -64,13 +86,13 @@
   color: red;
 }
 
-.sign-up input + div {
+.sign-up :is(input, .PhoneInput) + div {
   font-size: 4px;
   color: transparent;
   transition: 0.5s ease-out;
 }
 
-.sign-up input + div.validate {
+.sign-up div.validate {
   font-size: 14px;
   margin-bottom: 10px;
   color: red;
@@ -78,9 +100,25 @@
 
 .sign-up div + img {
   position: absolute;
-  top: 29px;
+  top: 34px;
   left: 318px;
   cursor: pointer;
+}
+
+.PhoneInputCountry {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.PhoneInputCountrySelect {
+  padding-inline: 3px !important;
+  height: 25px !important;
+}
+.PhoneInputCountryIconImg {
+  margin-top: 5px;
+  margin-right: 3px;
+  height: 25px;
+  vertical-align: middle;
+  border-radius: 5px;
 }
 
 .sign-up [type="submit"] {
@@ -105,7 +143,7 @@
 }
 
 .sign-up .click {
-  background-color: rgb(255, 195, 82);
+  background-color: rgb(255, 195, 82) !important;
 }
 
 .sign-up .terms {
