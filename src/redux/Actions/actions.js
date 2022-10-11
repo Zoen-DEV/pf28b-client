@@ -159,7 +159,7 @@ export function orderByChapters(payload) {
   };
 }
 
-// OTHERS action
+
 
 export function getUsers(email) {
   const url = `http://localhost:3000/users/${email}`;
