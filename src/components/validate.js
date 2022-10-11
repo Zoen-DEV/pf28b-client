@@ -1,3 +1,5 @@
+import { isValidPhoneNumber } from "react-phone-number-input";
+
 function validate(name, value, password) {
   switch (name) {
     case "username":
@@ -18,6 +20,19 @@ function validate(name, value, password) {
     case "date":
       if (!value) return "Date is required";
       else return "";
+    case "tel":
+      const telInput = document.getElementsByClassName("PhoneInputInput");
+      if (!value) {
+        telInput[0].classList.add("input-error");
+        return "Phone number is required";
+      }
+      if (!isValidPhoneNumber(value)) {
+        telInput[0].classList.add("input-error");
+        return "Please enter a valid phone number";
+      } else {
+        telInput[0].classList.remove("input-error");
+        return "";
+      }
     default:
   }
 }
