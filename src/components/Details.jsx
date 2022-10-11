@@ -1,72 +1,135 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { deleteDetails, getDetails } from "../redux/Actions/actions";
+import {
+  deleteDetails,
+  getAnimesDetails,
+  getDetails,
+  setCartItems,
+} from "../redux/Actions/actions";
 
 const Details = () => {
   const [isFav, setIsFav] = useState(false);
   const dispatch = useDispatch();
-  const { title, score, image, chapters, synopsis, genres, price } =
-    useSelector((state) => state.details);
+  const details = useSelector((state) => state.details);
   const id = useParams().id;
-  const [allChapters, setAllChapters] = useState(
-    Array.from(Array(chapters).keys())
-  );
+  const category = useSelector((state) => state.category);
 
   useEffect(() => {
-    dispatch(getDetails(id));
+    if(category.id===1){
+      dispatch(getAnimesDetails(id));
+    } else {
+      dispatch(getDetails(id));
+    }
     return () => {
       dispatch(deleteDetails());
     };
-  }, [dispatch]);
+  }, [dispatch, id, category]);
 
-  return (
-    <article className="details_component">
-      <h1>MANGA DETAILS</h1>
-      <div className="details_container">
-        <img src={image} alt="" />
-        <div className="detail_content">
-          <div className="title_container">
-            <h1>
-              {title}
-              <span> ⭐{score}</span>
-            </h1>
-            <p>
-              <span>Genres: </span>
-              {genres}
-            </p>
-            <p>
-              <span>Synopsis: </span>
-              {synopsis}
-            </p>
-            <p>
-              <span>Number of chapters: </span>
-              {chapters}
-            </p>
-            <p>
-              <span>Price: </span>
-              ${price}
-            </p>
-          </div>
-          <div className="btns_container">
-            <button
-              style={{ color: isFav ? "#b82601" : "#a2a2af" }}
-              onClick={() => {
-                isFav ? setIsFav(false) : setIsFav(true);
-              }}
-              className="bi bi-heart-fill fav"
-            ></button>
-            <button className="bi bi-cart-plus add"> Add to cart</button>
+  const toCart = (e) => {
+    dispatch(setCartItems(details));
+  };
+  if (category.id === 1) {
+    return (
+      <article className="details_component">
+        <h1>ANIME DETAILS</h1>
+        <div className="details_container">
+          <img src={details.image} alt="" />
+          <div className="detail_content">
+            <div className="title_container">
+              <h1>
+                {details.title}
+                <span> ⭐{details.score}</span>
+              </h1>
+              <p>
+                <span>Genres: </span>
+                {details.genres}
+              </p>
+              <p>
+                <span>Synopsis: </span>
+                {details.synopsis ? details.synopsis : details.description}
+              </p>
+              <p>
+                <span>Number of chapters: </span>
+                {details.chapters}
+              </p>
+              <p>
+                <span>Price: </span>${details.price}
+              </p>
+            </div>
+            <div className="btns_container">
+              <button
+                style={{ color: isFav ? "#b82601" : "#a2a2af" }}
+                onClick={() => {
+                  isFav ? setIsFav(false) : setIsFav(true);
+                }}
+                className="bi bi-heart-fill fav"
+              ></button>
+              <button onClick={toCart} className="bi bi-cart-plus add">
+                {" "}
+                Add to cart
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      {/* <div className="chapters_container">
+        {/* <div className="chapters_container">
         <div className="chapters_titles">
           <h2>Chapters</h2>
         </div>
       </div> */}
-    </article>
-  );
+      </article>
+    );
+  } else {
+    return (
+      <article className="details_component">
+        <h1>MANGA DETAILS</h1>
+        <div className="details_container">
+          <img src={details.image} alt="" />
+          <div className="detail_content">
+            <div className="title_container">
+              <h1>
+                {details.title}
+                <span> ⭐{details.score}</span>
+              </h1>
+              <p>
+                <span>Genres: </span>
+                {details.genres}
+              </p>
+              <p>
+                <span>Synopsis: </span>
+                {details.synopsis ? details.synopsis : details.description}
+              </p>
+              <p>
+                <span>Number of chapters: </span>
+                {details.chapters}
+              </p>
+              <p>
+                <span>Price: </span>${(details.price - 49).toString().substring(0, 5)}
+              </p>
+            </div>
+            <div className="btns_container">
+              <button
+                style={{ color: isFav ? "#b82601" : "#a2a2af" }}
+                onClick={() => {
+                  isFav ? setIsFav(false) : setIsFav(true);
+                }}
+                className="bi bi-heart-fill fav"
+              ></button>
+              <button onClick={toCart} className="bi bi-cart-plus add">
+                {" "}
+                Add to cart
+              </button>
+            </div>
+          </div>
+        </div>
+        {/* <div className="chapters_container">
+        <div className="chapters_titles">
+          <h2>Chapters</h2>
+        </div>
+      </div> */}
+      </article>
+    );
+  }
 };
 
 export default Details;

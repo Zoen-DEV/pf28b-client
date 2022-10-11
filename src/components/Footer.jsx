@@ -8,7 +8,7 @@ const Footer = () => {
       <Link className="link" to="/about">
         ABOUT
       </Link>
-      <Link to="/">
+      <Link to="/home">
         <img src={LOGOdemo} alt="animercce" />
       </Link>
       <Link className="link" to="/contact">

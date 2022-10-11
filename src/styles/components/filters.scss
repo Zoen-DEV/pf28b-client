@@ -5,16 +5,25 @@
   height: 50vh;
   //   box-shadow: 2px 2px 5px 0 $color-shadow2;
   border-radius: 0 3px 3px 0;
-  padding-left: 50px;
+  padding-left: 10px;
   position: fixed;
-  .btnreload {
-    border: none;
-    background: linear-gradient(45deg, $color-orange, $color-fuxia);
-    color: $color-white;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+  .filters_title_container {
+    @include flex(row, space-around, center);
+    width: 80%;
+    h2{
+      color: $color-orange;
+      text-shadow: 2px 2px 2px $color-shadow2;
+      letter-spacing: 1px;
+    }
+    .btnreload {
+      border: none;
+      background: linear-gradient(45deg, $color-orange, $color-fuxia);
+      color: $color-white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
   }
   .btnreload:hover {
     transform: scale(1.1);
@@ -22,6 +31,7 @@
   .cntselect {
     @include flex(column, space-around, center);
     height: 40vh;
+    padding-left: 20px;
     .select {
       position: relative;
       display: inline-block;
@@ -57,8 +67,8 @@
       transform: scale(1.1);
     }
     .select select:focus {
-        transform: scale(1);
-      }
+      transform: scale(1);
+    }
     .select select:disabled {
       opacity: 0.5;
       pointer-events: none;

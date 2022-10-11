@@ -19,6 +19,7 @@
         text-align: center;
         img {
           position: absolute;
+          box-shadow: 0 2px 10px 2px $color-shadow2;
           z-index: 1;
           width: 30vw;
           height: 90vh;
@@ -109,7 +110,7 @@
       z-index: 5;
       transition: 0.3s;
     }
-    .btn-left:hover{
+    .btn-left:hover {
       color: $color-orange2;
       text-shadow: 1px -1px 2px $color-shadow;
       transform: rotate(45deg) scale(1.2);
@@ -154,12 +155,12 @@
             object-fit: cover;
           }
         }
-        .link:hover{
+        .link:hover {
           filter: opacity(0.8);
         }
       }
     }
-    .show{
+    .show {
       border: none;
       background: linear-gradient(45deg, $color-orange, $color-fuxia);
       align-self: flex-end;

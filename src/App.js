@@ -7,18 +7,37 @@ import Mangas from "./components/Mangas";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
+import Landing from "./components/Landing";
+import Animes from "./components/Animes";
+import Cart from "./components/Cart";
+import Login2 from "./components/Login2";
+import ShowUsers from "./components/ShowUsers";
+import RequireAuth from "./components/RequireAuth";
+import AlreadyAuth from "./components/AlreadyAuth";
 
 function App() {
   return (
     <div className="App">
       <Nav></Nav>
       <Routes>
-        <Route index element={<Home></Home>} />
+        <Route index element={<Landing></Landing>} />
+
+        <Route element={<RequireAuth />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/cart" element={<Cart />} />
+        </Route>
+
+        <Route element={<AlreadyAuth />}>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/login2" element={<Login2 />} />
+        </Route>
+
+        <Route path="/home" element={<Home></Home>} />
         <Route path="/mangas" element={<Mangas></Mangas>} />
+        <Route path="/animes" element={<Animes></Animes>} />
         <Route path="/details/:id" element={<Details></Details>} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/users" element={<ShowUsers />} />
       </Routes>
       <Footer></Footer>
     </div>
