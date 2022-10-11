@@ -30,8 +30,8 @@ function App() {
 
         <Route element={<AlreadyAuth />}>
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/login2" element={<Login2 />} />
+          {/* <Route path="/login" element={<LogIn />} /> */}
+          <Route path="/login" element={<Login2 />} />
         </Route>
 
         <Route path="/home" element={<Home></Home>} />

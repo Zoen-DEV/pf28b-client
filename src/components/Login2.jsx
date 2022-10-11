@@ -53,7 +53,7 @@ function Login2() {
     if (!e.target.checkValidity()) {
       console.log("no enviar");
     } else {
-      // let res = await axios.post("http://localhost:3000/login/auth", datos);
+      // let res = await axios.post(`${process.env.DB_ENDPOINT}login/auth`, datos);
       // console.log(res.data);
       // navigate("/profile");
       dispatch(validateUser(datos));

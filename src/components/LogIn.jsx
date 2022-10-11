@@ -46,9 +46,13 @@ function LogIn() {
       //   localStorage.setItem("token", user1.token);
       // }
 
-      // const users = (await axios.get("http://localhost:3000/login/users")).data;
-      // const user_email = users.find((u) => u.email === data.email && u.password !== data.password);
-      // const user = users.find((u) => u.email === data.email && u.password === data.password);
+      // const users = (await axios.get(`${process.env.DB_ENDPOINT}login/users`)).data;
+      // const user_email = users.find(
+      //   (u) => u.email === data.email && u.password !== data.password
+      // );
+      // const user = users.find(
+      //   (u) => u.email === data.email && u.password === data.password
+      // );
 
       // if (user_email)
       //   setError((state) => ({

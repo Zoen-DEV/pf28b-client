@@ -55,7 +55,7 @@ export const deleteDetails = () => (dispatch) => {
 export function getMangas() {
   return async function (dispatch) {
     try {
-      let response = await axios.get("http://localhost:3000/manga");
+      let response = await axios.get(`http://localhost:3000/manga`);
       dispatch({
         type: GET_MANGAS,
         payload: response.data,
@@ -102,7 +102,7 @@ export const updateCart = (cart) => (dispatch) => {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      // let allGenres = await axios.get("http://localhost:3000/genres");
+      // let allGenres = await axios.get(`http://localhost:3000/genres`);
       return dispatch({
         type: GET_GENRES,
         // payload: allGenres.data.genresDB,
@@ -118,7 +118,7 @@ export function getGenres() {
 export function getAnimes() {
   return async function (dispatch) {
     try {
-      let response = await axios.get("http://localhost:3000/animes");
+      let response = await axios.get(`http://localhost:3000/animes`);
       return dispatch({
         type: GET_ANIMES,
         payload: response.data.animesDB,
@@ -135,7 +135,7 @@ export const getAnimesDetails = (id) => async (dispatch) => {
 };
 
 export const getTopAnimes = () => async (dispatch) => {
-  let res = await axios.get("http://localhost:3000/topAnimes");
+  let res = await axios.get(`http://localhost:3000/topAnimes`);
   return dispatch({ type: GET_TOP_ANIMES, payload: res.data.topAnimesDB });
 };
 
@@ -288,7 +288,7 @@ export function validateUser(obj) {
 export function googleAuth(tokenGoogle) {
   return async function (dispatch) {
     try {
-      const resp = await axios.post("http://localhost:3000/login/auth/google", {
+      const resp = await axios.post(`http://localhost:3000/login/auth/google`, {
         id_token: tokenGoogle,
       });
       const { msg, user, token } = resp.data;
