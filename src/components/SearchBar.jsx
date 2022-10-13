@@ -25,7 +25,7 @@ const SearchBar = () => {
       if (category.id === 1) {
         dispatch(getAnimeByTitle(title));
         const animeByTitle = animes.filter((item) =>
-          item.title.includes(title)
+          item.toLowerCase().includes(title.toLowerCase())
         );
         if (animeByTitle.length > 0) {
           // setOrder(`Sorted: ${e.target.value}`);
@@ -37,7 +37,7 @@ const SearchBar = () => {
       } else {
         dispatch(getMangaByTitle(title));
         const mangaByTitle = mangas.filter((item) =>
-          item.title.includes(title)
+          item.toLowerCase().includes(title.toLowerCase())
         );
         if (mangaByTitle.length > 0) {
           // setOrder(`Sorted: ${e.target.value}`);

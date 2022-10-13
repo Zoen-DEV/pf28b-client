@@ -15,8 +15,29 @@ import ShowUsers from "./components/ShowUsers";
 import RequireAuth from "./components/RequireAuth";
 import AlreadyAuth from "./components/AlreadyAuth";
 import Admin from "./components/Admin";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  getAnimes,
+  getAnimesGenres,
+  getTopAnimes,
+  getMangas,
+  getGenres,
+  topMangas,
+} from "./redux/Actions/actions";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // localStorage.clear()
+    dispatch(topMangas());
+    dispatch(getTopAnimes());
+    dispatch(getAnimes());
+    dispatch(getMangas());
+    dispatch(getGenres());
+    dispatch(getAnimesGenres());
+  }, []);
+
   return (
     <div className="App">
       <Nav></Nav>

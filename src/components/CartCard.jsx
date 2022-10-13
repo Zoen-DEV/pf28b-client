@@ -7,9 +7,9 @@ const CartCard = ({ title, price, id, image, amount, cartId }) => {
   // const [count, setCount] = useState(1);
   let dots = ''
   const dispatch = useDispatch()
-  if(title.length>15){
-    dots = '...'
-  }
+  // if(title.length>15){
+  //   dots = '...'
+  // }
   const deleteItemFromCart = (e, id) => {
     Swal.fire({
       title: 'Are you sure you want to delete this item?',

@@ -31,6 +31,7 @@ import {
   DELETE_USER,
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
+  GET_CART,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -234,9 +235,34 @@ export const deleteItemCart = (id) => (dispatch) => {
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
-export const setCartItems = (item) => (dispatch) => {
-  return dispatch({ type: SET_CART_ITEMS, payload: item });
+export const setCartItems = (item) => async (dispatch) => {
+  if (!item.UserId) {
+    return dispatch({
+      type: SET_CART_ITEMS,
+      payload: { Product: item, login: false },
+    });
+  } else {
+    // console.log("hola: ", await axios.post("http://localhost:3000/cart", item));
+    let response = await axios.post("http://localhost:3000/cart", item);
+    return dispatch({
+      type: SET_CART_ITEMS,
+      payload: { Product: response.data, login: true },
+    });
+  }
 };
+
+export const getCart = (userId) => async (dispatch) => {
+  const res = await axios.get(`http://localhost:3000/cart/${userId}`);
+  console.log(res.data)
+  const response = res.data.map((item) => {
+    return { Product: item, login: true };
+  });
+  return dispatch({
+    type: GET_CART,
+    payload: response,
+  });
+};
+
 export function getUsers() {
   return async function (dispatch) {
     try {
@@ -295,6 +321,7 @@ export function googleAuth(tokenGoogle) {
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      console.log(user);
       dispatch({
         type: GOOGLE_AUTH,
         payload: user,
