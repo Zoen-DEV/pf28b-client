@@ -1,33 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteItemCart } from "../redux/Actions/actions";
 
 const CartCard = ({ title, price, id, image, amount, cartId }) => {
-  // const [count, setCount] = useState(1);
-  let dots = ''
-  const dispatch = useDispatch()
-  // if(title.length>15){
-  //   dots = '...'
-  // }
+  const [count, setCount] = useState(1);
+  let dots = "";
+  const dispatch = useDispatch();
+  if(title.length>15){
+    dots = '...'
+  }
   const deleteItemFromCart = (e, id) => {
+    console.log(id)
     Swal.fire({
-      title: 'Are you sure you want to delete this item?',
+      title: "Are you sure you want to delete this item?",
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: 'Confirm',
+      confirmButtonText: "Confirm",
       denyButtonText: `Cancel`,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteItemCart(id))
+        dispatch(deleteItemCart(id));
       }
-    })
-  }
+    });
+  };
   return (
     <div className="cart_card_container">
       <img src={image} alt={id} />
       <div className="cart_card_info">
-        <h1>{title.substring(0, 15)}{dots}</h1>
+        <h1>
+          {title.substring(0, 15)}
+          {dots}
+        </h1>
         <p>
           <span>Price by unit: </span>
           {price}

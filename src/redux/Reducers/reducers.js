@@ -288,15 +288,20 @@ const rootReducer = (state = initialState, action) => {
         users: state.users.filter((user) => user.email !== action.payload),
       };
     case DELETE_ITEM_CART:
+      console.log(state.cart[0].Product.id)
       if (Object.keys(state.user).length === 0) {
-        const newCart = state.cart.filter((item) => item.id !== action.payload);
+        const newCart = state.cart.filter(
+          (item) => item.Product.id !== action.payload
+        );
         localStorage.setItem("cart", JSON.stringify(newCart));
         return {
           ...state,
           cart: [...newCart],
         };
       } else {
-        const newCart = state.cart.filter((item) => item.id !== action.payload);
+        const newCart = state.cart.filter(
+          (item) => item.Product.id !== action.payload
+        );
         // localStorage.setItem("cart", JSON.stringify(newCart));
         return {
           ...state,

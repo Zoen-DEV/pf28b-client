@@ -231,7 +231,8 @@ export const setCategory = (state) => (dispatch) => {
 
 // CART actions
 
-export const deleteItemCart = (id) => (dispatch) => {
+export const deleteItemCart = (id) => async (dispatch) => {
+  let response = await axios.delete(`http://localhost:3000/cart/${id}`)
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
@@ -253,7 +254,6 @@ export const setCartItems = (item) => async (dispatch) => {
 
 export const getCart = (userId) => async (dispatch) => {
   const res = await axios.get(`http://localhost:3000/cart/${userId}`);
-  console.log(res.data)
   const response = res.data.map((item) => {
     return { Product: item, login: true };
   });
