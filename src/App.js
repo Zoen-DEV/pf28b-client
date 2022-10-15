@@ -15,6 +15,7 @@ import ShowUsers from "./components/ShowUsers";
 import RequireAuth from "./components/RequireAuth";
 import AlreadyAuth from "./components/AlreadyAuth";
 import Admin from "./components/Admin";
+import Payments from "./components/Payments";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login2 />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/payments" element={<Payments />} />
         <Route path="/*" element={<Home />} />
       </Routes>
       <Footer></Footer>

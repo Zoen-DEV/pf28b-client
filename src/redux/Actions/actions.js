@@ -31,6 +31,7 @@ import {
   DELETE_USER,
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
+  SET_PRICE,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -237,6 +238,7 @@ export const deleteItemCart = (id) => (dispatch) => {
 export const setCartItems = (item) => (dispatch) => {
   return dispatch({ type: SET_CART_ITEMS, payload: item });
 };
+
 export function getUsers() {
   return async function (dispatch) {
     try {

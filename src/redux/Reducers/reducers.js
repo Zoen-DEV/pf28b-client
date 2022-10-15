@@ -27,7 +27,7 @@ import {
   GOOGLE_AUTH,
   DELETE_USER,
   DELETE_ITEM_CART,
-  RELOAD_FILTERS
+  RELOAD_FILTERS,
 } from "../Constants/animes";
 
 const initialState = {
@@ -47,6 +47,7 @@ const initialState = {
   users: [],
   authenticated: false,
   isLogin: false,
+  // amount: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -194,9 +195,9 @@ const rootReducer = (state = initialState, action) => {
         animeGenres: animeGenres,
       };
     case GET_ANIME_NAME:
-      const anime = state.allAnimes.filter((item) =>{
-        let title = item.title.toLowerCase()
-        return title.includes(action.payload.toLowerCase())
+      const anime = state.allAnimes.filter((item) => {
+        let title = item.title.toLowerCase();
+        return title.includes(action.payload.toLowerCase());
       });
       if (anime.length === 0) {
         Swal.fire("Oops?", "This Anime doesn't exist", "question");
@@ -226,6 +227,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: [...state.cart, action.payload],
+        // amount: state.amount + action.payload.totalPrice,
       };
     case ORDER_ANIME_BY_GENRE:
       let allAnimes = state.allAnimes;
@@ -284,8 +286,8 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         animes: [...state.allAnimes],
-        mangas: [...state.allMangas]
-      }
+        mangas: [...state.allMangas],
+      };
     default:
       return state;
   }

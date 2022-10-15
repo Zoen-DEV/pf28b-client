@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import CartCard from "./CartCard";
 import Loader from "./Loader";
 
@@ -57,12 +58,14 @@ const Cart = () => {
         </ul>
         <p>
           <span>Total: </span>
-          {cartItems.forEach(item=>{
-            total += item.totalPrice
+          {cartItems.forEach((item) => {
+            total += item.totalPrice;
           })}
           ${total.toString().substring(0, 5)}
         </p>
-      <button>Checkout</button>
+        <Link to="/payments">
+          <button>Checkout</button>
+        </Link>
       </div>
     </article>
   );
