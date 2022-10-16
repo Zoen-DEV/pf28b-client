@@ -48,6 +48,7 @@ const initialState = {
   users: [],
   authenticated: false,
   isLogin: false,
+  // amount: 0,
 };
 
 const rootReducer = (state = initialState, action) => {

@@ -252,6 +252,7 @@ export const setCartItems = (item) => async (dispatch) => {
   }
 };
 
+
 export const getCart = (userId) => async (dispatch) => {
   const res = await axios.get(`http://localhost:3000/cart/${userId}`);
   const response = res.data.map((item) => {
@@ -262,6 +263,7 @@ export const getCart = (userId) => async (dispatch) => {
     payload: response,
   });
 };
+
 
 export function getUsers() {
   return async function (dispatch) {

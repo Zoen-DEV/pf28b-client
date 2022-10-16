@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import PhoneInput from "react-phone-number-input";
+// import PhoneInput from "react-phone-number-input";
 import { useState } from "react";
 import axios from "axios";
 import validate from "./validate";
@@ -45,7 +45,11 @@ function SignUp() {
     setError((state) => {
       const err = {
         ...state,
-        [e.target.name]: validate(e.target.name, e.target.value, input.password),
+        [e.target.name]: validate(
+          e.target.name,
+          e.target.value,
+          input.password
+        ),
       };
       if (
         err.username === "" &&
@@ -86,7 +90,10 @@ function SignUp() {
       </h2>
       <form className="sign-up" onSubmit={onSubmit}>
         <div>
-          <label htmlFor="username" className={error.username ? "label-error" : ""}>
+          <label
+            htmlFor="username"
+            className={error.username ? "label-error" : ""}
+          >
             Username:
           </label>
           <input
@@ -97,7 +104,11 @@ function SignUp() {
             onChange={onChange}
             className={error.username ? "input-error" : ""}
           />
-          {!error.username ? <div>&nbsp;</div> : <div className="validate">{error.username}</div>}
+          {!error.username ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.username}</div>
+          )}
         </div>
         <div>
           <label htmlFor="email" className={error.email ? "label-error" : ""}>
@@ -111,10 +122,17 @@ function SignUp() {
             onChange={onChange}
             className={error.email ? "input-error" : ""}
           />
-          {!error.email ? <div>&nbsp;</div> : <div className="validate">{error.email}</div>}
+          {!error.email ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.email}</div>
+          )}
         </div>
         <div style={{ position: "relative" }}>
-          <label htmlFor="password" className={error.password ? "label-error" : ""}>
+          <label
+            htmlFor="password"
+            className={error.password ? "label-error" : ""}
+          >
             Password:
           </label>
           <input
@@ -125,16 +143,25 @@ function SignUp() {
             onChange={onChange}
             className={error.password ? "input-error" : ""}
           />
-          {!error.password ? <div>&nbsp;</div> : <div className="validate">{error.password}</div>}
+          {!error.password ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.password}</div>
+          )}
           <img
             src={password === "password" ? eyeOff : eyeOn}
             alt="on"
             height="25"
-            onClick={() => setPassword(password === "password" ? "text" : "password")}
+            onClick={() =>
+              setPassword(password === "password" ? "text" : "password")
+            }
           />
         </div>
         <div style={{ position: "relative" }}>
-          <label htmlFor="cpassword" className={error.cpassword ? "label-error" : ""}>
+          <label
+            htmlFor="cpassword"
+            className={error.cpassword ? "label-error" : ""}
+          >
             Confirm password:
           </label>
           <input
@@ -145,12 +172,18 @@ function SignUp() {
             onChange={onChange}
             className={error.cpassword ? "input-error" : ""}
           />
-          {!error.cpassword ? <div>&nbsp;</div> : <div className="validate">{error.cpassword}</div>}
+          {!error.cpassword ? (
+            <div>&nbsp;</div>
+          ) : (
+            <div className="validate">{error.cpassword}</div>
+          )}
           <img
             src={cpassword === "password" ? eyeOff : eyeOn}
             alt="on"
             height="25"
-            onClick={() => setCpassword(cpassword === "password" ? "text" : "password")}
+            onClick={() =>
+              setCpassword(cpassword === "password" ? "text" : "password")
+            }
           />
         </div>
         {/* <div>
@@ -175,7 +208,10 @@ function SignUp() {
         >
           Sign Up
         </button>
-        <div className="terms">By continuing, you accept our standard terms and conditions and our privacy policy.</div>
+        <div className="terms">
+          By continuing, you accept our standard terms and conditions and our
+          privacy policy.
+        </div>
       </form>
     </div>
   );
