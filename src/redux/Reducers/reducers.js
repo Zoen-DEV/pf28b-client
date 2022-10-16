@@ -29,6 +29,12 @@ import {
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
   GET_CART,
+  GET_REVIEWS_PRODUCT,
+  GET_REVIEWS_USER,
+  POST_REVIEW,
+  DELETE_REVIEW_ADMIN,
+  DELETE_REVIEW_USER,
+  REFRESH_REVIEWS
 } from "../Constants/animes";
 
 const initialState = {
@@ -48,6 +54,7 @@ const initialState = {
   users: [],
   authenticated: false,
   isLogin: false,
+  reviews: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -314,6 +321,16 @@ const rootReducer = (state = initialState, action) => {
         animes: [...state.allAnimes],
         mangas: [...state.allMangas],
       };
+    case GET_REVIEWS_PRODUCT:
+      return {
+        ...state,
+        reviews: action.payload
+      }
+    case REFRESH_REVIEWS:
+      return {
+        ...state,
+        reviews: []
+      }
     default:
       return state;
   }

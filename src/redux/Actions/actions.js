@@ -32,6 +32,12 @@ import {
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
   GET_CART,
+  GET_REVIEWS_PRODUCT,
+  GET_REVIEWS_USER,
+  POST_REVIEW,
+  DELETE_REVIEW_ADMIN,
+  DELETE_REVIEW_USER,
+  REFRESH_REVIEWS
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -232,7 +238,7 @@ export const setCategory = (state) => (dispatch) => {
 // CART actions
 
 export const deleteItemCart = (id) => async (dispatch) => {
-  let response = await axios.delete(`http://localhost:3000/cart/${id}`)
+  let response = await axios.delete(`http://localhost:3000/cart/${id}`);
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
@@ -380,4 +386,98 @@ export function logOut() {
     localStorage.removeItem("user");
     // window.location.reload();
   };
+}
+
+// REVIEWS ACTIONS
+
+export const getProductReviews = (productId, category) => async (dispatch) => {
+  try {
+    let response = await axios.get(
+      `http://localhost:3000/reviews/byproduct/${productId}?category=${category}`
+    );
+    return dispatch({ type: GET_REVIEWS_PRODUCT, payload: response.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getUserReviews = (userId) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/reviews/byuser/${userId}`
+    );
+    return dispatch({ type: GET_REVIEWS_USER, payload: response.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const postReview = (review) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3000/reviews/`,
+      review
+    );
+    return dispatch({ type: POST_REVIEW, payload: response.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const adminDeleteReview = (reviewId) => async (dispatch) => {
+  try {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "A review has been deleted.", "success");
+        axios.delete(`http://localhost:3000/reviews/admindel/${reviewId}`);
+        dispatch({
+          type: DELETE_REVIEW_ADMIN,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Delete canceled!!");
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const userDeleteReview = (reviewId, userId) => async (dispatch) => {
+  try {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "A review has been deleted.", "success");
+        axios.delete(
+          `http://localhost:3000/reviews/userdel/${reviewId}?userId=${userId}`
+        );
+        dispatch({
+          type: DELETE_REVIEW_USER,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Delete canceled!!");
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const refreshReviews = () => (dispatch) => {
+ return dispatch({ type: REFRESH_REVIEWS })
 }
