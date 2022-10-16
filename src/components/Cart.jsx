@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../redux/Actions/actions";
@@ -69,6 +70,7 @@ const Cart = () => {
   } else {
     return <Loader></Loader>;
   }
+
 };
 
 export default Cart;

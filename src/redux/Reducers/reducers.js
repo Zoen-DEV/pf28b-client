@@ -55,6 +55,7 @@ const initialState = {
   authenticated: false,
   isLogin: false,
   reviews: []
+  // amount: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
