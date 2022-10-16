@@ -28,6 +28,7 @@ import {
   DELETE_USER,
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
+  GET_CART,
 } from "../Constants/animes";
 
 const initialState = {
@@ -154,6 +155,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isLogin: true,
       };
     case IS_ACTIVE:
       return {
@@ -214,20 +216,31 @@ const rootReducer = (state = initialState, action) => {
         cart: action.payload,
       };
     case SET_CART_ITEMS:
-      // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
-      let lsCart = localStorage.getItem("cart");
-      if (lsCart) {
-        localStorage.setItem(
-          "cart",
-          JSON.stringify([...JSON.parse(lsCart), action.payload])
-        );
+      if (action.payload.login) {
+        return {
+          ...state,
+          cart: [...state.cart, action.payload.Product],
+        };
       } else {
-        localStorage.setItem("cart", JSON.stringify([action.payload]));
+        // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
+        let lsCart = localStorage.getItem("cart");
+        if (lsCart) {
+          localStorage.setItem(
+            "cart",
+            JSON.stringify([...JSON.parse(lsCart), action.payload])
+          );
+        } else {
+          localStorage.setItem("cart", JSON.stringify([action.payload]));
+        }
+        return {
+          ...state,
+          cart: [...state.cart, action.payload],
+        };
       }
+    case GET_CART:
       return {
         ...state,
-        cart: [...state.cart, action.payload],
-        // amount: state.amount + action.payload.totalPrice,
+        cart: [...action.payload],
       };
     case ORDER_ANIME_BY_GENRE:
       let allAnimes = state.allAnimes;
@@ -276,12 +289,26 @@ const rootReducer = (state = initialState, action) => {
         users: state.users.filter((user) => user.email !== action.payload),
       };
     case DELETE_ITEM_CART:
-      const newCart = state.cart.filter((item) => item.id !== action.payload);
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return {
-        ...state,
-        cart: [...newCart],
-      };
+      console.log(state.cart[0].Product.id)
+      if (Object.keys(state.user).length === 0) {
+        const newCart = state.cart.filter(
+          (item) => item.Product.id !== action.payload
+        );
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        return {
+          ...state,
+          cart: [...newCart],
+        };
+      } else {
+        const newCart = state.cart.filter(
+          (item) => item.Product.id !== action.payload
+        );
+        // localStorage.setItem("cart", JSON.stringify(newCart));
+        return {
+          ...state,
+          cart: [...newCart],
+        };
+      }
     case RELOAD_FILTERS:
       return {
         ...state,
