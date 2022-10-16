@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import {
   deleteDetails,
   getAnimesDetails,
@@ -17,8 +17,10 @@ const Details = () => {
   const id = useParams().id;
   const [count, setCount] = useState(1);
   const lsCategory = localStorage.getItem("category");
-  const randomId = uuidv4()
-  
+  const randomId = uuidv4();
+  const userJSON = localStorage.getItem("user");
+  const user = JSON.parse(userJSON);
+
   useEffect(() => {
     if (JSON.parse(lsCategory).id === 1) {
       dispatch(getAnimesDetails(id));
@@ -30,7 +32,29 @@ const Details = () => {
     };
   }, [dispatch, id, lsCategory]);
   const toCart = (e) => {
-    dispatch(setCartItems({ id: randomId, product: details, amount: count, totalPrice: details.price * count }));
+    // if (user) {
+    dispatch(
+      setCartItems({
+        id: randomId,
+        productId: details.id,
+        amount: count,
+        totalPrice: details.price * count,
+        UserId: user.id,
+        category: JSON.parse(lsCategory).type,
+      })
+    );
+    // } else {
+    //   dispatch(
+    //     setCartItems({
+    //       id: randomId,
+    //       productId: details.id,
+    //       amount: count,
+    //       totalPrice: details.price * count,
+    //       category: JSON.parse(lsCategory).type,
+    //     })
+    //   )
+    // }
+
     Swal.fire(
       `${count} product has been added to the cart`,
       `${details.title}`,
@@ -84,7 +108,7 @@ const Details = () => {
               </div>
               <p>
                 <span>$</span>
-                {details.price * count}
+                {(details.price * count).toString().substring(0, 6)}
               </p>
               <div className="btns_container">
                 <button
@@ -117,7 +141,8 @@ const Details = () => {
         </div>
         <div className="description_container">
           <p>
-            <span>Synopsis: </span><br/>
+            <span>Synopsis: </span>
+            <br />
             {details.synopsis ? details.synopsis : details.description}
           </p>
         </div>
@@ -171,7 +196,7 @@ const Details = () => {
               </div>
               <p>
                 <span>$</span>
-                {details.price * count}
+                {(details.price * count).toString().substring(0, 5)}
               </p>
               <div className="btns_container">
                 <button

@@ -31,8 +31,7 @@ import {
   DELETE_USER,
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
-  SET_PRICE,
-  SAVE_PRODUCTS,
+  GET_CART,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -232,45 +231,36 @@ export const setCategory = (state) => (dispatch) => {
 
 // CART actions
 
-export const deleteItemCart = (id) => (dispatch) => {
+export const deleteItemCart = (id) => async (dispatch) => {
+  let response = await axios.delete(`http://localhost:3000/cart/${id}`);
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
-export const setCartItems = (item) => (dispatch) => {
-  return dispatch({ type: SET_CART_ITEMS, payload: item });
-};
-
-export const saveProducts = async (obj) => {
-  const url = "http://localhost:3000/cart";
-  // const resp = await axios.post(url, obj);
-  // console.log(resp.data);
-  const product = JSON.parse(localStorage.getItem("cart"));
-  const userId = localStorage.getItem("userId");
-  const category = JSON.parse(localStorage.getItem("category"));
-  try {
-    const data = product.map((d) => {
-      return {
-        id: d.id,
-        amount: d.amount,
-        totalPrice: d.totalPrice,
-        productId: d.product.id,
-        UserId: userId,
-        category: category.type,
-      };
+export const setCartItems = (item) => async (dispatch) => {
+  if (!item.UserId) {
+    return dispatch({
+      type: SET_CART_ITEMS,
+      payload: { Product: item, login: false },
     });
-    const resp = await axios.post(url, data);
-    localStorage.removeItem("cart");
-    Swal.fire(resp.data);
-  } catch (error) {
-    // console.log({ error });
-    Swal.fire(error.response.data.msg);
+  } else {
+    // console.log("hola: ", await axios.post("http://localhost:3000/cart", item));
+    let response = await axios.post("http://localhost:3000/cart", item);
+    return dispatch({
+      type: SET_CART_ITEMS,
+      payload: { Product: response.data, login: true },
+    });
   }
 };
 
-export const showProducts = async (userId) => {
-  const url = `http://localhost:3000/cart/${userId}`;
-  const { data } = await axios.get(url);
-  console.log(data);
+export const getCart = (userId) => async (dispatch) => {
+  const res = await axios.get(`http://localhost:3000/cart/${userId}`);
+  const response = res.data.map((item) => {
+    return { Product: item, login: true };
+  });
+  return dispatch({
+    type: GET_CART,
+    payload: response,
+  });
 };
 
 export function getUsers() {
@@ -331,6 +321,7 @@ export function googleAuth(tokenGoogle) {
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      console.log(user);
       dispatch({
         type: GOOGLE_AUTH,
         payload: user,
