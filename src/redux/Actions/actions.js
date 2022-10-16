@@ -32,6 +32,7 @@ import {
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
   SET_PRICE,
+  SAVE_PRODUCTS,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -237,6 +238,39 @@ export const deleteItemCart = (id) => (dispatch) => {
 
 export const setCartItems = (item) => (dispatch) => {
   return dispatch({ type: SET_CART_ITEMS, payload: item });
+};
+
+export const saveProducts = async (obj) => {
+  const url = "http://localhost:3000/cart";
+  // const resp = await axios.post(url, obj);
+  // console.log(resp.data);
+  const product = JSON.parse(localStorage.getItem("cart"));
+  const userId = localStorage.getItem("userId");
+  const category = JSON.parse(localStorage.getItem("category"));
+  try {
+    const data = product.map((d) => {
+      return {
+        id: d.id,
+        amount: d.amount,
+        totalPrice: d.totalPrice,
+        productId: d.product.id,
+        UserId: userId,
+        category: category.type,
+      };
+    });
+    const resp = await axios.post(url, data);
+    localStorage.removeItem("cart");
+    Swal.fire(resp.data);
+  } catch (error) {
+    // console.log({ error });
+    Swal.fire(error.response.data.msg);
+  }
+};
+
+export const showProducts = async (userId) => {
+  const url = `http://localhost:3000/cart/${userId}`;
+  const { data } = await axios.get(url);
+  console.log(data);
 };
 
 export function getUsers() {

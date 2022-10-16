@@ -1,10 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { showProducts } from "../redux/Actions/actions";
 import CartCard from "./CartCard";
 import Loader from "./Loader";
 
-const Cart = () => {
+const Cart = async () => {
+  // const userId = localStorage.getItem("userId");
+  // showProducts(userId);
   const cartItems = useSelector((state) => state.cart);
   let total = 0;
   return (
@@ -63,9 +66,9 @@ const Cart = () => {
           })}
           ${total.toString().substring(0, 5)}
         </p>
-        <Link to="/payments">
+        {/* <Link to="/payments">
           <button>Checkout</button>
-        </Link>
+        </Link> */}
       </div>
     </article>
   );

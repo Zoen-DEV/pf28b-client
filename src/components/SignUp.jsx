@@ -7,6 +7,7 @@ import validate from "./validate";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
 import Swal from "sweetalert2";
+import { saveProducts } from "../redux/Actions/actions";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -73,7 +74,9 @@ function SignUp() {
           pass: input.password,
           email: input.email,
         });
+        localStorage.setItem("userId", resp.data.user.id);
         navigate("/login");
+        saveProducts();
         Swal.fire(`${resp.data.msg}. Now you can start session`);
       } catch (error) {
         console.log(error);

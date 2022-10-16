@@ -29,3 +29,4 @@ export const DELETE_USER = "DELETE_USER";
 export const DELETE_ITEM_CART = "DELETE_ITEM_CART";
 export const RELOAD_FILTERS = "RELOAD_FILTERS";
 export const SET_PRICE = "SET_PRICE";
+export const SAVE_PRODUCTS = "SAVE_PRODUCTS";
