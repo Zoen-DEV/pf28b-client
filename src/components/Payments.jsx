@@ -2,23 +2,31 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   CardElement,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
   Elements,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { getTotalPrice } from "../redux/Actions/actions";
+
 const url = "http://localhost:3000/payment";
 const stripePromise = loadStripe(
   "pk_test_51Ls8AVH3eAzBxjrCdmB23smtLOd0cTqhqHKYQ2eYMvA6yoQhEBKyd7GxPofzGS39TL2uM2vogL5XcPJDy6AimbDU00bvlY5EZC"
 );
+const userId = localStorage.getItem("userId");
+getTotalPrice(userId);
 
-const price = JSON.parse(localStorage.getItem("cart"));
-const totalPrice =
-  price
-    .map((d) => d.totalPrice)
-    .reduce((a, b) => a + b)
-    .toPrecision(4) * 100;
-// console.log({ totalPrice });
+// const price = JSON.parse(localStorage.getItem("cart"));
+// const totalPrice =
+//   price
+//     .map((d) => d.totalPrice)
+//     .reduce((a, b) => a + b)
+//     .toPrecision(4) * 100;
+// console.log({ totalPrice });}
+const totalPrice = 100000;
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -33,27 +41,36 @@ const CheckoutForm = () => {
       card: elements.getElement(CardElement),
     });
     if (!error) {
-      // console.log(paymentMethod);
-      const { id } = paymentMethod;
-      try {
-        const { data } = await axios.post(url, { id, totalPrice });
-        console.log(data);
-        elements.getElement(CardElement).clear();
-      } catch (error) {
-        console.log(error.response.data);
-      }
+      console.log(paymentMethod);
+      // const { id } = paymentMethod;
+      // try {
+      //   const { data } = await axios.post(url, { id, totalPrice });
+      //   console.log(data);
+      //   elements.getElement(CardElement).clear();
+      // } catch (error) {
+      //   console.log(error.response.data);
+      // }
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement />
+      <div>
+        <CardNumberElement />
+      </div>
+      <div>
+        <CardExpiryElement />
+      </div>
+      <div>
+        <CardCvcElement />
+      </div>
+      <p>Total: </p>
       <button>Buy</button>
     </form>
   );
 };
 
-const Payments = () => {
+const Payments = ({ price }) => {
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm />

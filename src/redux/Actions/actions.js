@@ -288,6 +288,7 @@ export function validateUser(obj) {
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("userId", JSON.stringify(user.id));
       dispatch({ type: VALIDATE_USER, payload: user });
       dispatch({ type: IS_ACTIVE, payload: true });
       Swal.fire({
@@ -321,6 +322,7 @@ export function googleAuth(tokenGoogle) {
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("userId", JSON.stringify(user.id));
       console.log(user);
       dispatch({
         type: GOOGLE_AUTH,
@@ -378,6 +380,12 @@ export function logOut() {
     dispatch({ type: LOGOUT, payload: {} });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("userId");
     // window.location.reload();
   };
 }
+
+export const getTotalPrice = async (userId) => {
+  const { data } = await axios.get(`http://localhost:3000/cart/${userId}`);
+  console.log({ data });
+};

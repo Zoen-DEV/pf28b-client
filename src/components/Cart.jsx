@@ -40,12 +40,13 @@ const Cart = () => {
             <h2>Summary</h2>
           </div>
           <ul>
-            {/* {cartItems.length > 0 ? (
+            {cartItems.length > 0 ? (
               cartItems.map((item, index) => {
                 return (
                   <li key={index}>
                     <p>
-                      ${item.Product.totalPrice / item.Product.amount} x {item.Product.amount} ={" "}
+                      ${item.Product.totalPrice / item.Product.amount} x{" "}
+                      {item.Product.amount} ={" "}
                       <span>${item.Product.totalPrice}</span>
                     </p>
                   </li>
@@ -53,7 +54,7 @@ const Cart = () => {
               })
             ) : (
               <Loader />
-            )} */}
+            )}
           </ul>
           <p>
             <span>Total: </span>
