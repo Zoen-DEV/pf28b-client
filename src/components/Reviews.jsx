@@ -1,30 +1,25 @@
-import React from "react";
-import NewReview from "./NewReview";
+import React, { useState } from "react";
 
 const Reviews = ({ reviews }) => {
+  const [stars, setStars] = useState();
   return (
-    <div>
-      <ul>
-        {reviews?.map((item) => {
-          return (
-            <li>
-              <div className="user_info_container">
-                <h2>{item.username}</h2>
-                <img src={item.userImg} alt="" />
-              </div>
-              <div className="rating">
-                {Array.apply(null, { length: item.rating })?.map((item) => {
-                  return <p>⭐</p>;
-                })}
-              </div>
-
-              <p>{item.comment}</p>
-            </li>
-          );
-        })}
-      </ul>
-      {/* <NewReview></NewReview> */}
-    </div>
+    <ul>
+      {reviews?.map((item) => {
+        return (
+          <li key={item.id}>
+            <div className="user_info_container">
+              <img src={item.userImg} alt="" />
+              <h2>{item.username}</h2>
+              {Array.apply(null, { length: item.rating })?.map((j, index) => {
+                let random = Math.floor(Math.random() * 100000);
+                return <div key={random}>⭐</div>;
+              })}
+            </div>
+            <p>{item.comment}</p>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
