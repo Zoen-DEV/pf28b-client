@@ -7,8 +7,12 @@ import {
   deleteDetails,
   getAnimesDetails,
   getDetails,
+  getProductReviews,
+  refreshReviews,
   setCartItems,
 } from "../redux/Actions/actions";
+import NewReview from "./NewReview";
+import Reviews from "./Reviews";
 
 const Details = () => {
   const [isFav, setIsFav] = useState(false);
@@ -20,15 +24,19 @@ const Details = () => {
   const randomId = uuidv4();
   const userJSON = localStorage.getItem("user");
   const user = JSON.parse(userJSON);
+  const reviews = useSelector((state) => state.reviews);
 
   useEffect(() => {
     if (JSON.parse(lsCategory).id === 1) {
       dispatch(getAnimesDetails(id));
+      dispatch(getProductReviews(id, "anime"));
     } else {
       dispatch(getDetails(id));
+      dispatch(getProductReviews(id, "manga"));
     }
     return () => {
       dispatch(deleteDetails());
+      dispatch(refreshReviews());
     };
   }, [dispatch, id, lsCategory]);
   const toCart = (e) => {
@@ -146,6 +154,16 @@ const Details = () => {
             {details.synopsis ? details.synopsis : details.description}
           </p>
         </div>
+        <div className="reviews_container">
+          {reviews.length > 0 ? (
+            <Reviews reviews={reviews}></Reviews>
+          ) : (
+            <h3>Not reviews yet</h3>
+          )}
+          <div className="review_form">
+            <NewReview></NewReview>
+          </div>
+        </div>
         {/* <div className="chapters_container">
         <div className="chapters_titles">
           <h2>Chapters</h2>
@@ -219,6 +237,19 @@ const Details = () => {
             <span>Synopsis: </span>
             {details.synopsis ? details.synopsis : details.description}
           </p>
+        </div>
+        <div className="reviews_container">
+          <div className="reviews_title">
+            <h1>Reviews</h1>
+          </div>
+          {reviews.length > 0 ? (
+            <Reviews reviews={reviews}></Reviews>
+          ) : (
+            <h3>Not reviews yet</h3>
+          )}
+          <div className="review_form">
+            <NewReview></NewReview>
+          </div>
         </div>
         {/* <div className="chapters_container">
         <div className="chapters_titles">
