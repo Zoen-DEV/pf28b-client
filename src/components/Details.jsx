@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import {
   deleteDetails,
   getAnimesDetails,
   getDetails,
+  getProductReviews,
+  refreshReviews,
   setCartItems,
 } from "../redux/Actions/actions";
+import NewReview from "./NewReview";
+import Reviews from "./Reviews";
 
 const Details = () => {
   const [isFav, setIsFav] = useState(false);
@@ -17,20 +21,48 @@ const Details = () => {
   const id = useParams().id;
   const [count, setCount] = useState(1);
   const lsCategory = localStorage.getItem("category");
-  const randomId = uuidv4()
-  
+  const randomId = uuidv4();
+  const userJSON = localStorage.getItem("user");
+  const user = JSON.parse(userJSON);
+  const reviews = useSelector((state) => state.reviews);
+
   useEffect(() => {
     if (JSON.parse(lsCategory).id === 1) {
       dispatch(getAnimesDetails(id));
+      dispatch(getProductReviews(id, "anime"));
     } else {
       dispatch(getDetails(id));
+      dispatch(getProductReviews(id, "manga"));
     }
     return () => {
       dispatch(deleteDetails());
+      dispatch(refreshReviews());
     };
   }, [dispatch, id, lsCategory]);
   const toCart = (e) => {
-    dispatch(setCartItems({ id: randomId, product: details, amount: count, totalPrice: details.price * count }));
+    // if (user) {
+    dispatch(
+      setCartItems({
+        id: randomId,
+        productId: details.id,
+        amount: count,
+        totalPrice: details.price * count,
+        UserId: user.id,
+        category: JSON.parse(lsCategory).type,
+      })
+    );
+    // } else {
+    //   dispatch(
+    //     setCartItems({
+    //       id: randomId,
+    //       productId: details.id,
+    //       amount: count,
+    //       totalPrice: details.price * count,
+    //       category: JSON.parse(lsCategory).type,
+    //     })
+    //   )
+    // }
+
     Swal.fire(
       `${count} product has been added to the cart`,
       `${details.title}`,
@@ -84,7 +116,7 @@ const Details = () => {
               </div>
               <p>
                 <span>$</span>
-                {details.price * count}
+                {(details.price * count).toString().substring(0, 6)}
               </p>
               <div className="btns_container">
                 <button
@@ -117,9 +149,20 @@ const Details = () => {
         </div>
         <div className="description_container">
           <p>
-            <span>Synopsis: </span><br/>
+            <span>Synopsis: </span>
+            <br />
             {details.synopsis ? details.synopsis : details.description}
           </p>
+        </div>
+        <div className="reviews_container">
+          {reviews.length > 0 ? (
+            <Reviews reviews={reviews}></Reviews>
+          ) : (
+            <h3>Not reviews yet</h3>
+          )}
+          <div className="review_form">
+            <NewReview></NewReview>
+          </div>
         </div>
         {/* <div className="chapters_container">
         <div className="chapters_titles">
@@ -171,7 +214,7 @@ const Details = () => {
               </div>
               <p>
                 <span>$</span>
-                {details.price * count}
+                {(details.price * count).toString().substring(0, 5)}
               </p>
               <div className="btns_container">
                 <button
@@ -194,6 +237,19 @@ const Details = () => {
             <span>Synopsis: </span>
             {details.synopsis ? details.synopsis : details.description}
           </p>
+        </div>
+        <div className="reviews_container">
+          <div className="reviews_title">
+            <h1>Reviews</h1>
+          </div>
+          {reviews.length > 0 ? (
+            <Reviews reviews={reviews}></Reviews>
+          ) : (
+            <h3>Not reviews yet</h3>
+          )}
+          <div className="review_form">
+            <NewReview></NewReview>
+          </div>
         </div>
         {/* <div className="chapters_container">
         <div className="chapters_titles">

@@ -31,6 +31,13 @@ import {
   DELETE_USER,
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
+  GET_CART,
+  GET_REVIEWS_PRODUCT,
+  GET_REVIEWS_USER,
+  POST_REVIEW,
+  DELETE_REVIEW_ADMIN,
+  DELETE_REVIEW_USER,
+  REFRESH_REVIEWS
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -230,13 +237,40 @@ export const setCategory = (state) => (dispatch) => {
 
 // CART actions
 
-export const deleteItemCart = (id) => (dispatch) => {
+export const deleteItemCart = (id) => async (dispatch) => {
+  let response = await axios.delete(`http://localhost:3000/cart/${id}`);
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
-export const setCartItems = (item) => (dispatch) => {
-  return dispatch({ type: SET_CART_ITEMS, payload: item });
+export const setCartItems = (item) => async (dispatch) => {
+  if (!item.UserId) {
+    return dispatch({
+      type: SET_CART_ITEMS,
+      payload: { Product: item, login: false },
+    });
+  } else {
+    // console.log("hola: ", await axios.post("http://localhost:3000/cart", item));
+    let response = await axios.post("http://localhost:3000/cart", item);
+    return dispatch({
+      type: SET_CART_ITEMS,
+      payload: { Product: response.data, login: true },
+    });
+  }
 };
+
+
+export const getCart = (userId) => async (dispatch) => {
+  const res = await axios.get(`http://localhost:3000/cart/${userId}`);
+  const response = res.data.map((item) => {
+    return { Product: item, login: true };
+  });
+  return dispatch({
+    type: GET_CART,
+    payload: response,
+  });
+};
+
+
 export function getUsers() {
   return async function (dispatch) {
     try {
@@ -295,6 +329,7 @@ export function googleAuth(tokenGoogle) {
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      console.log(user);
       dispatch({
         type: GOOGLE_AUTH,
         payload: user,
@@ -353,4 +388,98 @@ export function logOut() {
     localStorage.removeItem("user");
     // window.location.reload();
   };
+}
+
+// REVIEWS ACTIONS
+
+export const getProductReviews = (productId, category) => async (dispatch) => {
+  try {
+    let response = await axios.get(
+      `http://localhost:3000/reviews/byproduct/${productId}?category=${category}`
+    );
+    return dispatch({ type: GET_REVIEWS_PRODUCT, payload: response.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getUserReviews = (userId) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/reviews/byuser/${userId}`
+    );
+    return dispatch({ type: GET_REVIEWS_USER, payload: response.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const postReview = (review) => async (dispatch) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:3000/reviews/`,
+      review
+    );
+    return dispatch({ type: POST_REVIEW, payload: response.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const adminDeleteReview = (reviewId) => async (dispatch) => {
+  try {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "A review has been deleted.", "success");
+        axios.delete(`http://localhost:3000/reviews/admindel/${reviewId}`);
+        dispatch({
+          type: DELETE_REVIEW_ADMIN,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Delete canceled!!");
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const userDeleteReview = (reviewId, userId) => async (dispatch) => {
+  try {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "A review has been deleted.", "success");
+        axios.delete(
+          `http://localhost:3000/reviews/userdel/${reviewId}?userId=${userId}`
+        );
+        dispatch({
+          type: DELETE_REVIEW_USER,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Delete canceled!!");
+      }
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const refreshReviews = () => (dispatch) => {
+ return dispatch({ type: REFRESH_REVIEWS })
 }
