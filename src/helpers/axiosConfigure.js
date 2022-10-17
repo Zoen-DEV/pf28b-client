@@ -7,7 +7,7 @@ const animerceApp = axios.create({
 animerceApp.interceptors.request.use((config) => {
   config.headers = {
     ...config.headers,
-    // 'token': "ABC",
+  
     token: localStorage.getItem("token"),
   };
   return config;

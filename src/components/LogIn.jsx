@@ -38,36 +38,7 @@ function LogIn() {
         }
         setClickbtn("");
       });
-      // const token = await user1.token;
-      // console.log(await token);
-      // localStorage.setItem("token", await token);
-      // console.log(user1.token);
-      // if (user1.token) {
-      //   localStorage.setItem("token", user1.token);
-      // }
 
-      // const users = (await axios.get(`${process.env.DB_ENDPOINT}login/users`)).data;
-      // const user_email = users.find(
-      //   (u) => u.email === data.email && u.password !== data.password
-      // );
-      // const user = users.find(
-      //   (u) => u.email === data.email && u.password === data.password
-      // );
-
-      // if (user_email)
-      //   setError((state) => ({
-      //     email: "",
-      //     password: "Incorrect password. Please try again.",
-      //   }));
-      // else if (!user)
-      //   setError((state) => ({
-      //     email: "The account doesn't exist. Please try again.",
-      //     password: " ",
-      //   }));
-      // else {
-      //   // disptach(getUsers(user.email));
-      //   navigate("/");
-      // }
     }, 1000);
   }
 
