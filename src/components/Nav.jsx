@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LOGOdemo from "../assets/LOGOdemo.png";
 import SearchBar from "./SearchBar";
 import { setCategory } from "../redux/Actions/actions";
@@ -19,6 +19,7 @@ const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const lsCart = localStorage.getItem("cart");
+  let { page } = useParams()
   // const [toggleBtn, setToggleBtn] = useState(true);
   // const [toggleStyle, setToggleStyle] = useState({
   //   color: "#b82601",
@@ -28,6 +29,7 @@ const Nav = () => {
     // if (lsCart) {
     //   dispatch(updateCart(JSON.parse(lsCart)));
     // }
+    setShowSlide(false)
     let localStorageCategory = localStorage.getItem("category");
     if (localStorageCategory) {
       dispatch(setCategory(JSON.parse(localStorageCategory)));
@@ -39,7 +41,7 @@ const Nav = () => {
       setAnimeCLicked(false);
       setMangaCLicked(true);
     }
-  }, [dispatch, category.id, lsCart]);
+  }, [dispatch, category.id, lsCart, page]);
 
   const changeCategory = (e) => {
     switch (e.target.name) {

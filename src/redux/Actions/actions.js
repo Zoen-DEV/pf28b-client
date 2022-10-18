@@ -37,7 +37,7 @@ import {
   POST_REVIEW,
   DELETE_REVIEW_ADMIN,
   DELETE_REVIEW_USER,
-  REFRESH_REVIEWS
+  REFRESH_REVIEWS,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -416,10 +416,8 @@ export const getUserReviews = (userId) => async (dispatch) => {
 
 export const postReview = (review) => async (dispatch) => {
   try {
-    const response = await axios.post(
-      `http://localhost:3000/reviews/`,
-      review
-    );
+    const response = await axios.post(`http://localhost:3000/reviews`, { ...review });
+    console.log(response.data)
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);
@@ -481,5 +479,5 @@ export const userDeleteReview = (reviewId, userId) => async (dispatch) => {
 };
 
 export const refreshReviews = () => (dispatch) => {
- return dispatch({ type: REFRESH_REVIEWS })
-}
+  return dispatch({ type: REFRESH_REVIEWS });
+};

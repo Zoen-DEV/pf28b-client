@@ -12,13 +12,14 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
   const userJSON = localStorage.getItem("user");
   const user = JSON.parse(userJSON);
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(total + item.totalPrice);
+  let total = 0;
   // let localCart;
 
   useEffect(() => {
     dispatch(getCart(user.id));
   }, [dispatch]);
-  
+
   if (cartItems.length > 0) {
     return (
       <article className="cart_container">
@@ -41,12 +42,13 @@ const Cart = () => {
             <h2>Summary</h2>
           </div>
           <ul>
-            {/* {cartItems.length > 0 ? (
+            {cartItems.length > 0 ? (
               cartItems.map((item, index) => {
                 return (
                   <li key={index}>
                     <p>
-                      ${item.Product.totalPrice / item.Product.amount} x {item.Product.amount} ={" "}
+                      ${item.Product.totalPrice / item.Product.amount} x{" "}
+                      {item.Product.amount} ={" "}
                       <span>${item.Product.totalPrice}</span>
                     </p>
                   </li>
@@ -54,14 +56,14 @@ const Cart = () => {
               })
             ) : (
               <Loader />
-            )} */}
+            )}
           </ul>
           <p>
             <span>Total: </span>
-            {/* {cartItems.forEach((item) => {
-              setTotal(total + item.totalPrice);
+            {cartItems?.forEach((item) => {
+              total += item.Product.totalPrice;
             })}
-            ${total.toString().substring(0, 5)} */}
+            ${total.toString().substring(0, 5)}
           </p>
           <button>Checkout</button>
         </div>
