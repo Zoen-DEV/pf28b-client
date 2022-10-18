@@ -129,7 +129,7 @@ export function getAnimes() {
       let response = await axios.get(`https://animemangaback-production-2576.up.railway.app/animes`);
       return dispatch({
         type: GET_ANIMES,
-        payload: response.data,
+        payload: response.data.animesDB,
       });
     } catch (error) {
       console.log(error);
