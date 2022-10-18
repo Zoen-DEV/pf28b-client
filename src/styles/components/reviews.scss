@@ -1,0 +1,88 @@
+.reviews_container {
+  ul {
+    @include flex(column, flex-start, flex-start);
+    gap: 20px;
+    list-style: none;
+    user-select: none;
+    li {
+      @include flex(column, flex-start, flex-start);
+      text-decoration: none;
+      gap: 10px;
+      background: linear-gradient(90deg, $color-shadow2, transparent);
+      border-radius: 30px 0 0 5px;
+      .user_info_container {
+        @include flex(row, flex-start, center);
+        gap: 20px;
+        h2 {
+          font-size: 20px;
+          color: $color-orange;
+          text-shadow: 1px 1px 2px $color-shadow2;
+        }
+        img {
+          border-radius: 50%;
+          width: 5vw;
+          height: 5vw;
+        }
+        div {
+          @include flex(row, center, center);
+        }
+      }
+      p {
+        color: $color-cream;
+        text-shadow: 2px 2px 2px $color-shadow2;
+        width: 70%;
+        padding-left: 70px;
+      }
+    }
+  }
+  .review_form {
+    width: 80vw;
+    margin: auto;
+    gap: 20px;
+    height: 20vh;
+    border-top: 2px solid $color-orange;
+    padding: 20px;
+    form {
+      @include flex(column, space-between, center);
+      width: 40vw;
+      margin: auto;
+      textarea {
+        resize: none;
+        width: 40vw;
+        height: 10vh;
+        align-self: flex-start;
+      }
+      .rating {
+        @include flex(row, space-evenly, center);
+        width: 15vw;
+        gap: 20px;
+        align-self: flex-start;
+        button {
+          width: 20px;
+          height: 20px;
+          background: none;
+          border: none;
+          font-size: 20px;
+          text-shadow: 2px 2px 2px $color-shadow2;
+          user-select: none;
+        }
+      }
+      .send_review {
+        align-self: flex-end;
+        background: linear-gradient(45deg, $color-orange, $color-fuxia);
+        border: none;
+        padding: 10px;
+        color: $color-white;
+        border-radius: 5px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.5s;
+        box-shadow: 1px 1px 5px 2px $color-shadow3;
+      }
+      .send_review:hover {
+        transform: scale(1.02);
+        background: linear-gradient(90deg, $color-orange, $color-fuxia);
+      }
+    }
+  }
+}

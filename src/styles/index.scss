@@ -5,7 +5,7 @@
   "./components/filters.scss", "./components/mangas.scss",
   "./components/searchBar.scss", "./components/landing.scss",
   "./components/cart.scss", "./components/loader.scss",
-  "./components/login2.scss";
+  "./components/login2.scss", "./components/reviews.scss";
 
 body {
   margin: 0;
@@ -18,6 +18,7 @@ body {
   background-image: url("../assets/bg_bggenerator_com.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: cover;
 }
 
 code {

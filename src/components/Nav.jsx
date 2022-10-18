@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import LOGOdemo from "../assets/LOGOdemo.png";
 import SearchBar from "./SearchBar";
 import { setCategory } from "../redux/Actions/actions";
-import {
-  getAnimes,
-  getAnimesGenres,
-  getTopAnimes,
-  updateCart,
-  logOut,
-  getMangas,
-  getGenres,
-  topMangas,
-} from "../redux/Actions/actions";
+import { logOut } from "../redux/Actions/actions";
 import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
@@ -21,22 +12,24 @@ const Nav = () => {
   const user = JSON.parse(userSaved);
   const category = useSelector((state) => state.category);
   const cart = useSelector((state) => state.cart);
-  const isLogin = useSelector((state) => state.isLogin);
+  // const isLogin = useSelector((state) => state.isLogin);
   const [animeClicked, setAnimeCLicked] = useState(false);
   const [mangaClicked, setMangaCLicked] = useState(false);
   const [showSlide, setShowSlide] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const lsCart = localStorage.getItem("cart");
+  let { page } = useParams()
   // const [toggleBtn, setToggleBtn] = useState(true);
   // const [toggleStyle, setToggleStyle] = useState({
   //   color: "#b82601",
   // });
 
   useEffect(() => {
-    if (lsCart) {
-      dispatch(updateCart(JSON.parse(lsCart)));
-    }
+    // if (lsCart) {
+    //   dispatch(updateCart(JSON.parse(lsCart)));
+    // }
+    setShowSlide(false)
     let localStorageCategory = localStorage.getItem("category");
     if (localStorageCategory) {
       dispatch(setCategory(JSON.parse(localStorageCategory)));
@@ -48,13 +41,7 @@ const Nav = () => {
       setAnimeCLicked(false);
       setMangaCLicked(true);
     }
-    dispatch(topMangas());
-    dispatch(getTopAnimes());
-    dispatch(getAnimes());
-    dispatch(getMangas());
-    dispatch(getGenres());
-    dispatch(getAnimesGenres());
-  }, [dispatch, category.id, lsCart]);
+  }, [dispatch, category.id, lsCart, page]);
 
   const changeCategory = (e) => {
     switch (e.target.name) {
@@ -221,9 +208,9 @@ const Nav = () => {
               FAVORITES
             </Link>
             {user.isAdmin ? (
-            <Link style={{color: "red"}} className="link" to="admin">
+              <Link style={{ color: "red" }} className="link" to="admin">
                 ADMIN
-            </Link>
+              </Link>
             ) : null}
             <Link
               className="link"

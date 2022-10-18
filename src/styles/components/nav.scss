@@ -5,12 +5,13 @@
   margin: auto;
   border-bottom: 2px solid $color-orange;
   background: linear-gradient(to bottom, $color-shadowblue, $color-shadowblue2);
+  height: 100px;
   z-index: 0;
   .links-container {
     @include flex(row, space-between, center);
     gap: 5vw;
     img {
-      width: 13vw;
+      width: 10vw;
       filter: drop-shadow(1px 1px 1px $color-shadow);
       transition: 0.4s;
       height: 100px;

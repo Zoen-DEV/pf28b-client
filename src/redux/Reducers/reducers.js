@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import {
   DELETE_DETAILS,
   GET_DETAILS,
@@ -26,6 +27,15 @@ import {
   GOOGLE_AUTH,
   DELETE_USER,
   DELETE_ITEM_CART,
+  RELOAD_FILTERS,
+  GET_CART,
+  GET_REVIEWS_PRODUCT,
+  GET_REVIEWS_USER,
+  POST_REVIEW,
+  DELETE_REVIEW_ADMIN,
+  DELETE_REVIEW_USER,
+  REFRESH_REVIEWS,
+  GET_TOTAL_PRICE,
 } from "../Constants/animes";
 
 const initialState = {
@@ -45,6 +55,8 @@ const initialState = {
   users: [],
   authenticated: false,
   isLogin: false,
+  reviews: [],
+  totalPrice: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -78,16 +90,19 @@ const rootReducer = (state = initialState, action) => {
         topMangas: action.payload,
       };
     case GET_MANGA_NAME:
-      const manga = [];
+      console.log("search manga");
+      const manga = state.allMangas.filter((item) =>
+        item.title.includes(action.payload)
+      );
       if (action.payload.length === 0) {
-        return "This Manga doesn't exist";
+        Swal.fire("Oops?", "This Anime doesn't exist", "question");
+        break;
       } else {
-        manga.push(...action.payload);
+        return {
+          ...state,
+          mangas: manga,
+        };
       }
-      return {
-        ...state,
-        mangas: manga,
-      };
     case GET_GENRES:
       const allGenres = [];
       state.mangas.forEach((item) => {
@@ -148,6 +163,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        isLogin: true,
       };
     case IS_ACTIVE:
       return {
@@ -189,40 +205,52 @@ const rootReducer = (state = initialState, action) => {
         animeGenres: animeGenres,
       };
     case GET_ANIME_NAME:
-      const anime = [];
-      if (action.payload.length === 0) {
-        return "This Manga doesn't exist";
-      } else if (action.payload.length > 100) {
-        anime.push(...action.payload.slice(0, 100));
+      const anime = state.allAnimes.filter((item) => {
+        let title = item.title.toLowerCase();
+        return title.includes(action.payload.toLowerCase());
+      });
+      if (anime.length === 0) {
+        Swal.fire("Oops?", "This Anime doesn't exist", "question");
+        break;
       } else {
-        anime.push(...action.payload);
+        return {
+          ...state,
+          animes: anime,
+        };
       }
-      return {
-        ...state,
-        animes: anime,
-      };
     case UPDATE_CART:
       return {
         ...state,
         cart: action.payload,
       };
     case SET_CART_ITEMS:
-      // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
-      let lsCart = localStorage.getItem("cart");
-      if (lsCart) {
-        localStorage.setItem(
-          "cart",
-          JSON.stringify([...JSON.parse(lsCart), action.payload])
-        );
+      if (action.payload.login) {
+        return {
+          ...state,
+          cart: [...state.cart, action.payload.Product],
+        };
       } else {
-        localStorage.setItem("cart", JSON.stringify([action.payload]));
+        // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
+        let lsCart = localStorage.getItem("cart");
+        if (lsCart) {
+          localStorage.setItem(
+            "cart",
+            JSON.stringify([...JSON.parse(lsCart), action.payload])
+          );
+        } else {
+          localStorage.setItem("cart", JSON.stringify([action.payload]));
+        }
+        return {
+          ...state,
+          cart: [...state.cart, action.payload],
+        };
       }
+    case GET_CART:
       return {
         ...state,
-        cart: [...state.cart, action.payload],
+        cart: [...action.payload],
       };
     case ORDER_ANIME_BY_GENRE:
-      console.log(ORDER_ANIME_BY_GENRE);
       let allAnimes = state.allAnimes;
       let filteredStatusAnime =
         action.payload === "All"
@@ -233,7 +261,6 @@ const rootReducer = (state = initialState, action) => {
         animes: [...filteredStatusAnime],
       };
     case ORDER_ANIME_BY_TITLE:
-      console.log(ORDER_ANIME_BY_TITLE);
       let animesByTitle =
         action.payload === "asc"
           ? state.animes.sort((a, b) => {
@@ -251,11 +278,10 @@ const rootReducer = (state = initialState, action) => {
         animes: [...animesByTitle],
       };
     case ORDER_ANIME_BY_CHAPTERS:
-      console.log(ORDER_ANIME_BY_CHAPTERS);
       let animesByChapters =
         action.payload === "chapters asc"
-          ? state.animes.sort((a, b) => a.chapters - b.chapters)
-          : state.animes.sort((a, b) => b.chapters - a.chapters);
+          ? state.animes.sort((a, b) => a.rating - b.rating)
+          : state.animes.sort((a, b) => b.rating - a.rating);
       return {
         ...state,
         animes: [...animesByChapters],
@@ -271,11 +297,51 @@ const rootReducer = (state = initialState, action) => {
         users: state.users.filter((user) => user.email !== action.payload),
       };
     case DELETE_ITEM_CART:
-      const newCart = state.cart.filter((item) => item.id !== action.payload);
-      localStorage.setItem('cart', JSON.stringify(newCart))
+      console.log(state.cart[0].Product.id);
+      if (Object.keys(state.user).length === 0) {
+        const newCart = state.cart.filter(
+          (item) => item.Product.id !== action.payload
+        );
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        return {
+          ...state,
+          cart: [...newCart],
+        };
+      } else {
+        const newCart = state.cart.filter(
+          (item) => item.Product.id !== action.payload
+        );
+        // localStorage.setItem("cart", JSON.stringify(newCart));
+        return {
+          ...state,
+          cart: [...newCart],
+        };
+      }
+    case RELOAD_FILTERS:
       return {
         ...state,
-        cart: [...newCart],
+        animes: [...state.allAnimes],
+        mangas: [...state.allMangas],
+      };
+    case GET_REVIEWS_PRODUCT:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
+    case REFRESH_REVIEWS:
+      return {
+        ...state,
+        reviews: [],
+      };
+    case GET_TOTAL_PRICE:
+      return {
+        ...state,
+        totalPrice: action.payload,
+      };
+    case POST_REVIEW:
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload],
       };
     default:
       return state;

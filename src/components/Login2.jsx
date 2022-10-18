@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { googleAuth, logOut, validateUser } from "../redux/Actions/actions";
-import jwt_decode from "jwt-decode";
+// import axios from "axios";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { googleAuth, validateUser } from "../redux/Actions/actions";
+// import jwt_decode from "jwt-decode";
 import Profile from "./Profile";
 import s from "./styles/Login2.module.css";
-
 function Login2() {
   // const [usuario, setUsuario] = useState(null);
   // const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [datos, setDatos] = useState({
     email: "",
     password: "",
@@ -54,7 +53,7 @@ function Login2() {
     if (!e.target.checkValidity()) {
       console.log("no enviar");
     } else {
-      // let res = await axios.post("http://localhost:3000/login/auth", datos);
+      // let res = await axios.post(`${process.env.DB_ENDPOINT}login/auth`, datos);
       // console.log(res.data);
       // navigate("/profile");
       dispatch(validateUser(datos));
@@ -69,7 +68,6 @@ function Login2() {
     <section className="h-100">
       {/* the div with id=signInDiv below renders the google login on the screen (don't touch)*/}
       <div id="signInDiv" className={s.googleBtn}></div>
-
       <div className="form_container">
         <div className="log-in-container">
           <h1>Welcome back to Animmerce!</h1>

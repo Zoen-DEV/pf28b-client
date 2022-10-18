@@ -139,8 +139,8 @@
     .container {
       margin: 0 auto;
       .ul_slide {
-        @include flex(row, center, center);
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 20px;
         .link {
           border: 1px solid $color-orange;

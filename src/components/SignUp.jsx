@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+// import PhoneInput from "react-phone-number-input";
 import { useState } from "react";
 import axios from "axios";
 import validate from "./validate";
 import eyeOn from "../assets/eyeOn.png";
 import eyeOff from "../assets/eyeOff.png";
 import Swal from "sweetalert2";
+// import { saveProducts } from "../redux/Actions/actions";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -17,6 +19,14 @@ function SignUp() {
   const [clickbtn, setClickbtn] = useState("");
 
   function onChange(e) {
+    if (e === undefined || e[0] === "+") {
+      e = {
+        target: {
+          name: "tel",
+          value: e,
+        },
+      };
+    }
     if (e.target.name === "password") {
       if (e.target.value !== input.cpassword) {
         setError((state) => ({
@@ -56,15 +66,17 @@ function SignUp() {
 
   function onSubmit(e) {
     e.preventDefault();
+    setClickbtn("click");
     setTimeout(async () => {
       try {
-        const resp = await axios.post("http://localhost:3000/login", {
+        const resp = await axios.post(`https://animemangaback-production-2576.up.railway.app/login`, {
           username: input.username,
           pass: input.password,
           email: input.email,
         });
         navigate("/login");
-        Swal.fire(resp.data.msg + "Now you can start session");
+        // saveProducts();
+        Swal.fire(`${resp.data.msg}. Now you can start session`);
       } catch (error) {
         console.log(error);
         Swal.fire(error.response.data.error);
@@ -75,6 +87,9 @@ function SignUp() {
   return (
     <div className="sign-up-container">
       <h1>Get started with Animmerce!</h1>
+      <h2>
+        Already have an account? <Link to="/login">Log in</Link>
+      </h2>
       <form className="sign-up" onSubmit={onSubmit}>
         <div>
           <label
@@ -181,6 +196,9 @@ function SignUp() {
             name="date"
             value={input.date || ""}
             onChange={onChange}
+            defaultCountry="US"
+            international
+            countryCallingCodeEditable={false}
           />
         </div> */}
         <Link to="/login">Do you already have an account?</Link>
