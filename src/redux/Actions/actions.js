@@ -431,7 +431,10 @@ export const getUserReviews = (userId) => async (dispatch) => {
 
 export const postReview = (review) => async (dispatch) => {
   try {
-    const response = await axios.post(`http://localhost:3000/reviews/`, review);
+    const response = await axios.post(`http://localhost:3000/reviews`, {
+      ...review,
+    });
+    console.log(response.data);
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);

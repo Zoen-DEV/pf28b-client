@@ -12,6 +12,10 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart);
   const userJSON = localStorage.getItem("user");
   const user = JSON.parse(userJSON);
+
+  // const [total, setTotal] = useState(total + item.totalPrice);
+  let total = 0;
+
   // let localCart;
 
   useEffect(() => {
@@ -58,10 +62,10 @@ const Cart = () => {
           </ul>
           <p>
             <span>Total: </span>
-            {/* {cartItems.forEach((item) => {
-              setTotal(total + item.totalPrice);
+            {cartItems?.forEach((item) => {
+              total += item.Product.totalPrice;
             })}
-            ${total.toString().substring(0, 5)} */}
+            ${total.toString().substring(0, 5)}
           </p>
           <Link to="/payments">
             <button>Checkout</button>

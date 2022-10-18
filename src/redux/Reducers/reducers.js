@@ -338,6 +338,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         totalPrice: action.payload,
       };
+    case POST_REVIEW:
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload],
+      };
     default:
       return state;
   }
