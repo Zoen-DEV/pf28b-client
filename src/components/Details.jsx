@@ -40,28 +40,28 @@ const Details = () => {
     };
   }, [dispatch, id, lsCategory]);
   const toCart = (e) => {
-    // if (user) {
-    dispatch(
-      setCartItems({
-        id: randomId,
-        productId: details.id,
-        amount: count,
-        totalPrice: details.price * count,
-        UserId: user.id,
-        category: JSON.parse(lsCategory).type,
-      })
-    );
-    // } else {
-    //   dispatch(
-    //     setCartItems({
-    //       id: randomId,
-    //       productId: details.id,
-    //       amount: count,
-    //       totalPrice: details.price * count,
-    //       category: JSON.parse(lsCategory).type,
-    //     })
-    //   )
-    // }
+    if (user) {
+      dispatch(
+        setCartItems({
+          id: randomId,
+          productId: details.id,
+          amount: count,
+          totalPrice: details.price * count,
+          UserId: user.id,
+          category: JSON.parse(lsCategory).type,
+        })
+      );
+    } else {
+      dispatch(
+        setCartItems({
+          id: randomId,
+          productId: details.id,
+          amount: count,
+          totalPrice: details.price * count,
+          category: JSON.parse(lsCategory).type,
+        })
+      );
+    }
 
     Swal.fire(
       `${count} product has been added to the cart`,
