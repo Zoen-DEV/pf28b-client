@@ -34,7 +34,8 @@ import {
   POST_REVIEW,
   DELETE_REVIEW_ADMIN,
   DELETE_REVIEW_USER,
-  REFRESH_REVIEWS
+  REFRESH_REVIEWS,
+  GET_TOTAL_PRICE,
 } from "../Constants/animes";
 
 const initialState = {
@@ -54,8 +55,8 @@ const initialState = {
   users: [],
   authenticated: false,
   isLogin: false,
-  reviews: []
-  // amount: 0,
+  reviews: [],
+  totalPrice: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -296,7 +297,7 @@ const rootReducer = (state = initialState, action) => {
         users: state.users.filter((user) => user.email !== action.payload),
       };
     case DELETE_ITEM_CART:
-      console.log(state.cart[0].Product.id)
+      console.log(state.cart[0].Product.id);
       if (Object.keys(state.user).length === 0) {
         const newCart = state.cart.filter(
           (item) => item.Product.id !== action.payload
@@ -325,13 +326,18 @@ const rootReducer = (state = initialState, action) => {
     case GET_REVIEWS_PRODUCT:
       return {
         ...state,
-        reviews: action.payload
-      }
+        reviews: action.payload,
+      };
     case REFRESH_REVIEWS:
       return {
         ...state,
-        reviews: []
-      }
+        reviews: [],
+      };
+    case GET_TOTAL_PRICE:
+      return {
+        ...state,
+        totalPrice: action.payload,
+      };
     default:
       return state;
   }

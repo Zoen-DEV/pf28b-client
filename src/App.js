@@ -27,7 +27,6 @@ import {
   topMangas,
 } from "./redux/Actions/actions";
 
-
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {

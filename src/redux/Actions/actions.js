@@ -38,6 +38,7 @@ import {
   DELETE_REVIEW_ADMIN,
   DELETE_REVIEW_USER,
   REFRESH_REVIEWS,
+  GET_TOTAL_PRICE,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -391,10 +392,18 @@ export function logOut() {
   };
 }
 
-export const getTotalPrice = async (userId) => {
-  const { data } = await axios.get(`http://localhost:3000/cart/${userId}`);
-  console.log({ data });
+export const getTotalPrice = (userId) => {
+  return async function (dispatch) {
+    const resp = await axios.get(`http://localhost:3000/cart/${userId}`);
+    const price = resp.data
+      .map((d) => d.totalPrice)
+      .reduce((a, b) => a + b)
+      .toPrecision(4);
+    return dispatch({ type: GET_TOTAL_PRICE, payload: price });
+  };
 };
+//TODO:
+export const setSales = async (obj) => {};
 
 // REVIEWS ACTIONS
 
