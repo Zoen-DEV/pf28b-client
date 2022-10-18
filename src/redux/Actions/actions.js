@@ -128,7 +128,7 @@ export function getAnimes() {
       let response = await axios.get(`http://localhost:3000/animes`);
       return dispatch({
         type: GET_ANIMES,
-        payload: response.data.animesDB,
+        payload: response.data,
       });
     } catch (error) {
       console.log(error);
@@ -243,6 +243,7 @@ export const deleteItemCart = (id) => async (dispatch) => {
 };
 
 export const setCartItems = (item) => async (dispatch) => {
+  console.log(item.UserId)
   if (!item.UserId) {
     return dispatch({
       type: SET_CART_ITEMS,

@@ -2,7 +2,7 @@
   @include flex(row, space-between, flex-start);
   padding: 100px 10vw;
   width: 90vw;
-  min-height: 80vh;
+  height: 80vh;
   margin: auto;
   .summary_cart {
     @include flex(column, flex-start, flex-start);
