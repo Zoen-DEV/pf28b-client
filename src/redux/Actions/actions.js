@@ -275,7 +275,7 @@ export function getUsers() {
   return async function (dispatch) {
     try {
       const resp = await animerceApp.get("/users");
-      // console.log({ resp });
+       console.log({ resp });
       dispatch({ type: GET_USERS, payload: resp.data });
     } catch (error) {
       console.log(error);
