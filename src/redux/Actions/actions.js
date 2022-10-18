@@ -38,6 +38,7 @@ import {
   DELETE_REVIEW_ADMIN,
   DELETE_REVIEW_USER,
   REFRESH_REVIEWS,
+  GET_TOTAL_PRICE,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -259,7 +260,6 @@ export const setCartItems = (item) => async (dispatch) => {
   }
 };
 
-
 export const getCart = (userId) => async (dispatch) => {
   const res = await axios.get(`http://localhost:3000/cart/${userId}`);
   const response = res.data.map((item) => {
@@ -270,7 +270,6 @@ export const getCart = (userId) => async (dispatch) => {
     payload: response,
   });
 };
-
 
 export function getUsers() {
   return async function (dispatch) {
@@ -297,6 +296,7 @@ export function validateUser(obj) {
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("userId", JSON.stringify(user.id));
       dispatch({ type: VALIDATE_USER, payload: user });
       dispatch({ type: IS_ACTIVE, payload: true });
       Swal.fire({
@@ -330,6 +330,7 @@ export function googleAuth(tokenGoogle) {
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("userId", JSON.stringify(user.id));
       console.log(user);
       dispatch({
         type: GOOGLE_AUTH,
@@ -387,9 +388,23 @@ export function logOut() {
     dispatch({ type: LOGOUT, payload: {} });
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("userId");
     // window.location.reload();
   };
 }
+
+export const getTotalPrice = (userId) => {
+  return async function (dispatch) {
+    const resp = await axios.get(`http://localhost:3000/cart/${userId}`);
+    const price = resp.data
+      .map((d) => d.totalPrice)
+      .reduce((a, b) => a + b)
+      .toPrecision(4);
+    return dispatch({ type: GET_TOTAL_PRICE, payload: price });
+  };
+};
+//TODO:
+export const setSales = async (obj) => {};
 
 // REVIEWS ACTIONS
 
@@ -417,8 +432,10 @@ export const getUserReviews = (userId) => async (dispatch) => {
 
 export const postReview = (review) => async (dispatch) => {
   try {
-    const response = await axios.post(`http://localhost:3000/reviews`, { ...review });
-    console.log(response.data)
+    const response = await axios.post(`http://localhost:3000/reviews`, {
+      ...review,
+    });
+    console.log(response.data);
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);

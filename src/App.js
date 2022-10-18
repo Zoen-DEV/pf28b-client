@@ -27,7 +27,6 @@ import {
   topMangas,
 } from "./redux/Actions/actions";
 
-
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -66,9 +65,9 @@ function App() {
         {/* <Route path="/login" element={<LogIn />} /> */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/payments" element={<Payments />} />
         <Route path="/login" element={<Login2 />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/payments" element={<Payments />} />
         <Route path="/*" element={<Home />} />
       </Routes>
       <Footer></Footer>
