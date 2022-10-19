@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const CartProducts = ({ animes, mangas, cartItems }) => {
   let total = 0;
+  console.log(cartItems)
   const cart = cartItems.map((item) => {
     if (item.Product.AnimeId) {
       let anime = animes.find((j) => j.id === item.Product.AnimeId);
