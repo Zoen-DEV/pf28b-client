@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 
 const CartProducts = ({ animes, mangas, cartItems }) => {
   let total = 0;
-  console.log(cartItems);
+  console.log(cartItems)
   const cart = cartItems.map((item) => {
-    if (!item.Product.AnimeId) {
-      let manga = mangas.find((j) => j.id === item.Product.MangaId);
+    if (item.Product.AnimeId !== null) {
+      let anime = animes.find((j) => j.id === item.Product.AnimeId);
       return {
-        product: manga,
+        product: anime,
         amount: item.Product.amount,
         totalPrice: item.Product.totalPrice,
         cartId: item.Product.id,
       };
     } else {
-      let anime = animes.find((j) => j.id === item.Product.AnimeId);
+      let manga = mangas.find((j) => j.id === item.Product.MangaId);
       return {
-        product: anime,
+        product: manga,
         amount: item.Product.amount,
         totalPrice: item.Product.totalPrice,
         cartId: item.Product.id,
