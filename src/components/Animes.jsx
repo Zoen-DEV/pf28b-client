@@ -6,6 +6,7 @@ import {
   filterAnimeByGenre,
   orderAnimeByChapters,
   orderAnimeByTitle,
+  reloadFilters,
 } from "../redux/Actions/actions";
 import Loader from "./Loader";
 

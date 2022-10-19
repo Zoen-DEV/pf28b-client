@@ -27,9 +27,9 @@ const SearchBar = () => {
         const animeByTitle = animes.filter((item) =>
           item.toLowerCase().includes(title.toLowerCase())
         );
+        console.log(animeByTitle);
         if (animeByTitle.length > 0) {
-          // setOrder(`Sorted: ${e.target.value}`);
-          setTitle('')
+          setTitle("");
           navigate("/animes");
         } else {
           Swal.fire(`This Anime doesn't exist`);
@@ -40,9 +40,9 @@ const SearchBar = () => {
         const mangaByTitle = mangas.filter((item) =>
           item.toLowerCase().includes(title.toLowerCase())
         );
+        console.log(mangaByTitle);
         if (mangaByTitle.length > 0) {
-          // setOrder(`Sorted: ${e.target.value}`);
-          setTitle('')
+          setTitle("");
           navigate("/mangas");
         } else {
           Swal.fire(`This Manga doesn't exist`);
