@@ -262,7 +262,7 @@ export const deleteAllItemsCart = (id) => async (dispatch) => {
 
 export const deleteItemCart = (id) => async (dispatch) => {
   let response = await axios.delete(`https://animemangaback-production-2576.up.railway.app/cart/${id}`);
-  return dispatch({ type: DELETE_ITEM_CART, payload: response });
+  return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
 export const setCartItems = (item) => async (dispatch) => {
