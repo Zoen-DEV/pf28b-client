@@ -69,7 +69,7 @@ function SignUp() {
     setClickbtn("click");
     setTimeout(async () => {
       try {
-        const resp = await axios.post(`https://animemangaback-production-2576.up.railway.app/login`, {
+        const resp = await axios.post(`http://localhost:3000/login`, {
           username: input.username,
           pass: input.password,
           email: input.email,

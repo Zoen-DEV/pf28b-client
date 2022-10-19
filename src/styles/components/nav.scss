@@ -3,9 +3,10 @@
   padding: 0 20px;
   //   width: 100vw;
   margin: auto;
+  height: 12vh;
   border-bottom: 2px solid $color-orange;
   background: linear-gradient(to bottom, $color-shadowblue, $color-shadowblue2);
-  height: 100px;
+  // height: 120px;
   z-index: 0;
   .links-container {
     @include flex(row, space-between, center);
@@ -14,7 +15,7 @@
       width: 10vw;
       filter: drop-shadow(1px 1px 1px $color-shadow);
       transition: 0.4s;
-      height: 100px;
+      height: 9vh;
       object-fit: cover;
     }
     img:hover {

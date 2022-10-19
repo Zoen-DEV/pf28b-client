@@ -19,7 +19,7 @@ const Nav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const lsCart = localStorage.getItem("cart");
-  let { page } = useParams()
+  let { page } = useParams();
   // const [toggleBtn, setToggleBtn] = useState(true);
   // const [toggleStyle, setToggleStyle] = useState({
   //   color: "#b82601",
@@ -29,7 +29,7 @@ const Nav = () => {
     // if (lsCart) {
     //   dispatch(updateCart(JSON.parse(lsCart)));
     // }
-    setShowSlide(false)
+    setShowSlide(false);
     let localStorageCategory = localStorage.getItem("category");
     if (localStorageCategory) {
       dispatch(setCategory(JSON.parse(localStorageCategory)));

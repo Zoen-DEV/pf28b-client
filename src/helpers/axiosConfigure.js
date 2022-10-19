@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const animerceApp = axios.create({
-  baseURL: `https://animemangaback-production-2576.up.railway.app/login`,
+  baseURL: `http://localhost:3000/login`,
 });
 
 animerceApp.interceptors.request.use((config) => {

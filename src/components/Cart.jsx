@@ -22,7 +22,7 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getCart(user.id));
   }, [dispatch, user.id]);
-
+  console.log('hola')
   if (cartItems.length > 0) {
     return (
       <article className="cart_container">
