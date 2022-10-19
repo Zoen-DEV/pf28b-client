@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Filters from "./Filters";
 import AnimeList from "./AnimeList";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,12 @@ import Loader from "./Loader";
 const Animes = () => {
   const dispatch = useDispatch();
   const animes = useSelector((state) => state.animes);
+
+  useEffect(() => {
+    return () => {
+      dispatch(reloadFilters());
+    };
+  }, []);
 
   function handleAnimeGenre(e) {
     dispatch(filterAnimeByGenre(e.target.value));
