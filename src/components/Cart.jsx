@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getCart } from "../redux/Actions/actions";
 import CartProducts from "./CartProducts";
 import Loader from "./Loader";
@@ -23,23 +24,27 @@ const Cart = () => {
   if (cartItems.length > 0) {
     return (
       <article className="cart_container">
-          {animes.length > 0 && mangas.length > 0 ? (
-            <CartProducts
-              cartItems={cartItems}
-              animes={animes}
-              mangas={mangas}
-            />
-          ) : (
-            <Loader />
-          )}
+        {animes.length > 0 && mangas.length > 0 ? (
+          <CartProducts cartItems={cartItems} animes={animes} mangas={mangas} />
+        ) : (
+          <Loader />
+        )}
       </article>
     );
   } else {
-    // return (
-    //   <div className="cart_container">
-    //     <Loader></Loader>
-    //   </div>
-    // );
+    return (
+      <article className="cart_container_wo_products">
+        <h1>You have no products in the cart</h1>
+        <div className="links_container">
+          <Link className="link" to="/animes">
+            Go to see the catalog of Animes
+          </Link>
+          <Link className="link" to="/mangas">
+            Go to see the catalog of Mangas
+          </Link>
+        </div>
+      </article>
+    );
   }
 };
 

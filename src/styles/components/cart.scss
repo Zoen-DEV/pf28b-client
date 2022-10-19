@@ -1,3 +1,17 @@
+.cart_container_wo_products{
+  @include flex(column, center, center);
+  padding: 100px 10vw;
+  width: 90vw;
+  min-height: 80vh;
+  margin: auto;
+  h1{
+    color: $color-orange;
+  }
+  .links_container{
+    @include flex(row, center, center);
+  }
+}
+
 .cart_container {
   padding: 100px 10vw;
   width: 90vw;
