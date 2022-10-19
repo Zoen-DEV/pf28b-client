@@ -53,6 +53,11 @@ const Details = () => {
           category: JSON.parse(lsCategory).type,
         })
       );
+      Swal.fire(
+        `${count} product has been added to the cart`,
+        `${details.title}`,
+        "success"
+      );
     } else {
       Swal.fire({
         title: "Error!",
@@ -68,12 +73,6 @@ const Details = () => {
         }
       });
     }
-
-    Swal.fire(
-      `${count} product has been added to the cart`,
-      `${details.title}`,
-      "success"
-    );
   };
   if (JSON.parse(lsCategory).id === 1) {
     return (
