@@ -1,6 +1,5 @@
 .navbar {
   @include flex(row, space-between, center);
-  padding: 0 20px;
   //   width: 100vw;
   margin: auto;
   border-bottom: 2px solid $color-orange;
@@ -10,6 +9,7 @@
   .links-container {
     @include flex(row, space-between, center);
     gap: 5vw;
+    padding: 0 20px;
     img {
       width: 10vw;
       filter: drop-shadow(1px 1px 1px $color-shadow);
@@ -59,6 +59,7 @@
     @include flex(row, space-between, center);
     gap: 3vw;
     height: 9vh;
+    padding: 0 20px;
     .links_slide {
       @include flex(column, space-between, flex-start);
       position: absolute;
