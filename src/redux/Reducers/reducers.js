@@ -92,11 +92,9 @@ const rootReducer = (state = initialState, action) => {
         topMangas: action.payload,
       };
     case GET_MANGA_NAME:
-      console.log("search manga");
       const manga = state.allMangas.filter((item) =>
         item.title.includes(action.payload)
       );
-      console.log(manga)
       if (action.payload.length === 0) {
         Swal.fire("Oops?", "This Anime doesn't exist", "question");
         break;
@@ -208,12 +206,10 @@ const rootReducer = (state = initialState, action) => {
         animeGenres: animeGenres,
       };
     case GET_ANIME_NAME:
-      console.log("search anime");
       const anime = state.allAnimes.filter((item) => {
         let title = item.title.toLowerCase();
         return title.includes(action.payload.toLowerCase());
       });
-      console.log(anime)
       if (anime.length === 0) {
         Swal.fire("Oops?", "This Anime doesn't exist", "question");
         break;
