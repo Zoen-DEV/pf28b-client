@@ -9,6 +9,7 @@
   }
   .links_container{
     @include flex(row, center, center);
+    gap: 30px;
   }
 }
 
