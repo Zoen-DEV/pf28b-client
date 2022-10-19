@@ -26,32 +26,34 @@ const CartProducts = ({ animes, mangas, cartItems }) => {
   });
   return (
     <div className="products_container">
-      <div className="products_cart_title">
-        <h2>Products in the cart</h2>
+      <div>
+        <div className="products_cart_title">
+          <h2>Products in the cart</h2>
+        </div>
+        <ul>
+          {cart.length > 0 ? (
+            cart.map((item, index) => {
+              // setTotal(item.totalPrice + total)
+              return (
+                <li key={index}>
+                  <CartCard
+                    image={item.product.image}
+                    title={item.product.title}
+                    producers={item.product.producers}
+                    price={item.product.price}
+                    id={item.product.id}
+                    cartId={item.cartId}
+                    amount={item.amount}
+                    totalPrice={item.totalPrice}
+                  />
+                </li>
+              );
+            })
+          ) : (
+            <Loader />
+          )}
+        </ul>
       </div>
-      <ul>
-        {cart.length > 0 ? (
-          cart.map((item, index) => {
-            // setTotal(item.totalPrice + total)
-            return (
-              <li key={index}>
-                <CartCard
-                  image={item.product.image}
-                  title={item.product.title}
-                  producers={item.product.producers}
-                  price={item.product.price}
-                  id={item.product.id}
-                  cartId={item.cartId}
-                  amount={item.amount}
-                  totalPrice={item.totalPrice}
-                />
-              </li>
-            );
-          })
-        ) : (
-          <Loader />
-        )}
-      </ul>
       <div className="summary_cart">
         <div className="products_cart_title">
           <h2>Summary</h2>
