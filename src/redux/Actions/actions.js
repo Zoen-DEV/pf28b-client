@@ -258,21 +258,8 @@ export const deleteItemCart = (id) => async (dispatch) => {
 };
 
 export const setCartItems = (item) => async (dispatch) => {
-  console.log(item.UserId);
   if (!item.UserId) {
-    Swal.fire({
-      title: "Error!",
-      text: "You must be logged in to add a product on cart!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Log in!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location('/login')
-      }
-    });
+    console.log("item.UserId");
   } else {
     // console.log("hola: ", await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item));
     let response = await axios.post(
