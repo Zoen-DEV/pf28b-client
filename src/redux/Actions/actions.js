@@ -1,8 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import animerceApp from "../../helpers/axiosConfigure";
-import { useNavigate } from "react-router-dom";
-const navigate = useNavigate();
 import {
   GET_ANIMES,
   GET_MANGAS,
@@ -272,7 +270,7 @@ export const setCartItems = (item) => async (dispatch) => {
       confirmButtonText: "Log in!",
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate("/login");
+        window.location('/login')
       }
     });
   } else {
