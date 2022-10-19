@@ -252,12 +252,17 @@ export const setCategory = (state) => (dispatch) => {
 // CART actions
 
 export const deleteItemCart = (id) => async (dispatch) => {
-  id.map(async (id) => {
-    await axios.delete(
-      `https://animemangaback-production-2576.up.railway.app/cart/${id}`
-    );
-  });
-  return dispatch({ type: DELETE_ITEM_CART, payload: id });
+  if (Array.isArray(id)) {
+    id.map(async (id) => {
+      await axios.delete(
+        `https://animemangaback-production-2576.up.railway.app/cart/${id}`
+      );
+    });
+    return dispatch({ type: DELETE_ITEM_CART, payload: id });
+  } else {
+    let response = await axios.delete(`http://localhost:3000/cart/${id}`);
+    return dispatch({ type: DELETE_ITEM_CART, payload: response });
+  }
 };
 
 export const setCartItems = (item) => async (dispatch) => {
