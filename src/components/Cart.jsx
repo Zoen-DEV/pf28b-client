@@ -15,7 +15,6 @@ const Cart = () => {
   const user = JSON.parse(userJSON);
 
   // const [total, setTotal] = useState(total + item.totalPrice);
-  let total = 0;
 
   // let localCart;
 
@@ -26,10 +25,6 @@ const Cart = () => {
   if (cartItems.length > 0) {
     return (
       <article className="cart_container">
-        <div className="products_container">
-          <div className="products_cart_title">
-            <h2>Products in the cart</h2>
-          </div>
           {animes.length > 0 && mangas.length > 0 ? (
             <CartProducts
               cartItems={cartItems}
@@ -39,40 +34,6 @@ const Cart = () => {
           ) : (
             <Loader />
           )}
-        </div>
-        <div className="summary_cart">
-          <div className="products_cart_title">
-            <h2>Summary</h2>
-          </div>
-          <ul>
-            {cartItems.length > 0 ? (
-              cartItems.map((item, index) => {
-                console.log(item.Product.totalPrice)
-                return (
-                  <li key={index}>
-                    <p>
-                      ${item.Product.totalPrice / item.Product.amount} x{" "}
-                      {item.Product.amount} ={" "}
-                      <span>${item.Product.totalPrice}</span>
-                    </p>
-                  </li>
-                );
-              })
-            ) : (
-              <Loader />
-            )}
-          </ul>
-          <p>
-            <span>Total: </span>
-            {cartItems?.forEach((item) => {
-              total += item.Product.totalPrice;
-            })}
-            ${total.toString().substring(0, 5)}
-          </p>
-          <Link className="link" to="/payments">
-            Checkout
-          </Link>
-        </div>
       </article>
     );
   } else {
