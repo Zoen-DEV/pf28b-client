@@ -47,6 +47,7 @@ const Cart = () => {
           <ul>
             {cartItems.length > 0 ? (
               cartItems.map((item, index) => {
+                console.log(item.Product.totalPrice)
                 return (
                   <li key={index}>
                     <p>
