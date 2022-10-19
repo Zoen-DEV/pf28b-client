@@ -25,6 +25,7 @@ import {
   VALIDATE_USER,
   IS_ACTIVE,
   GET_USERS,
+  EDIT_USER,
   LOGOUT,
   UPDATE_CART,
   GOOGLE_AUTH,
@@ -285,6 +286,34 @@ export function getUsers() {
         text: error.response.data.msg,
       });
     }
+  };
+}
+
+export function editUser(email, obj) {
+  return async function (dispatch) {
+    console.log(email);
+    console.log(obj);
+    const url = `http://localhost:3000/login/${email}`;
+    Swal.fire({
+      title: "Editing user information.",
+      text: "Are you okay with these changes?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Success!", "Your profile has been updated.", "success");
+        axios.put(url, obj);
+        dispatch({
+          type: EDIT_USER,
+          payload: obj,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Edition canceled!!");
+      }
+    });
   };
 }
 

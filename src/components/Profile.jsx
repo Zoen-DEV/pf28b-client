@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 // import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { logOut } from "../redux/Actions/actions";
 import s from "./styles/Profile.module.css";
 
 const Profile = () => {
   // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const userActive = localStorage.getItem("user");
   const user = JSON.parse(userActive);
+
   return (
     <div className={s.container}>
       {/* <button
@@ -22,11 +23,9 @@ const Profile = () => {
       </button> */}
 
       <div className={s.card}>
+        <img className={s.image} src={user.image} alt="" />
         <div className={s.name}>
           <p>{user.username}</p>
-        </div>
-        <div>
-          <img className={s.image} src={user.image} alt={user.username} />
         </div>
         <div className={s.data}>
           <p>{user.email}</p>
@@ -34,6 +33,15 @@ const Profile = () => {
         <div className={s.data}>
           <p>Cellphone: </p>
           {!user.cellphone ? <p>N/A</p> : user.cellphone}
+        </div>
+        <div>
+        <button
+        onClick={() => {
+          navigate("/profile/edit");
+        }}
+      >
+        Edit Profile
+      </button>
         </div>
       </div>
     </div>

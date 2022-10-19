@@ -22,6 +22,7 @@ import {
   VALIDATE_USER,
   IS_ACTIVE,
   GET_USERS,
+  EDIT_USER,
   LOGOUT,
   UPDATE_CART,
   GOOGLE_AUTH,
@@ -175,6 +176,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
+    case EDIT_USER:
+      return {
+        ...state,
+        user: action.payload
+      }
     case LOGOUT:
       return {
         ...state,

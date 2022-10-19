@@ -22,6 +22,7 @@ export const ORDER_ANIME_BY_TITLE = "ORDER_ANIME_BY_TITLE";
 export const VALIDATE_USER = "VALIDATE_USER";
 export const IS_ACTIVE = "IS_ACTIVE";
 export const GET_USERS = "GET_USERS";
+export const EDIT_USER = "EDIT_USER";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_CART = "UPDATE_CART";
 export const GOOGLE_AUTH = "GOOGLE_AUTH";
