@@ -1,6 +1,8 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import animerceApp from "../../helpers/axiosConfigure";
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
 import {
   GET_ANIMES,
   GET_MANGAS,
@@ -45,7 +47,9 @@ import {
 
 export const getDetails = (id) => async (dispatch) => {
   try {
-    let productDetail = await axios(`https://animemangaback-production-2576.up.railway.app/manga/${id}`);
+    let productDetail = await axios(
+      `https://animemangaback-production-2576.up.railway.app/manga/${id}`
+    );
     return dispatch({ type: GET_DETAILS, payload: productDetail.data });
   } catch (err) {
     console.error(err);
@@ -63,7 +67,9 @@ export const deleteDetails = () => (dispatch) => {
 export function getMangas() {
   return async function (dispatch) {
     try {
-      let response = await axios.get(`https://animemangaback-production-2576.up.railway.app/manga`);
+      let response = await axios.get(
+        `https://animemangaback-production-2576.up.railway.app/manga`
+      );
       dispatch({
         type: GET_MANGAS,
         payload: response.data,
@@ -76,7 +82,9 @@ export function getMangas() {
 
 export const topMangas = () => async (dispatch) => {
   try {
-    let topMangas = await axios(`https://animemangaback-production-2576.up.railway.app/manga/top`);
+    let topMangas = await axios(
+      `https://animemangaback-production-2576.up.railway.app/manga/top`
+    );
     return dispatch({ type: TOP_MANGAS, payload: topMangas.data });
   } catch (err) {
     console.error(err);
@@ -126,7 +134,9 @@ export function getGenres() {
 export function getAnimes() {
   return async function (dispatch) {
     try {
-      let response = await axios.get(`https://animemangaback-production-2576.up.railway.app/animes`);
+      let response = await axios.get(
+        `https://animemangaback-production-2576.up.railway.app/animes`
+      );
       return dispatch({
         type: GET_ANIMES,
         payload: response.data.animesDB,
@@ -138,12 +148,16 @@ export function getAnimes() {
 }
 
 export const getAnimesDetails = (id) => async (dispatch) => {
-  let res = await axios.get(`https://animemangaback-production-2576.up.railway.app/animes/${id}`);
+  let res = await axios.get(
+    `https://animemangaback-production-2576.up.railway.app/animes/${id}`
+  );
   return dispatch({ type: GET_ANIME_DETAILS, payload: res.data });
 };
 
 export const getTopAnimes = () => async (dispatch) => {
-  let res = await axios.get(`https://animemangaback-production-2576.up.railway.app/topAnimes`);
+  let res = await axios.get(
+    `https://animemangaback-production-2576.up.railway.app/topAnimes`
+  );
   return dispatch({ type: GET_TOP_ANIMES, payload: res.data.topAnimesDB });
 };
 
@@ -239,20 +253,34 @@ export const setCategory = (state) => (dispatch) => {
 // CART actions
 
 export const deleteItemCart = (id) => async (dispatch) => {
-  let response = await axios.delete(`https://animemangaback-production-2576.up.railway.app/cart/${id}`);
+  let response = await axios.delete(
+    `https://animemangaback-production-2576.up.railway.app/cart/${id}`
+  );
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
 export const setCartItems = (item) => async (dispatch) => {
-  console.log(item.UserId)
+  console.log(item.UserId);
   if (!item.UserId) {
-    return dispatch({
-      type: SET_CART_ITEMS,
-      payload: { Product: item, login: false },
+    Swal.fire({
+      title: "Error!",
+      text: "You must be logged in to add a product on cart!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Log in!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/login");
+      }
     });
   } else {
     // console.log("hola: ", await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item));
-    let response = await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item);
+    let response = await axios.post(
+      "https://animemangaback-production-2576.up.railway.app/cart",
+      item
+    );
     return dispatch({
       type: SET_CART_ITEMS,
       payload: { Product: response.data, login: true },
@@ -261,7 +289,9 @@ export const setCartItems = (item) => async (dispatch) => {
 };
 
 export const getCart = (userId) => async (dispatch) => {
-  const res = await axios.get(`https://animemangaback-production-2576.up.railway.app/cart/${userId}`);
+  const res = await axios.get(
+    `https://animemangaback-production-2576.up.railway.app/cart/${userId}`
+  );
   const response = res.data.map((item) => {
     return { Product: item, login: true };
   });
@@ -323,9 +353,12 @@ export function validateUser(obj) {
 export function googleAuth(tokenGoogle) {
   return async function (dispatch) {
     try {
-      const resp = await axios.post(`https://animemangaback-production-2576.up.railway.app/login/auth/google`, {
-        id_token: tokenGoogle,
-      });
+      const resp = await axios.post(
+        `https://animemangaback-production-2576.up.railway.app/login/auth/google`,
+        {
+          id_token: tokenGoogle,
+        }
+      );
       const { msg, user, token } = resp.data;
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
@@ -395,7 +428,9 @@ export function logOut() {
 
 export const getTotalPrice = (userId) => {
   return async function (dispatch) {
-    const resp = await axios.get(`https://animemangaback-production-2576.up.railway.app/cart/${userId}`);
+    const resp = await axios.get(
+      `https://animemangaback-production-2576.up.railway.app/cart/${userId}`
+    );
     const price = resp.data
       .map((d) => d.totalPrice)
       .reduce((a, b) => a + b)
@@ -432,9 +467,12 @@ export const getUserReviews = (userId) => async (dispatch) => {
 
 export const postReview = (review) => async (dispatch) => {
   try {
-    const response = await axios.post(`https://animemangaback-production-2576.up.railway.app/reviews`, {
-      ...review,
-    });
+    const response = await axios.post(
+      `https://animemangaback-production-2576.up.railway.app/reviews`,
+      {
+        ...review,
+      }
+    );
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);
@@ -454,7 +492,9 @@ export const adminDeleteReview = (reviewId) => async (dispatch) => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "A review has been deleted.", "success");
-        axios.delete(`https://animemangaback-production-2576.up.railway.app/reviews/admindel/${reviewId}`);
+        axios.delete(
+          `https://animemangaback-production-2576.up.railway.app/reviews/admindel/${reviewId}`
+        );
         dispatch({
           type: DELETE_REVIEW_ADMIN,
         });
