@@ -3,6 +3,7 @@ import CartCard from "./CartCard";
 import Loader from "./Loader";
 
 const CartProducts = ({ animes, mangas, cartItems }) => {
+  console.log(cartItems)
   const cart = cartItems.map((item) => {
     if (item.Product.AnimeId) {
       let anime = animes.find((j) => j.id === item.Product.AnimeId);
