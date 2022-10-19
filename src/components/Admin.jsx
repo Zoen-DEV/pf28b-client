@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteUser, getUsers } from "../redux/Actions/actions";
+import Chart from "./Chart";
 import s from "./styles/Admin.module.css";
 
 const Admin = () => {
@@ -72,6 +73,7 @@ const Admin = () => {
           </div>
         ))}
       </div>
+      <Chart />
     </div>
   );
 };
