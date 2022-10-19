@@ -39,6 +39,7 @@ import {
   DELETE_REVIEW_USER,
   REFRESH_REVIEWS,
   GET_TOTAL_PRICE,
+  GET_WINNINGS,
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -251,9 +252,11 @@ export const setCategory = (state) => (dispatch) => {
 // CART actions
 
 export const deleteItemCart = (id) => async (dispatch) => {
-  let response = await axios.delete(
-    `https://animemangaback-production-2576.up.railway.app/cart/${id}`
-  );
+  id.map(async (id) => {
+    await axios.delete(
+      `https://animemangaback-production-2576.up.railway.app/cart/${id}`
+    );
+  });
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
@@ -289,7 +292,7 @@ export const getCart = (userId) => async (dispatch) => {
 export function getUsers() {
   return async function (dispatch) {
     try {
-      const resp = await animerceApp.get("/users");
+      const resp = await animerceApp.get("/login/users");
       // console.log({ resp });
       dispatch({ type: GET_USERS, payload: resp.data });
     } catch (error) {
@@ -306,7 +309,7 @@ export function getUsers() {
 export function validateUser(obj) {
   return async function (dispatch) {
     try {
-      const resp = await animerceApp.post("/auth", obj);
+      const resp = await animerceApp.post("/login/auth", obj);
       const { msg, user, token } = resp.data;
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
@@ -423,8 +426,18 @@ export const getTotalPrice = (userId) => {
     return dispatch({ type: GET_TOTAL_PRICE, payload: price });
   };
 };
-//TODO:
-export const setSales = async (obj) => {};
+
+export const setSales = (obj) => {
+  const url = "https://animemangaback-production-2576.up.railway.app/sales";
+  console.log({ obj });
+  return async function (dispatch) {
+    try {
+      await axios.post(url, obj);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 // REVIEWS ACTIONS
 
@@ -522,4 +535,17 @@ export const userDeleteReview = (reviewId, userId) => async (dispatch) => {
 
 export const refreshReviews = () => (dispatch) => {
   return dispatch({ type: REFRESH_REVIEWS });
+};
+
+export const getWinnings = () => {
+  return async (dispatch) => {
+    try {
+      const resp = await axios.get(
+        "https://animemangaback-production-2576.up.railway.app/sales/winnings"
+      );
+      dispatch({ type: GET_WINNINGS, payload: resp.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };

@@ -36,6 +36,7 @@ import {
   DELETE_REVIEW_USER,
   REFRESH_REVIEWS,
   GET_TOTAL_PRICE,
+  GET_WINNINGS,
 } from "../Constants/animes";
 
 const initialState = {
@@ -57,6 +58,7 @@ const initialState = {
   isLogin: false,
   reviews: [],
   totalPrice: {},
+  profits: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -341,6 +343,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: [...state.reviews, action.payload],
+      };
+    case GET_WINNINGS:
+      return {
+        ...state,
+        profits: action.payload,
       };
     default:
       return state;
