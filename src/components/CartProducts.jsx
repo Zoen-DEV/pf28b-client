@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import CartCard from "./CartCard";
 import Loader from "./Loader";
+import { Link } from "react-router-dom";
 
 const CartProducts = ({ animes, mangas, cartItems }) => {
   let total = 0;
