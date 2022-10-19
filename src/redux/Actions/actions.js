@@ -435,7 +435,6 @@ export const postReview = (review) => async (dispatch) => {
     const response = await axios.post(`https://animemangaback-production-2576.up.railway.app/reviews`, {
       ...review,
     });
-    console.log(response.data);
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);

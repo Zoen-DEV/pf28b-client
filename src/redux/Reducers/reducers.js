@@ -227,7 +227,7 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload.login) {
         return {
           ...state,
-          cart: [...state.cart, action.payload.Product],
+          cart: [...state.cart, action.payload],
         };
       } else {
         // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
