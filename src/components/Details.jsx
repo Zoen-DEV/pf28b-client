@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -25,6 +25,7 @@ const Details = () => {
   const userJSON = localStorage.getItem("user");
   const user = JSON.parse(userJSON);
   const reviews = useSelector((state) => state.reviews);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (JSON.parse(lsCategory).id === 1) {
@@ -40,6 +41,7 @@ const Details = () => {
     };
   }, [dispatch, id, lsCategory]);
   const toCart = (e) => {
+    console.log(user)
     if (user) {
       dispatch(
         setCartItems({
@@ -51,23 +53,26 @@ const Details = () => {
           category: JSON.parse(lsCategory).type,
         })
       );
-    } else {
-      dispatch(
-        setCartItems({
-          id: randomId,
-          productId: details.id,
-          amount: count,
-          totalPrice: details.price * count,
-          category: JSON.parse(lsCategory).type,
-        })
+      Swal.fire(
+        `${count} product has been added to the cart`,
+        `${details.title}`,
+        "success"
       );
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "You must be logged in to add a product on cart!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Log in!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login')
+        }
+      });
     }
-
-    Swal.fire(
-      `${count} product has been added to the cart`,
-      `${details.title}`,
-      "success"
-    );
   };
   if (JSON.parse(lsCategory).id === 1) {
     return (

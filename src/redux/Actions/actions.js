@@ -138,7 +138,7 @@ export function getAnimes() {
       );
       return dispatch({
         type: GET_ANIMES,
-        payload: response.data,
+        payload: response.data.animesDB,
       });
     } catch (error) {
       console.log(error);
@@ -252,23 +252,17 @@ export const setCategory = (state) => (dispatch) => {
 // CART actions
 
 export const deleteItemCart = (id) => async (dispatch) => {
-  console.log({ id });
   id.map(async (id) => {
     await axios.delete(
       `https://animemangaback-production-2576.up.railway.app/cart/${id}`
     );
   });
-
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
 export const setCartItems = (item) => async (dispatch) => {
-  console.log(item.UserId)
   if (!item.UserId) {
-    return dispatch({
-      type: SET_CART_ITEMS,
-      payload: { Product: item, login: false },
-    });
+    console.log("item.UserId");
   } else {
     // console.log("hola: ", await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item));
     let response = await axios.post(
@@ -477,7 +471,6 @@ export const postReview = (review) => async (dispatch) => {
         ...review,
       }
     );
-    console.log(response.data);
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);
