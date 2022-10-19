@@ -9,7 +9,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteItemCart,
+  deleteAllItemsCart,
   getCart,
   getTotalPrice,
   setSales,
@@ -62,7 +62,7 @@ const CheckoutForm = () => {
     console.log({ cart });
     const id = cart.map((d) => d.Product.id);
     console.log({ id });
-    dispatch(deleteItemCart(id));
+    dispatch(deleteAllItemsCart(id));
     const order = cart.map((data) => {
       return {
         id_product: data.Product.AnimeId
