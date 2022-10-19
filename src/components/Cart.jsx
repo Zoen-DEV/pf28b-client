@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { getCart } from "../redux/Actions/actions";
 import CartProducts from "./CartProducts";
 import Loader from "./Loader";
