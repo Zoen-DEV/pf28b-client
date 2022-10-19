@@ -41,6 +41,7 @@ const Details = () => {
     };
   }, [dispatch, id, lsCategory]);
   const toCart = (e) => {
+    console.log(user)
     if (user) {
       dispatch(
         setCartItems({
