@@ -68,8 +68,8 @@ const Cart = () => {
             })}
             ${total.toString().substring(0, 5)}
           </p>
-          <Link to="/payments">
-            <button>Checkout</button>
+          <Link className="link" to="/payments">
+            Checkout
           </Link>
         </div>
       </article>

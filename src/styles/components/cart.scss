@@ -44,7 +44,7 @@
         color: $color-orange;
       }
     }
-    button {
+    .link {
       width: 100%;
       border: none;
       outline: none;
@@ -55,8 +55,9 @@
       border-radius: 0 0 3px 3px;
       transition: 0.3s;
       text-shadow: 1px 1px 2px $color-shadow;
+      text-decoration: none;
     }
-    button:hover {
+    .link:hover {
       color: $color-white;
       background: linear-gradient(20deg, $color-orange, $color-fuxia);
       transform: translate(0px, 3px);
