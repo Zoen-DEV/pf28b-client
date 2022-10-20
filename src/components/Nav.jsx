@@ -204,9 +204,9 @@ const Nav = () => {
             <Link className="link" to="/profile">
               PROFILE
             </Link>
-            <Link className="link" to="/favorites">
+            {/* <Link className="link" to="/favorites">
               FAVORITES
-            </Link>
+            </Link> */}
             {user.isAdmin ? (
               <Link style={{ color: "red" }} className="link" to="admin">
                 ADMIN
