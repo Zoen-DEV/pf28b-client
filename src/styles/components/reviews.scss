@@ -10,6 +10,19 @@
       gap: 10px;
       background: linear-gradient(90deg, $color-shadow2, transparent);
       border-radius: 30px 0 0 5px;
+      button {
+        border: none;
+        outline: none;
+        background: none;
+        border-radius: 100%;
+        color: red;
+        font-size: 20px;
+        transition: 0.3s;
+        text-shadow: 1px 1px 2px $color-black2;
+      }
+      button:hover {
+        transform: scale(1.2);
+      }
       .user_info_container {
         @include flex(row, flex-start, center);
         gap: 20px;
