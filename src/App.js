@@ -19,7 +19,7 @@ import Admin from "./components/Admin";
 import Payments from "./components/Payments";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getCart } from "../redux/Actions/actions";
+import { getCart } from "./redux/Actions/actions";
 import {
   getAnimes,
   getAnimesGenres,
@@ -43,7 +43,7 @@ function App() {
     dispatch(getGenres());
     dispatch(getAnimesGenres());
     if (user !== null) {
-      console.log(user)
+      console.log(user);
       dispatch(getCart(user.id));
     }
   }, []);
