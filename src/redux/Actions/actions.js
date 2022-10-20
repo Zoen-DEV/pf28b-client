@@ -32,6 +32,9 @@ import {
   DELETE_USER,
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
+  GET_ANIME_FAVORITES,
+  GET_MANGA_FAVORITES,
+  ADD_FAVORITE,
   GET_CART,
   GET_REVIEWS_PRODUCT,
   GET_REVIEWS_USER,
@@ -288,6 +291,67 @@ export const getCart = (userId) => async (dispatch) => {
     type: GET_CART,
     payload: response,
   });
+};
+
+export function getAnimeFavorites(userId){
+  return async function(dispatch){
+    try{
+      const resp = await axios.get(`http://localhost:3000/animefavorites/${userId}`);
+      const response = resp.data.map((item) => {
+        return { Product: item, login: true };
+      });
+      return dispatch({
+        type: GET_ANIME_FAVORITES,
+        payload: response,
+      });
+    }catch(error){
+      console.log(error);
+    }
+  }
+}
+
+export function getMangaFavorites(userId){
+  return async function(dispatch){
+    try{
+      const resp = await axios.get(`http://localhost:3000/mangafavorites/${userId}`);
+      const response = resp.data.map((item) => {
+        return { Product: item, login: true };
+      });
+      return dispatch({
+        type: GET_MANGA_FAVORITES,
+        payload: response,
+      });
+    }catch(error){
+      console.log(error);
+    }
+  }
+}
+
+export const addFavorite = (item) => async (dispatch) => {
+  console.log(item.product)
+  if (!item.UserId) {
+    return dispatch({
+      type: ADD_FAVORITE,
+      payload: { Product: item.product, login: false },
+    });
+  } else {
+    if(item.category === 'anime'){
+      let response = await axios.post("http://localhost:3000/animefavorites", item.product);
+      console.log(response.data)
+    return dispatch({
+      type: ADD_FAVORITE,
+      payload: { Product: response.data, login: true },
+    });
+    }else{
+      let response = await axios.post("http://localhost:3000/mangafavorites", item.product);
+      console.log(response.data)
+    return dispatch({
+      type: ADD_FAVORITE,
+      payload: { Product: response.data, login: true },
+    });
+    }
+    
+  }
 };
 
 export function getUsers() {

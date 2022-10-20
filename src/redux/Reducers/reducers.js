@@ -30,6 +30,9 @@ import {
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
   GET_CART,
+  GET_ANIME_FAVORITES,
+  GET_MANGA_FAVORITES,
+  ADD_FAVORITE,
   GET_REVIEWS_PRODUCT,
   GET_REVIEWS_USER,
   POST_REVIEW,
@@ -51,6 +54,7 @@ const initialState = {
   topMangas: [],
   topAnimes: [],
   category: {},
+  favorites: [],
   cart: [],
   topFourMangas: [],
   user: {},
@@ -258,6 +262,38 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cart: [...action.payload],
       };
+      case GET_ANIME_FAVORITES:
+      return{
+        ...state,
+        favorites: [...action.payload]
+      }
+    case GET_MANGA_FAVORITES:
+      return{
+        ...state,
+        favorites: [...action.payload]
+      }
+    case ADD_FAVORITE:
+      if (action.payload.login) {
+        return {
+          ...state,
+          favorites: [...state.favorites, action.payload.Product],
+        };
+      } else {
+        // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
+        let lsCart = localStorage.getItem("cart");
+        if (lsCart) {
+          localStorage.setItem(
+            "cart",
+            JSON.stringify([...JSON.parse(lsCart), action.payload])
+          );
+        } else {
+          localStorage.setItem("cart", JSON.stringify([action.payload]));
+        }
+        return {
+          ...state,
+          favorites: [...state.favorites, action.payload],
+        };
+      }
     case ORDER_ANIME_BY_GENRE:
       let allAnimes = state.allAnimes;
       let filteredStatusAnime =

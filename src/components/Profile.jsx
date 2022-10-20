@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-// import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Favorites from "./Favorites";
 // import { logOut } from "../redux/Actions/actions";
 import s from "./styles/Profile.module.css";
 
 const Profile = () => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
+  const favs = useSelector((state) => state.favorites)
   const userActive = localStorage.getItem("user");
   const user = JSON.parse(userActive);
 
@@ -35,15 +37,16 @@ const Profile = () => {
           {!user.cellphone ? <p>N/A</p> : user.cellphone}
         </div>
         <div>
-        <button
-        onClick={() => {
-          navigate("/profile/edit");
-        }}
-      >
-        Edit Profile
-      </button>
+          <button
+            onClick={() => {
+            navigate("/profile/edit");
+            }}
+          >
+            Edit Profile
+          </button>
         </div>
       </div>
+      {favs.length > 0 ? <Favorites /> : null}
     </div>
   );
 };
