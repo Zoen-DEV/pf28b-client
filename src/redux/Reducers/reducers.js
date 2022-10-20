@@ -37,6 +37,7 @@ import {
   REFRESH_REVIEWS,
   GET_TOTAL_PRICE,
   GET_WINNINGS,
+  GET_SALES,
 } from "../Constants/animes";
 
 const initialState = {
@@ -59,6 +60,7 @@ const initialState = {
   reviews: [],
   totalPrice: {},
   profits: [],
+  sales: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -347,6 +349,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         profits: action.payload,
+      };
+    case GET_SALES:
+      return {
+        ...state,
+        sales: action.payload,
       };
     default:
       return state;
