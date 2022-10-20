@@ -22,6 +22,7 @@ import {
   VALIDATE_USER,
   IS_ACTIVE,
   GET_USERS,
+  EDIT_USER,
   LOGOUT,
   UPDATE_CART,
   GOOGLE_AUTH,
@@ -29,6 +30,9 @@ import {
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
   GET_CART,
+  GET_ANIME_FAVORITES,
+  GET_MANGA_FAVORITES,
+  ADD_FAVORITE,
   GET_REVIEWS_PRODUCT,
   GET_REVIEWS_USER,
   POST_REVIEW,
@@ -37,6 +41,7 @@ import {
   REFRESH_REVIEWS,
   GET_TOTAL_PRICE,
   GET_WINNINGS,
+  GET_SALES,
 } from "../Constants/animes";
 
 const initialState = {
@@ -50,6 +55,7 @@ const initialState = {
   topMangas: [],
   topAnimes: [],
   category: {},
+  favorites: [],
   cart: [],
   topFourMangas: [],
   user: {},
@@ -59,6 +65,7 @@ const initialState = {
   reviews: [],
   totalPrice: {},
   profits: [],
+  sales: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -176,6 +183,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         users: action.payload,
       };
+    case EDIT_USER:
+      return {
+        ...state,
+        user: action.payload
+      }
     case LOGOUT:
       return {
         ...state,
@@ -251,6 +263,38 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cart: [...action.payload],
       };
+      case GET_ANIME_FAVORITES:
+      return{
+        ...state,
+        favorites: [...action.payload]
+      }
+    case GET_MANGA_FAVORITES:
+      return{
+        ...state,
+        favorites: [...action.payload]
+      }
+    case ADD_FAVORITE:
+      if (action.payload.login) {
+        return {
+          ...state,
+          favorites: [...state.favorites, action.payload.Product],
+        };
+      } else {
+        // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
+        let lsCart = localStorage.getItem("cart");
+        if (lsCart) {
+          localStorage.setItem(
+            "cart",
+            JSON.stringify([...JSON.parse(lsCart), action.payload])
+          );
+        } else {
+          localStorage.setItem("cart", JSON.stringify([action.payload]));
+        }
+        return {
+          ...state,
+          favorites: [...state.favorites, action.payload],
+        };
+      }
     case ORDER_ANIME_BY_GENRE:
       let allAnimes = state.allAnimes;
       let filteredStatusAnime =
@@ -347,6 +391,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         profits: action.payload,
+      };
+    case GET_SALES:
+      return {
+        ...state,
+        sales: action.payload,
       };
     default:
       return state;
