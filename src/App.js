@@ -43,7 +43,6 @@ function App() {
     dispatch(getGenres());
     dispatch(getAnimesGenres());
     if (user !== null) {
-      console.log(user);
       dispatch(getCart(user.id));
     }
   }, []);
