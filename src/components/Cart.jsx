@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
-import { getCart } from "../redux/Actions/actions";
+import { getCart, setCategory } from "../redux/Actions/actions";
 import CartProducts from "./CartProducts";
 import Loader from "./Loader";
 
@@ -15,10 +14,36 @@ const Cart = () => {
   const user = JSON.parse(userJSON);
 
   // const [total, setTotal] = useState(total + item.totalPrice);
-  let total = 0;
 
   // let localCart;
 
+  const changeCategory = (e) => {
+    switch (e.target.name) {
+      case "anime":
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 1, type: e.target.name })
+        );
+        let categoryA = localStorage.getItem("category");
+        dispatch(setCategory(JSON.parse(categoryA)));
+        break;
+      case "manga":
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 2, type: e.target.name })
+        );
+        let categoryM = localStorage.getItem("category");
+        dispatch(setCategory(JSON.parse(categoryM)));
+        break;
+      default:
+        break;
+    }
+    // navigate("/home");
+    // navigate(`/${e.target.name}s`);
+  };
+  
   useEffect(() => {
     dispatch(getCart(user.id));
   }, [dispatch, user.id]);
@@ -26,56 +51,27 @@ const Cart = () => {
   if (cartItems.length > 0) {
     return (
       <article className="cart_container">
-        <div className="products_container">
-          <div className="products_cart_title">
-            <h2>Products in the cart</h2>
-          </div>
-          {animes.length > 0 && mangas.length > 0 ? (
-            <CartProducts
-              cartItems={cartItems}
-              animes={animes}
-              mangas={mangas}
-            />
-          ) : (
-            <Loader />
-          )}
-        </div>
-        <div className="summary_cart">
-          <div className="products_cart_title">
-            <h2>Summary</h2>
-          </div>
-          <ul>
-            {cartItems.length > 0 ? (
-              cartItems.map((item, index) => {
-                return (
-                  <li key={index}>
-                    <p>
-                      ${item.Product.totalPrice / item.Product.amount} x{" "}
-                      {item.Product.amount} ={" "}
-                      <span>${item.Product.totalPrice}</span>
-                    </p>
-                  </li>
-                );
-              })
-            ) : (
-              <Loader />
-            )}
-          </ul>
-          <p>
-            <span>Total: </span>
-            {cartItems?.forEach((item) => {
-              total += item.Product.totalPrice;
-            })}
-            ${total.toString().substring(0, 5)}
-          </p>
-          <Link to="/payments">
-            <button>Checkout</button>
+        {animes.length > 0 && mangas.length > 0 ? (
+          <CartProducts cartItems={cartItems} animes={animes} mangas={mangas} />
+        ) : (
+          <Loader />
+        )}
+      </article>
+    );
+  } else {
+    return (
+      <article className="cart_container_wo_products">
+        <h1>You have no products in the cart</h1>
+        <div className="links_container">
+          <Link onClick={changeCategory} className="link" to="/animes">
+            Go to see the catalog of Animes
+          </Link>
+          <Link onClick={changeCategory} className="link" to="/mangas">
+            Go to see the catalog of Mangas
           </Link>
         </div>
       </article>
     );
-  } else {
-    return <Loader></Loader>;
   }
 };
 

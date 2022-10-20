@@ -47,9 +47,13 @@ import {
 
 export const getDetails = (id) => async (dispatch) => {
   try {
+<<<<<<< HEAD
     let productDetail = await axios(
       `https://animemangaback-production-2576.up.railway.app/manga/${id}`
     );
+=======
+    let productDetail = await axios(`https://animemangaback-production-2576.up.railway.app/manga/${id}`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
     return dispatch({ type: GET_DETAILS, payload: productDetail.data });
   } catch (err) {
     console.error(err);
@@ -67,9 +71,13 @@ export const deleteDetails = () => (dispatch) => {
 export function getMangas() {
   return async function (dispatch) {
     try {
+<<<<<<< HEAD
       let response = await axios.get(
         `https://animemangaback-production-2576.up.railway.app/manga`
       );
+=======
+      let response = await axios.get(`https://animemangaback-production-2576.up.railway.app/manga`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
       dispatch({
         type: GET_MANGAS,
         payload: response.data,
@@ -82,9 +90,13 @@ export function getMangas() {
 
 export const topMangas = () => async (dispatch) => {
   try {
+<<<<<<< HEAD
     let topMangas = await axios(
       `https://animemangaback-production-2576.up.railway.app/manga/top`
     );
+=======
+    let topMangas = await axios(`https://animemangaback-production-2576.up.railway.app/manga/top`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
     return dispatch({ type: TOP_MANGAS, payload: topMangas.data });
   } catch (err) {
     console.error(err);
@@ -134,9 +146,13 @@ export function getGenres() {
 export function getAnimes() {
   return async function (dispatch) {
     try {
+<<<<<<< HEAD
       let response = await axios.get(
         `https://animemangaback-production-2576.up.railway.app/animes`
       );
+=======
+      let response = await axios.get(`https://animemangaback-production-2576.up.railway.app/animes`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
       return dispatch({
         type: GET_ANIMES,
         payload: response.data.animesDB,
@@ -148,16 +164,24 @@ export function getAnimes() {
 }
 
 export const getAnimesDetails = (id) => async (dispatch) => {
+<<<<<<< HEAD
   let res = await axios.get(
     `https://animemangaback-production-2576.up.railway.app/animes/${id}`
   );
+=======
+  let res = await axios.get(`https://animemangaback-production-2576.up.railway.app/animes/${id}`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
   return dispatch({ type: GET_ANIME_DETAILS, payload: res.data });
 };
 
 export const getTopAnimes = () => async (dispatch) => {
+<<<<<<< HEAD
   let res = await axios.get(
     `https://animemangaback-production-2576.up.railway.app/topAnimes`
   );
+=======
+  let res = await axios.get(`https://animemangaback-production-2576.up.railway.app/topAnimes`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
   return dispatch({ type: GET_TOP_ANIMES, payload: res.data.topAnimesDB });
 };
 
@@ -252,29 +276,37 @@ export const setCategory = (state) => (dispatch) => {
 
 // CART actions
 
-export const deleteItemCart = (id) => async (dispatch) => {
-  console.log({ id });
+export const deleteAllItemsCart = (id) => async (dispatch) => {
   id.map(async (id) => {
+<<<<<<< HEAD
     await axios.delete(
       `https://animemangaback-production-2576.up.railway.app/cart/${id}`
     );
+=======
+    await axios.delete(`https://animemangaback-production-2576.up.railway.app/cart/${id}`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
   });
+  return dispatch({ type: DELETE_ITEM_CART, payload: id });
+};
 
+export const deleteItemCart = (id) => async (dispatch) => {
+  let response = await axios.delete(`https://animemangaback-production-2576.up.railway.app/cart/${id}`);
   return dispatch({ type: DELETE_ITEM_CART, payload: id });
 };
 
 export const setCartItems = (item) => async (dispatch) => {
   if (!item.UserId) {
-    return dispatch({
-      type: SET_CART_ITEMS,
-      payload: { Product: item, login: false },
-    });
+    console.log("item.UserId");
   } else {
     // console.log("hola: ", await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item));
+<<<<<<< HEAD
     let response = await axios.post(
       "https://animemangaback-production-2576.up.railway.app/cart",
       item
     );
+=======
+    let response = await axios.post("http://localhost:3000/cart", item);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
     return dispatch({
       type: SET_CART_ITEMS,
       payload: { Product: response.data, login: true },
@@ -283,9 +315,13 @@ export const setCartItems = (item) => async (dispatch) => {
 };
 
 export const getCart = (userId) => async (dispatch) => {
+<<<<<<< HEAD
   const res = await axios.get(
     `https://animemangaback-production-2576.up.railway.app/cart/${userId}`
   );
+=======
+  const res = await axios.get(`https://animemangaback-production-2576.up.railway.app/cart/${userId}`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
   const response = res.data.map((item) => {
     return { Product: item, login: true };
   });
@@ -347,12 +383,18 @@ export function validateUser(obj) {
 export function googleAuth(tokenGoogle) {
   return async function (dispatch) {
     try {
+<<<<<<< HEAD
       const resp = await axios.post(
         `https://animemangaback-production-2576.up.railway.app/login/auth/google`,
         {
           id_token: tokenGoogle,
         }
       );
+=======
+      const resp = await axios.post(`https://animemangaback-production-2576.up.railway.app/login/auth/google`, {
+        id_token: tokenGoogle,
+      });
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
       const { msg, user, token } = resp.data;
       // console.log(msg, user, token);
       localStorage.setItem("token", token);
@@ -422,9 +464,13 @@ export function logOut() {
 
 export const getTotalPrice = (userId) => {
   return async function (dispatch) {
+<<<<<<< HEAD
     const resp = await axios.get(
       `https://animemangaback-production-2576.up.railway.app/cart/${userId}`
     );
+=======
+    const resp = await axios.get(`https://animemangaback-production-2576.up.railway.app/cart/${userId}`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
     const price = resp.data
       .map((d) => d.totalPrice)
       .reduce((a, b) => a + b)
@@ -471,13 +517,21 @@ export const getUserReviews = (userId) => async (dispatch) => {
 
 export const postReview = (review) => async (dispatch) => {
   try {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
     const response = await axios.post(
       `https://animemangaback-production-2576.up.railway.app/reviews`,
       {
         ...review,
       }
     );
+<<<<<<< HEAD
     console.log(response.data);
+=======
+
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);
@@ -497,9 +551,13 @@ export const adminDeleteReview = (reviewId) => async (dispatch) => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "A review has been deleted.", "success");
+<<<<<<< HEAD
         axios.delete(
           `https://animemangaback-production-2576.up.railway.app/reviews/admindel/${reviewId}`
         );
+=======
+        axios.delete(`https://animemangaback-production-2576.up.railway.app/reviews/admindel/${reviewId}`);
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
         dispatch({
           type: DELETE_REVIEW_ADMIN,
         });
@@ -547,10 +605,14 @@ export const refreshReviews = () => (dispatch) => {
 export const postWinnings = (profit) => {
   // console.log({ profit });
   try {
+<<<<<<< HEAD
     axios.post(
       "https://animemangaback-production-2576.up.railway.app/sales/winnings",
       { profit }
     );
+=======
+    axios.post("https://animemangaback-production-2576.up.railway.app/sales/winnings", { profit });
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
   } catch (error) {
     console.log(error);
   }
@@ -559,9 +621,13 @@ export const postWinnings = (profit) => {
 export const getWinnings = () => {
   return async (dispatch) => {
     try {
+<<<<<<< HEAD
       const resp = await axios.get(
         "https://animemangaback-production-2576.up.railway.app/sales/winnings"
       );
+=======
+      const resp = await axios.get("https://animemangaback-production-2576.up.railway.app/sales/winnings");
+>>>>>>> 884b0965c0a797455a3561501179214d6092d901
       dispatch({ type: GET_WINNINGS, payload: resp.data });
     } catch (error) {
       console.log(error);
