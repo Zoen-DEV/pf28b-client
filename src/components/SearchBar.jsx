@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { getMangaByTitle, getAnimeByTitle, reloadFilters } from "../redux/Actions/actions";
+import {
+  getMangaByTitle,
+  getAnimeByTitle,
+  reloadFilters,
+} from "../redux/Actions/actions";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -23,28 +27,28 @@ const SearchBar = () => {
     e.preventDefault();
     if (title !== "") {
       if (category.id === 1) {
-        dispatch(getAnimeByTitle(title));
         const animeByTitle = animes.filter((item) =>
           item.title.toLowerCase().includes(title.toLowerCase())
         );
         if (animeByTitle.length > 0) {
+          dispatch(getAnimeByTitle(title));
           setTitle("");
           navigate("/animes");
         } else {
-          dispatch(reloadFilters())
+          // dispatch(reloadFilters());
           Swal.fire(`This Anime doesn't exist`);
         }
         setTitle("");
       } else {
-        dispatch(getMangaByTitle(title));
         const mangaByTitle = mangas.filter((item) =>
           item.title.toLowerCase().includes(title.toLowerCase())
         );
         if (mangaByTitle.length > 0) {
+          dispatch(getMangaByTitle(title));
           setTitle("");
           navigate("/mangas");
         } else {
-          dispatch(reloadFilters())
+          // dispatch(reloadFilters());
           Swal.fire(`This Manga doesn't exist`);
         }
         setTitle("");
