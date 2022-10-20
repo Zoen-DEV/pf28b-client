@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { getMangaByTitle, getAnimeByTitle } from "../redux/Actions/actions";
+import { getMangaByTitle, getAnimeByTitle, reloadFilters } from "../redux/Actions/actions";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -31,6 +31,7 @@ const SearchBar = () => {
           setTitle("");
           navigate("/animes");
         } else {
+          dispatch(reloadFilters())
           Swal.fire(`This Anime doesn't exist`);
         }
         setTitle("");
@@ -43,6 +44,7 @@ const SearchBar = () => {
           setTitle("");
           navigate("/mangas");
         } else {
+          dispatch(reloadFilters())
           Swal.fire(`This Manga doesn't exist`);
         }
         setTitle("");
