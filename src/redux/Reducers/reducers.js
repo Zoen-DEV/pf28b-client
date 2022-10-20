@@ -398,6 +398,18 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         sales: action.payload,
       };
+    case DELETE_REVIEW_ADMIN:
+      const newReviewsAdmin = state.reviews.filter(item=>item.id!==action.payload)
+      return {
+        ...state,
+        reviews: [...newReviewsAdmin]
+      }
+    case DELETE_REVIEW_USER:
+      const newReviewsUser = state.reviews.filter(item=>item.id!==action.payload)
+      return {
+        ...state,
+        reviews: [...newReviewsUser]
+      }
     default:
       return state;
   }

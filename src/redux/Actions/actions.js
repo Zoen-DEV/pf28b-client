@@ -574,6 +574,7 @@ export const adminDeleteReview = (reviewId) => async (dispatch) => {
         axios.delete(`https://animemangaback-production-2576.up.railway.app/reviews/admindel/${reviewId}`);
         dispatch({
           type: DELETE_REVIEW_ADMIN,
+          payload: reviewId
         });
       } else if (result.isDenied) {
         Swal.fire("Delete canceled!!");
@@ -602,6 +603,7 @@ export const userDeleteReview = (reviewId, userId) => async (dispatch) => {
         );
         dispatch({
           type: DELETE_REVIEW_USER,
+          payload: reviewId
         });
       } else if (result.isDenied) {
         Swal.fire("Delete canceled!!");
