@@ -19,6 +19,7 @@ import Admin from "./components/Admin";
 import Payments from "./components/Payments";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { getCart } from "../redux/Actions/actions";
 import {
   getAnimes,
   getAnimesGenres,
