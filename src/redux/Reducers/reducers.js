@@ -37,6 +37,7 @@ import {
   DELETE_REVIEW_USER,
   REFRESH_REVIEWS,
   GET_TOTAL_PRICE,
+  GET_WINNINGS,
 } from "../Constants/animes";
 
 const initialState = {
@@ -58,6 +59,7 @@ const initialState = {
   isLogin: false,
   reviews: [],
   totalPrice: {},
+  profits: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -233,7 +235,7 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload.login) {
         return {
           ...state,
-          cart: [...state.cart, action.payload.Product],
+          cart: [...state.cart, action.payload],
         };
       } else {
         // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
@@ -303,7 +305,6 @@ const rootReducer = (state = initialState, action) => {
         users: state.users.filter((user) => user.email !== action.payload),
       };
     case DELETE_ITEM_CART:
-      console.log(state.cart[0].Product.id);
       if (Object.keys(state.user).length === 0) {
         const newCart = state.cart.filter(
           (item) => item.Product.id !== action.payload
@@ -348,6 +349,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         reviews: [...state.reviews, action.payload],
+      };
+    case GET_WINNINGS:
+      return {
+        ...state,
+        profits: action.payload,
       };
     default:
       return state;

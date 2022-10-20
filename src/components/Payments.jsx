@@ -9,15 +9,16 @@ import {
 } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteItemCart,
   getCart,
   getTotalPrice,
-  setboughtItems,
+  setSales,
 } from "../redux/Actions/actions";
 import axios from "axios";
 import Swal from "sweetalert2";
 import s from "./styles/Payments.module.css";
 
-const url = "http://localhost:3000/payment";
+const url = "https://animemangaback-production-2576.up.railway.app/payment";
 const stripePromise = loadStripe(
   "pk_test_51Ls8AVH3eAzBxjrCdmB23smtLOd0cTqhqHKYQ2eYMvA6yoQhEBKyd7GxPofzGS39TL2uM2vogL5XcPJDy6AimbDU00bvlY5EZC"
 );
@@ -30,11 +31,12 @@ const CheckoutForm = () => {
     address2: "",
     city: "",
     country: "",
-    zip: "",
+    cp: "",
   });
   const [loading, setLoading] = useState(false);
   const userId = JSON.parse(localStorage.getItem("userId"));
   const price = useSelector((state) => state.totalPrice);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -56,6 +58,28 @@ const CheckoutForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // setForm({})
+    dispatch(getCart(userId));
+    console.log({ cart });
+    const id = cart.map((d) => d.Product.id);
+    console.log({ id });
+    dispatch(deleteItemCart(id));
+    const order = cart.map((data) => {
+      return {
+        id_product: data.Product.AnimeId
+          ? data.Product.AnimeId.toString()
+          : data.Product.MangaId,
+        userId: data.Product.UserId,
+        email: form.email,
+        name: form.name,
+        amount: data.Product.amount,
+        address: form.address,
+        address2: form.address2,
+        city: form.city,
+        country: form.country,
+        cp: form.cp,
+      };
+    });
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -65,12 +89,13 @@ const CheckoutForm = () => {
       // console.log(paymentMethod);
       const { id } = paymentMethod;
       try {
-        const { data } = await axios.post(url, { id, totalPrice });
+        const { data } = await axios.post(url, { id, totalPrice: 10000 });
         // console.log(data);
         Swal.fire(`Your payment for ${price} was successfully`);
         elements.getElement(CardElement).clear();
+        dispatch(setSales(order));
       } catch (error) {
-        // console.log(error.response.data);
+        console.log(error.response.data);
         Swal.fire(error.response.data);
       }
       setLoading(false);
@@ -82,10 +107,8 @@ const CheckoutForm = () => {
       address2: "",
       city: "",
       country: "",
-      zip: "",
+      cp: "",
     });
-    // dispatch(setboughtItems(userId));
-    dispatch(getCart(userId));
   };
 
   return (
@@ -188,15 +211,15 @@ const CheckoutForm = () => {
             </select>
           </div>
           <div class="col-md-2">
-            <label for="inputZip" class="form-label">
-              Zip
+            <label for="inputcp" class="form-label">
+              C.P.
             </label>
             <input
               type="text"
               class="form-control"
-              id="inputZip"
-              value={form.zip}
-              name="zip"
+              id="inputcp"
+              value={form.cp}
+              name="cp"
               onChange={handleChange}
               required
             />

@@ -29,6 +29,7 @@ const SearchBar = () => {
         );
         if (animeByTitle.length > 0) {
           // setOrder(`Sorted: ${e.target.value}`);
+          setTitle('')
           navigate("/animes");
         } else {
           Swal.fire(`This Anime doesn't exist`);
@@ -41,6 +42,7 @@ const SearchBar = () => {
         );
         if (mangaByTitle.length > 0) {
           // setOrder(`Sorted: ${e.target.value}`);
+          setTitle('')
           navigate("/mangas");
         } else {
           Swal.fire(`This Manga doesn't exist`);
