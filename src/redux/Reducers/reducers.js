@@ -186,13 +186,14 @@ const rootReducer = (state = initialState, action) => {
     case EDIT_USER:
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     case LOGOUT:
       return {
         ...state,
         user: action.payload,
         isLogin: false,
+        cart: [],
       };
     case SET_CATEGORY:
       return {
@@ -263,16 +264,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cart: [...action.payload],
       };
-      case GET_ANIME_FAVORITES:
-      return{
+    case GET_ANIME_FAVORITES:
+      return {
         ...state,
-        favorites: [...action.payload]
-      }
+        favorites: [...action.payload],
+      };
     case GET_MANGA_FAVORITES:
-      return{
+      return {
         ...state,
-        favorites: [...action.payload]
-      }
+        favorites: [...action.payload],
+      };
     case ADD_FAVORITE:
       if (action.payload.login) {
         return {

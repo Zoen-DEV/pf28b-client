@@ -280,6 +280,7 @@ export const getCart = (userId) => async (dispatch) => {
   const response = res.data.map((item) => {
     return { Product: item, login: true };
   });
+  console.log(response)
   return dispatch({
     type: GET_CART,
     payload: response,
