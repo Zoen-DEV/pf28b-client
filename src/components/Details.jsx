@@ -10,6 +10,7 @@ import {
   getProductReviews,
   refreshReviews,
   setCartItems,
+  addFavorite
 } from "../redux/Actions/actions";
 import NewReview from "./NewReview";
 import Reviews from "./Reviews";
@@ -40,6 +41,7 @@ const Details = () => {
       dispatch(refreshReviews());
     };
   }, [dispatch, id, lsCategory]);
+
   const toCart = (e) => {
     console.log(user)
     if (user) {
@@ -74,6 +76,26 @@ const Details = () => {
       });
     }
   };
+
+  const toFavorites = (e) => {
+    console.log('toFavorites');
+    console.log(details);
+    if (user) {
+      dispatch(addFavorite({
+          id: randomId,
+          product: details,
+          UserId: user.id,
+          category: JSON.parse(lsCategory).type,
+        }));
+    } else {
+      dispatch(addFavorite({
+          id: randomId,
+          productId: details.id,
+          category: JSON.parse(lsCategory).type,
+        }));
+    }
+  };
+
   if (JSON.parse(lsCategory).id === 1) {
     return (
       <article className="details_component">
@@ -127,6 +149,7 @@ const Details = () => {
                 <button
                   style={{ color: isFav ? "#b82601" : "#a2a2af" }}
                   onClick={() => {
+                    toFavorites();
                     isFav ? setIsFav(false) : setIsFav(true);
                   }}
                   className="bi bi-heart-fill fav"
@@ -225,6 +248,7 @@ const Details = () => {
                 <button
                   style={{ color: isFav ? "#b82601" : "#a2a2af" }}
                   onClick={() => {
+                    toFavorites();
                     isFav ? setIsFav(false) : setIsFav(true);
                   }}
                   className="bi bi-heart-fill fav"

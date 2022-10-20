@@ -25,12 +25,16 @@ import {
   VALIDATE_USER,
   IS_ACTIVE,
   GET_USERS,
+  EDIT_USER,
   LOGOUT,
   UPDATE_CART,
   GOOGLE_AUTH,
   DELETE_USER,
   DELETE_ITEM_CART,
   RELOAD_FILTERS,
+  GET_ANIME_FAVORITES,
+  GET_MANGA_FAVORITES,
+  ADD_FAVORITE,
   GET_CART,
   GET_REVIEWS_PRODUCT,
   GET_REVIEWS_USER,
@@ -289,6 +293,67 @@ export const getCart = (userId) => async (dispatch) => {
   });
 };
 
+export function getAnimeFavorites(userId){
+  return async function(dispatch){
+    try{
+      const resp = await axios.get(`http://localhost:3000/animefavorites/${userId}`);
+      const response = resp.data.map((item) => {
+        return { Product: item, login: true };
+      });
+      return dispatch({
+        type: GET_ANIME_FAVORITES,
+        payload: response,
+      });
+    }catch(error){
+      console.log(error);
+    }
+  }
+}
+
+export function getMangaFavorites(userId){
+  return async function(dispatch){
+    try{
+      const resp = await axios.get(`http://localhost:3000/mangafavorites/${userId}`);
+      const response = resp.data.map((item) => {
+        return { Product: item, login: true };
+      });
+      return dispatch({
+        type: GET_MANGA_FAVORITES,
+        payload: response,
+      });
+    }catch(error){
+      console.log(error);
+    }
+  }
+}
+
+export const addFavorite = (item) => async (dispatch) => {
+  console.log(item.product)
+  if (!item.UserId) {
+    return dispatch({
+      type: ADD_FAVORITE,
+      payload: { Product: item.product, login: false },
+    });
+  } else {
+    if(item.category === 'anime'){
+      let response = await axios.post("http://localhost:3000/animefavorites", item.product);
+      console.log(response.data)
+    return dispatch({
+      type: ADD_FAVORITE,
+      payload: { Product: response.data, login: true },
+    });
+    }else{
+      let response = await axios.post("http://localhost:3000/mangafavorites", item.product);
+      console.log(response.data)
+    return dispatch({
+      type: ADD_FAVORITE,
+      payload: { Product: response.data, login: true },
+    });
+    }
+    
+  }
+};
+
 export function getUsers() {
   return async function (dispatch) {
     try {
@@ -303,6 +368,34 @@ export function getUsers() {
         text: error.response.data.msg,
       });
     }
+  };
+}
+
+export function editUser(email, obj) {
+  return async function (dispatch) {
+    console.log(email);
+    console.log(obj);
+    const url = `http://localhost:3000/login/${email}`;
+    Swal.fire({
+      title: "Editing user information.",
+      text: "Are you okay with these changes?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Success!", "Your profile has been updated.", "success");
+        axios.put(url, obj);
+        dispatch({
+          type: EDIT_USER,
+          payload: obj,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Edition canceled!!");
+      }
+    });
   };
 }
 

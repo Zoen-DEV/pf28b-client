@@ -17,7 +17,7 @@ const Admin = () => {
 
   return (
     <div>
-      <h1 className={s.title}>Wellcome to the Admin page</h1>
+      <h1 className={s.title}>Welcome to the Admin page</h1>
       <div className={s.contMaster}>
         {users?.map((d) => (
           <div className={s.card}>
