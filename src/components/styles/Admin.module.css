@@ -1,3 +1,7 @@
+.admin_container{
+margin-top: 15vh;
+}
+
 .contMaster {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

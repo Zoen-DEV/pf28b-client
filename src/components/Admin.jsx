@@ -17,7 +17,7 @@ const Admin = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="admin_container">
       <h1 className={s.title}>Welcome to the Admin page</h1>
       <div className={s.contMaster}>
         {users?.map((d) => (
