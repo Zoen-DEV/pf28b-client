@@ -7,6 +7,7 @@ import Mangas from "./components/Mangas";
 import SignUp from "./components/SignUp";
 // import LogIn from "./components/LogIn";
 import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
 import Landing from "./components/Landing";
 import Animes from "./components/Animes";
 import Cart from "./components/Cart";
@@ -64,6 +65,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         {/* <Route path="/login" element={<LogIn />} /> */}
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/payments" element={<Payments />} />
         <Route path="/login" element={<Login2 />} />
