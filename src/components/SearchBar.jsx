@@ -24,34 +24,28 @@ const SearchBar = () => {
     if (title !== "") {
       if (category.id === 1) {
         dispatch(getAnimeByTitle(title));
+        const animeByTitle = animes.filter((item) =>
+          item.title.toLowerCase().includes(title.toLowerCase())
+        );
+        if (animeByTitle.length > 0) {
+          setTitle("");
+          navigate("/animes");
+        } else {
+          Swal.fire(`This Anime doesn't exist`);
+        }
         setTitle("");
-        navigate("/animes");
-        // const animeByTitle = animes.filter((item) =>
-        //   item.toLowerCase().includes(title.toLowerCase())
-        // );
-        // console.log(animeByTitle);
-        // if (animeByTitle.length > 0) {
-        //   setTitle("");
-        //   navigate("/animes");
-        // } else {
-        //   Swal.fire(`This Anime doesn't exist`);
-        // }
-        // setTitle("");
       } else {
         dispatch(getMangaByTitle(title));
+        const mangaByTitle = mangas.filter((item) =>
+          item.title.toLowerCase().includes(title.toLowerCase())
+        );
+        if (mangaByTitle.length > 0) {
+          setTitle("");
+          navigate("/mangas");
+        } else {
+          Swal.fire(`This Manga doesn't exist`);
+        }
         setTitle("");
-        navigate("/mangas");
-        // const mangaByTitle = mangas.filter((item) =>
-        //   item.toLowerCase().includes(title.toLowerCase())
-        // );
-        // console.log(mangaByTitle);
-        // if (mangaByTitle.length > 0) {
-        //   setTitle("");
-        //   navigate("/mangas");
-        // } else {
-        //   Swal.fire(`This Manga doesn't exist`);
-        // }
-        // setTitle("");
       }
     } else {
       if (category.id === 1) {
