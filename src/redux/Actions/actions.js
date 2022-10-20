@@ -268,7 +268,7 @@ export const setCartItems = (item) => async (dispatch) => {
   } else {
     // console.log("hola: ", await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item));
 
-    let response = await axios.post("http://localhost:3000/cart", item);
+    let response = await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item);
     return dispatch({
       type: SET_CART_ITEMS,
       payload: { Product: response.data, login: true },
@@ -291,7 +291,7 @@ export const getCart = (userId) => async (dispatch) => {
 export function getAnimeFavorites(userId){
   return async function(dispatch){
     try{
-      const resp = await axios.get(`http://localhost:3000/animefavorites/${userId}`);
+      const resp = await axios.get(`https://animemangaback-production-2576.up.railway.app/animefavorites/${userId}`);
       const response = resp.data.map((item) => {
         return { Product: item, login: true };
       });
@@ -308,7 +308,7 @@ export function getAnimeFavorites(userId){
 export function getMangaFavorites(userId){
   return async function(dispatch){
     try{
-      const resp = await axios.get(`http://localhost:3000/mangafavorites/${userId}`);
+      const resp = await axios.get(`https://animemangaback-production-2576.up.railway.app/mangafavorites/${userId}`);
       const response = resp.data.map((item) => {
         return { Product: item, login: true };
       });
@@ -331,14 +331,14 @@ export const addFavorite = (item) => async (dispatch) => {
     });
   } else {
     if(item.category === 'anime'){
-      let response = await axios.post("http://localhost:3000/animefavorites", item.product);
+      let response = await axios.post("https://animemangaback-production-2576.up.railway.app/animefavorites", item.product);
       console.log(response.data)
     return dispatch({
       type: ADD_FAVORITE,
       payload: { Product: response.data, login: true },
     });
     }else{
-      let response = await axios.post("http://localhost:3000/mangafavorites", item.product);
+      let response = await axios.post("https://animemangaback-production-2576.up.railway.app/mangafavorites", item.product);
       console.log(response.data)
     return dispatch({
       type: ADD_FAVORITE,
@@ -370,7 +370,7 @@ export function editUser(email, obj) {
   return async function (dispatch) {
     console.log(email);
     console.log(obj);
-    const url = `http://localhost:3000/login/${email}`;
+    const url = `https://animemangaback-production-2576.up.railway.app/login/${email}`;
     Swal.fire({
       title: "Editing user information.",
       text: "Are you okay with these changes?",
