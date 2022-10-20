@@ -41,3 +41,4 @@ export const DELETE_REVIEW_USER = "DELETE_REVIEW_USER";
 export const REFRESH_REVIEWS = "REFRESH_REVIEWS";
 export const GET_TOTAL_PRICE = "GET_TOTAL_PRICE";
 export const GET_WINNINGS = "GET_WINNINGS";
+export const GET_SALES = "GET_SALES";

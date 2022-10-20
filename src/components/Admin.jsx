@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteUser, getUsers } from "../redux/Actions/actions";
 import Chart from "./Chart";
+import Sales from "./Sales";
 import s from "./styles/Admin.module.css";
 
 const Admin = () => {
@@ -10,7 +11,7 @@ const Admin = () => {
   const user = JSON.parse(userActive);
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
-  console.log(users);
+  // console.log(users);
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
@@ -73,7 +74,12 @@ const Admin = () => {
           </div>
         ))}
       </div>
-      <Chart />
+      <div>
+        <Sales />
+      </div>
+      <div className={s.chart}>
+        <Chart />
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Filters from "./Filters";
 import MangaList from "./MangaList";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,12 +6,19 @@ import {
   filterByGenre,
   orderByChapters,
   orderByTitle,
+  reloadFilters,
 } from "../redux/Actions/actions";
 import Loader from "./Loader";
 
 const Mangas = () => {
   const dispatch = useDispatch();
   const mangas = useSelector((state) => state.mangas);
+
+  useEffect(() => {
+    return () => {
+      dispatch(reloadFilters());
+    };
+  }, []);
 
   function handleGenre(e) {
     console.log(e.target.value);
