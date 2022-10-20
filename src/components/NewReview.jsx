@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { postReview } from "../redux/Actions/actions";
 
@@ -28,7 +28,7 @@ const NewReview = () => {
       productId: id,
       UserId: user ? user.id : null,
     });
-  }, [category.type, id]);
+  }, [category.type, id, user]);
 
   const dropRating = (e) => {
     switch (e.target.name) {
@@ -83,9 +83,21 @@ const NewReview = () => {
         "question"
       );
     } else if (!user) {
-      navigate("/login");
+      Swal.fire({
+        title: "Error!",
+        text: "You must be logged in to add a comment!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Log in!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
     } else {
-      setToSend(initialState)
+      setToSend(initialState);
       dispatch(postReview(toSend));
     }
   };

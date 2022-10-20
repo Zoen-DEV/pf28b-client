@@ -26,6 +26,7 @@ const Filters = ({ byTitle, byGenre, byChapters, product }) => {
 
   function handleClick(e) {
     e.preventDefault();
+    dispatch(reloadFilters());
     select1Ref.current.value = "alpha";
     select2Ref.current.value = "order";
     select3Ref.current.value = "All";
@@ -40,10 +41,7 @@ const Filters = ({ byTitle, byGenre, byChapters, product }) => {
         {filterOn || product.length < 100 ? (
           <button
             className="btnreload bi bi-arrow-clockwise"
-            onClick={(e) => {
-              dispatch(reloadFilters());
-              handleClick(e)
-            }}
+            onClick={handleClick}
           ></button>
         ) : (
           <div></div>

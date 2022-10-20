@@ -11,7 +11,6 @@ const CartCard = ({ title, price, id, image, amount, cartId }) => {
     dots = '...'
   }
   const deleteItemFromCart = (e, id) => {
-    console.log(id)
     Swal.fire({
       title: "Are you sure you want to delete this item?",
       showDenyButton: true,

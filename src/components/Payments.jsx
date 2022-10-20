@@ -9,7 +9,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteItemCart,
+  deleteAllItemsCart,
   getCart,
   getTotalPrice,
   postWinnings,
@@ -19,7 +19,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import s from "./styles/Payments.module.css";
 
-const url = "http://localhost:3000/payment";
+const url = "https://animemangaback-production-2576.up.railway.app/payment";
 const stripePromise = loadStripe(
   "pk_test_51Ls8AVH3eAzBxjrCdmB23smtLOd0cTqhqHKYQ2eYMvA6yoQhEBKyd7GxPofzGS39TL2uM2vogL5XcPJDy6AimbDU00bvlY5EZC"
 );
@@ -62,8 +62,9 @@ const CheckoutForm = () => {
     dispatch(getCart(userId));
     // console.log({ cart });
     const id = cart.map((d) => d.Product.id);
-    // console.log({ id });
-    dispatch(deleteItemCart(id));
+    console.log({ id });
+    dispatch(deleteAllItemsCart(id));
+
     const order = cart.map((data) => {
       return {
         id_product: data.Product.AnimeId

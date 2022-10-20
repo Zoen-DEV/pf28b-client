@@ -92,7 +92,6 @@ const rootReducer = (state = initialState, action) => {
         topMangas: action.payload,
       };
     case GET_MANGA_NAME:
-      console.log("search manga");
       const manga = state.allMangas.filter((item) =>
         item.title.includes(action.payload)
       );
@@ -229,7 +228,7 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload.login) {
         return {
           ...state,
-          cart: [...state.cart, action.payload.Product],
+          cart: [...state.cart, action.payload],
         };
       } else {
         // localStorage.setItem("cart", JSON.stringify([...state.cart, action.payload]));
@@ -299,7 +298,6 @@ const rootReducer = (state = initialState, action) => {
         users: state.users.filter((user) => user.email !== action.payload),
       };
     case DELETE_ITEM_CART:
-      console.log(state.cart[0].Product.id);
       if (Object.keys(state.user).length === 0) {
         const newCart = state.cart.filter(
           (item) => item.Product.id !== action.payload
