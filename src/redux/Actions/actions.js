@@ -275,12 +275,10 @@ export const setCartItems = (item) => async (dispatch) => {
 };
 
 export const getCart = (userId) => async (dispatch) => {
-  console.log('get cart')
   const res = await axios.get(`https://animemangaback-production-2576.up.railway.app/cart/${userId}`);
   const response = res.data.map((item) => {
     return { Product: item, login: true };
   });
-  console.log(response)
   return dispatch({
     type: GET_CART,
     payload: response,
@@ -322,7 +320,6 @@ export function getMangaFavorites(userId){
 }
 
 export const addFavorite = (item) => async (dispatch) => {
-  console.log(item.product)
   if (!item.UserId) {
     return dispatch({
       type: ADD_FAVORITE,
