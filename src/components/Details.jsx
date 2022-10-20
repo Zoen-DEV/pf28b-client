@@ -145,14 +145,14 @@ const Details = () => {
                 {(details.price * count).toString().substring(0, 6)}
               </p>
               <div className="btns_container">
-                <button
+                {/* <button
                   style={{ color: isFav ? "#b82601" : "#a2a2af" }}
                   onClick={() => {
                     toFavorites();
                     isFav ? setIsFav(false) : setIsFav(true);
                   }}
                   className="bi bi-heart-fill fav"
-                ></button>
+                ></button> */}
                 <button onClick={toCart} className="bi bi-cart-plus add">
                   {" "}
                   Add to cart
