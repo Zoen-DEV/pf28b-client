@@ -29,10 +29,14 @@ const Reviews = ({ reviews }) => {
               })}
             </div>
             <p>{item.comment}</p>
-            {user.isAdmin || user.id === item.UserId ? (
-              <button onClick={(e) => deleteReview(e, item.id, item.UserId)}>
-                <i className="bi bi-trash3"></i>
-              </button>
+            {user ? (
+              user.isAdmin || user.id === item.UserId ? (
+                <button onClick={(e) => deleteReview(e, item.id, item.UserId)}>
+                  <i className="bi bi-trash3"></i>
+                </button>
+              ) : (
+                <div></div>
+              )
             ) : (
               <div></div>
             )}
