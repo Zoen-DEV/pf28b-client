@@ -264,10 +264,8 @@ export const deleteItemCart = (id) => async (dispatch) => {
 
 export const setCartItems = (item) => async (dispatch) => {
   if (!item.UserId) {
-    console.log("item.UserId");
   } else {
     // console.log("hola: ", await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item));
-
     let response = await axios.post("https://animemangaback-production-2576.up.railway.app/cart", item);
     return dispatch({
       type: SET_CART_ITEMS,
@@ -277,7 +275,7 @@ export const setCartItems = (item) => async (dispatch) => {
 };
 
 export const getCart = (userId) => async (dispatch) => {
-
+  console.log('get cart')
   const res = await axios.get(`https://animemangaback-production-2576.up.railway.app/cart/${userId}`);
   const response = res.data.map((item) => {
     return { Product: item, login: true };
