@@ -12,6 +12,7 @@ import {
   deleteItemCart,
   getCart,
   getTotalPrice,
+  postWinnings,
   setSales,
 } from "../redux/Actions/actions";
 import axios from "axios";
@@ -59,9 +60,9 @@ const CheckoutForm = () => {
     e.preventDefault();
     // setForm({})
     dispatch(getCart(userId));
-    console.log({ cart });
+    // console.log({ cart });
     const id = cart.map((d) => d.Product.id);
-    console.log({ id });
+    // console.log({ id });
     dispatch(deleteItemCart(id));
     const order = cart.map((data) => {
       return {
@@ -94,6 +95,7 @@ const CheckoutForm = () => {
         Swal.fire(`Your payment for ${price} was successfully`);
         elements.getElement(CardElement).clear();
         dispatch(setSales(order));
+        dispatch(postWinnings(price));
       } catch (error) {
         console.log(error.response.data);
         Swal.fire(error.response.data);
