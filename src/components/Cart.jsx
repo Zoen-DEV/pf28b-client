@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCart } from "../redux/Actions/actions";
+import { getCart, setCategory } from "../redux/Actions/actions";
 import CartProducts from "./CartProducts";
 import Loader from "./Loader";
 
@@ -43,7 +43,7 @@ const Cart = () => {
     // navigate("/home");
     // navigate(`/${e.target.name}s`);
   };
-
+  
   useEffect(() => {
     dispatch(getCart(user.id));
   }, [dispatch, user.id]);
