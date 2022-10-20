@@ -10,8 +10,6 @@ const Cart = () => {
   const mangas = useSelector((state) => state.allMangas);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
-  const userJSON = localStorage.getItem("user");
-  const user = JSON.parse(userJSON);
 
   // const [total, setTotal] = useState(total + item.totalPrice);
 
@@ -43,10 +41,6 @@ const Cart = () => {
     // navigate("/home");
     // navigate(`/${e.target.name}s`);
   };
-  
-  useEffect(() => {
-    dispatch(getCart(user.id));
-  }, [dispatch, user.id]);
 
   if (cartItems.length > 0) {
     return (

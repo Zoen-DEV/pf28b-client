@@ -28,6 +28,8 @@ import {
 } from "./redux/Actions/actions";
 
 function App() {
+  const userJSON = localStorage.getItem("user");
+  const user = JSON.parse(userJSON);
   const dispatch = useDispatch();
   useEffect(() => {
     // localStorage.clear()
@@ -37,6 +39,9 @@ function App() {
     dispatch(getMangas());
     dispatch(getGenres());
     dispatch(getAnimesGenres());
+    if (user !== null) {
+      dispatch(getCart(user.id));
+    }
   }, []);
 
   return (
