@@ -17,6 +17,33 @@ const Cart = () => {
 
   // let localCart;
 
+  const changeCategory = (e) => {
+    switch (e.target.name) {
+      case "anime":
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 1, type: e.target.name })
+        );
+        let categoryA = localStorage.getItem("category");
+        dispatch(setCategory(JSON.parse(categoryA)));
+        break;
+      case "manga":
+        localStorage.removeItem("category");
+        localStorage.setItem(
+          "category",
+          JSON.stringify({ id: 2, type: e.target.name })
+        );
+        let categoryM = localStorage.getItem("category");
+        dispatch(setCategory(JSON.parse(categoryM)));
+        break;
+      default:
+        break;
+    }
+    // navigate("/home");
+    // navigate(`/${e.target.name}s`);
+  };
+
   useEffect(() => {
     dispatch(getCart(user.id));
   }, [dispatch, user.id]);
@@ -36,10 +63,10 @@ const Cart = () => {
       <article className="cart_container_wo_products">
         <h1>You have no products in the cart</h1>
         <div className="links_container">
-          <Link className="link" to="/animes">
+          <Link onClick={changeCategory} className="link" to="/animes">
             Go to see the catalog of Animes
           </Link>
-          <Link className="link" to="/mangas">
+          <Link onClick={changeCategory} className="link" to="/mangas">
             Go to see the catalog of Mangas
           </Link>
         </div>
