@@ -28,6 +28,7 @@ import {
   getGenres,
   topMangas,
 } from "./redux/Actions/actions";
+import Favorites from "./components/Favorites";
 
 function App() {
   const userJSON = localStorage.getItem("user");
@@ -76,6 +77,7 @@ function App() {
         <Route path="/payments" element={<Payments />} />
         <Route path="/login" element={<Login2 />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="/*" element={<Home />} />
       </Routes>
       <Footer></Footer>
