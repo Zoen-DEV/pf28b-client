@@ -82,9 +82,9 @@ const NewReview = () => {
         "Please add a comment",
         "question"
       );
-    } else if(toSend.comment.trim().length > 200){
+    } else if(toSend.comment.trim().length > 100){
       Swal.fire(
-        "The input cannot have more than 200 characters",
+        "The input cannot have more than 100 characters",
         "Please add a shorter comment",
         "question"
       );

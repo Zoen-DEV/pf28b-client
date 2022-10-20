@@ -552,7 +552,6 @@ export const postReview = (review) => async (dispatch) => {
         ...review,
       }
     );
-    console.log(response.data);
     return dispatch({ type: POST_REVIEW, payload: response.data });
   } catch (err) {
     console.error(err);
