@@ -8,6 +8,7 @@ import { logOut } from "../redux/Actions/actions";
 import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
+
   const userSaved = localStorage.getItem("user");
   const user = JSON.parse(userSaved);
   const category = useSelector((state) => state.category);

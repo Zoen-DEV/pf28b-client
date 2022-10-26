@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import Swal from "sweetalert2";
-import { deleteUser, getUsers } from "../redux/Actions/actions";
+import { deleteUser, getAnimes, getUsers } from "../redux/Actions/actions";
+
 import s from "./styles/Admin.module.css";
 
 const Admin = () => {
@@ -9,13 +12,21 @@ const Admin = () => {
   const user = JSON.parse(userActive);
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+  const navigate = useNavigate();
+ 
+
   console.log(users);
   useEffect(() => {
     dispatch(getUsers());
+  
   }, [dispatch]);
-
+  
   return (
     <div>
+     
+
+    
+       
       <h1 className={s.title}>Wellcome to the Admin page</h1>
       <div className={s.contMaster}>
         {users?.map((d) => (
@@ -53,6 +64,15 @@ const Admin = () => {
                 <p className={s.blackFont}>Active?: </p>
                 {!d.isActive ? <p>false</p> : <p>true</p>}
               </div>
+              <div>
+          <button
+            onClick={() => {
+            navigate("/profile/edit");
+            }}
+          >
+            Edit User
+          </button>
+        </div>
             </div>
 
             <button
@@ -70,9 +90,15 @@ const Admin = () => {
               <ion-icon name="trash-outline"></ion-icon>
             </button>
           </div>
-        ))}
+          
+         
+        ))
+        }
+       
       </div>
+      <div>
     </div>
+      </div>
   );
 };
 

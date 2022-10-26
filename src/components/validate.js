@@ -38,3 +38,5 @@ function validate(name, value, password) {
 }
 
 export default validate;
+
+

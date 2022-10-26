@@ -10,16 +10,15 @@ import {
   getProductReviews,
   refreshReviews,
   setCartItems,
-  deleteAnime,
+ 
   clear,
-  deleteManga,
-  getAnimes
+  deleteManga
 
 } from "../redux/Actions/actions";
 import NewReview from "./NewReview";
 import Reviews from "./Reviews";
 
-const Details = () => {
+const DetailManga = () => {
   const [isFav, setIsFav] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate;
@@ -31,9 +30,7 @@ const Details = () => {
   const userJSON = localStorage.getItem("user");
   const user = JSON.parse(userJSON);
   const reviews = useSelector((state) => state.reviews);
-  const anis = useSelector((state)=>state.details)
-  const anis2 = useSelector((state)=>state.details)
-  const [johan,setJohan] = useState()
+
 
   
 
@@ -42,13 +39,10 @@ const Details = () => {
    
   
     
-   if (JSON.parse(lsCategory).id === 1) {
-      dispatch(getAnimesDetails(id));
-      dispatch(getProductReviews(id, "anime"));
-    } else {
+   if (JSON.parse(lsCategory).id === "manga") {
       dispatch(getDetails(id));
       dispatch(getProductReviews(id, "manga"));
-    }
+    } 
     return () => {
       dispatch(deleteDetails());
       dispatch(refreshReviews());
@@ -81,7 +75,7 @@ const Details = () => {
       
       
       Swal.fire({
-        title: "Are you sure to delete is Anime?",
+        title: "Are you sure to delete is Manga?",
         showDenyButton: true,
         showCancelButton: true,
             confirmButtonText: "Confirm",
@@ -90,19 +84,20 @@ const Details = () => {
             if(user.isAdmin === true){
       
               if (result.isConfirmed) {
-                dispatch(deleteAnime(id));
+                dispatch(deleteManga(id));
                 
+                dispatch (clear())
                 Swal.fire(
-                  `$👌 Anime delete rightly!!!`,
+                  `$👌 Manga delete rightly!!!`,
                   
-                  ``,
-                  
+                  `${details.title}`,
+                  "success"
                   )
-                  dispatch (clear())
                   window.location.reload();
                   
                 }
-              }
+              }else{return alert (" Excuse me!! Can`t you delete this Manga, only admin!") }
+              
             })
           }
              
@@ -118,7 +113,7 @@ const Details = () => {
     
     
        if(details.length === 0){
-        return <h1 className="dtock_container"  > DELETED ANIME</h1>
+        return <div>Eliminado</div>
       }
    
        if (JSON.parse(lsCategory).id === 1) {
@@ -126,109 +121,9 @@ const Details = () => {
 
 
 
-//detail Anime----
-         
-         return (
-           <article className="details_component">
-        <h1>ANIME DETAILS</h1>
-     {
-        user.isAdmin ===true?(
-
-<button   onClick={()=>handleDelete(id)}> DELETE </button>
-        ):("")
-            
-          
-
-     }
-      
 
   
-       
-<div className="details_container">
-          <img src={details.image} alt="" />
-          <div className="detail_content">
-            <div className="title_container">
-              <h1>
-                {details.title}
-                <span> ⭐{details.rating}</span>
-              </h1>
-              <p>
-                <span>Genres: </span>
-                {details.genres}
-              </p>
-              <p>
-                <span>Release: </span>
-                {details.release}
-              </p>
-              <p>
-                <span>Produced by: </span>
-                {details.producers}
-              </p>
-            </div>
-            <div className="details_functions">
-              <div className="stock_container">
-                <button
-                  onClick={(e) => {
-                    if (count > 1) {
-                      setCount(count - 1);
-                    }
-                  }}
-                >
-                  -
-                </button>
-                <span>{count}</span>
-                <button
-                  onClick={() => {
-                    setCount(count + 1);
-                  }}
-                >
-                  +
-                </button>
-              </div>
-              <p>
-                <span>$</span>
-                {(details.price * count).toString().substring(0, 6)}
-              </p>
-              <div className="btns_container">
-                <button
-                  style={{ color: isFav ? "#b82601" : "#a2a2af" }}
-                  onClick={() => {
-                    isFav ? setIsFav(false) : setIsFav(true);
-                  }}
-                  className="bi bi-heart-fill fav"
-                ></button>
-                <button onClick={toCart} className="bi bi-cart-plus add">
-                  {" "}
-                  Add to cart
-                </button>
-              </div>
-            </div>
-          
-          </div>
-        </div>
-        <div className="description_container">
-          <p>
-            <span>Synopsis: </span>
-            <br />
-            {details.synopsis ? details.synopsis : details.description}
-          </p>
-        </div>
-        <div className="reviews_container">
-          {reviews.length > 0 ? (
-            <Reviews reviews={reviews}></Reviews>
-          ) : (
-            <h3>Not reviews yet</h3>
-          )}
-          <div className="review_form">
-            <NewReview></NewReview>
-          </div>
-        </div>
-       
-      </article>
-    );
-  } 
-  
-   //handle Manga
+
 
 
   
@@ -241,6 +136,15 @@ const Details = () => {
     return (
       <article className="details_component">
         <h1>MANGA DETAILS</h1>
+        {
+        user.isAdmin ===true?(
+
+<button   onClick={()=>handleDelete(id)}> DELETE </button>
+        ):("")
+            
+          
+
+     }
      
       
 
@@ -332,6 +236,7 @@ const Details = () => {
       </article>
     );
   
-};
+}
+}
 
-export default Details;
+export default DetailManga;

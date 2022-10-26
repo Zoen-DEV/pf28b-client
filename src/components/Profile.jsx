@@ -1,12 +1,12 @@
 import React from "react";
 // import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+ import { useNavigate } from "react-router-dom";
 // import { logOut } from "../redux/Actions/actions";
 import s from "./styles/Profile.module.css";
 
 const Profile = () => {
   // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
   const userActive = localStorage.getItem("user");
   const user = JSON.parse(userActive);
   return (
@@ -35,6 +35,7 @@ const Profile = () => {
           <p>Cellphone: </p>
           {!user.cellphone ? <p>N/A</p> : user.cellphone}
         </div>
+        
       </div>
     </div>
   );

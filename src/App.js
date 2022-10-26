@@ -16,6 +16,8 @@ import RequireAuth from "./components/RequireAuth";
 import AlreadyAuth from "./components/AlreadyAuth";
 import Admin from "./components/Admin";
 import Payments from "./components/Payments";
+import EditUser from "./components/EditUser";
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -26,6 +28,7 @@ import {
   getGenres,
   topMangas,
 } from "./redux/Actions/actions";
+import DetailManga from "./components/DetailManga";
 
 
 function App() {
@@ -42,6 +45,7 @@ function App() {
 
   return (
     <div className="App">
+      
       <Nav></Nav>
       <Routes>
         <Route index element={<Landing></Landing>} />
@@ -61,10 +65,17 @@ function App() {
         <Route path="/mangas" element={<Mangas></Mangas>} />
         <Route path="/animes" element={<Animes></Animes>} />
         <Route path="/details/:id" element={<Details></Details>} />
+
         <Route path="/users" element={<ShowUsers />} />
         <Route path="/signup" element={<SignUp />} />
-     
+
+       
+        
+          
+
+        
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditUser/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login2 />} />
         <Route path="/admin" element={<Admin />} />

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { async } from "jshint/src/prod-params";
 import Swal from "sweetalert2";
 import animerceApp from "../../helpers/axiosConfigure";
 import {
@@ -38,6 +39,10 @@ import {
   DELETE_REVIEW_ADMIN,
   DELETE_REVIEW_USER,
   REFRESH_REVIEWS,
+  DELETE_ANIME,
+  DELETE_MANGA,
+  EDIT_USER,
+
 } from "../Constants/animes";
 
 // MANGAS actions
@@ -50,6 +55,7 @@ export const getDetails = (id) => async (dispatch) => {
     console.error(err);
   }
 };
+
 
 export const deleteDetails = () => (dispatch) => {
   try {
@@ -481,3 +487,70 @@ export const userDeleteReview = (reviewId, userId) => async (dispatch) => {
 export const refreshReviews = () => (dispatch) => {
   return dispatch({ type: REFRESH_REVIEWS });
 };
+
+
+//delete anime (admin)
+
+export function deleteAnime(id){
+  return async function (dispatch){
+    const res = axios.delete(`http://localhost:3000/animes/${id}`)
+    return dispatch({
+      type:DELETE_ANIME,
+      payload:res.data
+    })
+  }
+}
+
+//delete manga(admin)
+export function deleteManga(id){
+  return async function (dispatch){
+    const res = axios.delete(`http://localhost:3000/manga/${id}`)
+    return dispatch({
+      type:DELETE_MANGA,
+      payload:res.data
+    })
+  }
+}
+export function clear(){
+  return{
+      type:"CLEAR",
+  }
+}
+
+export function updateUserData(isActive) {
+  return async function (dispatch) {
+
+      await axios.put()
+      .catch(error => console.log(error.response.data))
+      return dispatch({ type: 'UPDATE_PERSONAL_DATA'})
+  }
+}
+
+
+export function editUser(id, obj) {
+  return async function (dispatch) {
+    console.log(id);
+    console.log(obj);
+    const url = `http://localhost:3000/login/${id}`;
+    Swal.fire({
+      title: "Editing user information.",
+      text: "Are you okay with these changes?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Success!", "Your profile has been updated.", "success");
+        axios.patch(url, obj);
+        dispatch({
+          type: EDIT_USER,
+          payload: obj,
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Edition canceled!!");
+      }
+    });
+  };
+}

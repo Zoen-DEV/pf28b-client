@@ -35,6 +35,9 @@ import {
   DELETE_REVIEW_ADMIN,
   DELETE_REVIEW_USER,
   REFRESH_REVIEWS,
+  DELETE_ANIME,
+  DELETE_MANGA,
+  EDIT_USER,
 } from "../Constants/animes";
 
 const initialState = {
@@ -338,6 +341,32 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         reviews: [...state.reviews, action.payload],
       };
+
+      case DELETE_ANIME:
+
+        return{
+          ...state,
+       }
+
+
+       case DELETE_MANGA:
+
+        return{
+          ...state,
+       }
+
+       
+        case "CLEAR":
+          return{
+            ...state,
+            details:{}
+          }
+          case EDIT_USER:
+            return {
+              ...state,
+              user: action.payload
+            }
+        
     default:
       return state;
   }
